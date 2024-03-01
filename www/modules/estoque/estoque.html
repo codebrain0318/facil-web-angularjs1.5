@@ -1,0 +1,53 @@
+<div class="home estoque" ng-class="{'force-select': vm.selecaoMassiva }">
+    <fone-header title="Estoque Foneclube"></fone-header>
+
+ 
+
+    <div class="borda-topo-estoque testes"> </div>
+
+    <div  ng-table-pagination="vm.tableParams" template-url="'lib/ng-table/pager-custom.html'"></div>
+
+    <p class="titulo-teste"> ( Total:{{ vm.tableParams.total() }} )</p>
+    <!-- https://codepen.io/cardozo/pen/QVYXeX -->
+
+    
+
+    <table ng-table="vm.tableParams"  class="table table-scroll" show-filter="true">
+        <tr ng-repeat="linha in $data">
+            
+            <td title="'Linhas'" filter="{ linhaLivreOperadora: 'text'}" sortable="'linhaLivreOperadora'">
+                {{linha.linhaLivreOperadora}}</td>
+
+            <td title="'Plano'" filter="{ plano: 'text'}" sortable="'plano'">
+                    {{linha.plano}}</td>
+
+            <td title="'Uso Linha (última conta)'" filter="{ usoLinha: 'text'}" sortable="'usoLinha'">
+                    {{linha.usoLinha}}</td>        
+
+            <td title="'Operadora'" filter="{ operadoraDescription: 'text'}" sortable="'operadoraDescription'">
+                {{linha.descricao}}</td>
+    
+
+                <td >
+                    <select  next-on-enter class="form-control"
+                        ng-options="opt as opt for opt in vm.proprietarias"
+                        ng-model="linha.selectedpropriedadeInterna"
+                        ng-init="linha.selectedpropriedadeInterna = linha.propriedadeInterna" style="width: 100px;">
+                    <option value="">Selecione</option>
+                    </select>
+                </td>
+
+                
+            <td sortable="'teste'">
+                <button title="alterar propriedade" class="btn btn-primary" ng-click="vm.onConfirmaEditcao(linha)">
+                    <i class="glyphicon glyphicon-ok-circle checkcircle"></i>
+                </button>
+            </td>
+        </tr>
+    </table>
+
+
+    
+
+</div>
+      

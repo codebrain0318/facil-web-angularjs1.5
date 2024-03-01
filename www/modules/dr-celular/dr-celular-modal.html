@@ -1,0 +1,37 @@
+<div ng-controller="DrCelularModalController as vm">
+  <div class="col-sm-12 m-t-20">
+    <div class="col-md-10">
+      <h4>Import Dr.Celular Excel</h4>
+    </div>
+  </div>
+  <div class="col-sm-12" style="padding-left: 30px; margin-top: 20px">
+    <form class="" role="form">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="control-label">Select File</div>
+            <input type="file" id="ngexcelfile" />
+
+            <div>
+              <button
+                class="btn btn-primary busca-status"
+                style="margin-top: 20px"
+                data-ng-click="vm.ReadExcelData(1)"
+              >
+                <i class="fa fa-upload"></i> Import Claro Data
+              </button>
+
+              <button
+                class="btn btn-success busca-status"
+                style="margin: 20px 0 0 20px"
+                data-ng-click="vm.ReadExcelData(2)"
+              >
+                <i class="fa fa-upload"></i> Import TIM Data
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

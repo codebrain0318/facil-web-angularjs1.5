@@ -1,0 +1,87 @@
+<div class="" ng-controller="WATemplateEditController as vm">
+  <div class="row">
+    <div class="col-sm-12 m-t-20">
+      <div style="margin: 0 -15px">
+        <div class="col-md-3">
+          <h4>WhatsApp Templates</h4>
+        </div>
+        <div class="col-md-4">
+          <input
+            id="searchTemplate"
+            type="text"
+            class="form-control"
+            ng-model="vm.searchTemplate"
+            ng-blur="vm.filterTemplates()"
+            ng-change="vm.filterTemplates()"
+            autocomplete="off"
+          />
+        </div>
+        <div class="col-md-5">
+          <div>
+            <input
+              type="button"
+              value="Refresh"
+              ng-click="vm.refreshTemplate()"
+              class="btn btn-primary"
+            />
+            <input
+              type="button"
+              value="Add New"
+              ng-click="vm.addNewTemplate()"
+              class="btn btn-primary"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <span>
+        <span>Use: </span>
+        <label
+          ><input
+            type="checkbox"
+            ng-change="vm.saveConfig()"
+            ng-model="vm.useList"
+          />
+          List</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            ng-change="vm.saveConfig()"
+            ng-model="vm.useButton"
+          />
+          Button</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            ng-change="vm.saveConfig()"
+            ng-model="vm.useURL"
+          />
+          URL</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            ng-change="vm.saveConfig()"
+            ng-model="vm.useRocket"
+          />
+          Use Rocket</label
+        >
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        style="width: {{vm.gridWidth}}px; height: {{vm.gridHeight}}px;"
+        ag-grid="vm.gridOptions"
+        class="ag-theme-balham ag-basic"
+        [getRowHeight]="getRowHeight"
+      ></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+.whatsapp-modal {
+  #divSendMessage {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    input[type="text"] {
+      border-radius: 15px;
+    }
+  }
+  .msgOuter {
+    max-width: 65%;
+    .spnClientName {
+      float: left;
+      font-size: 14px;
+      text-transform: capitalize;
+      color: teal
+    }
+  }
+  .message-in {
+    background-color: #fff;
+    border-radius: 7.5px;
+    box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+
+    div {
+      padding: 5px 10px 5px 10px;
+      font-size: 14.2px;
+      line-height: 19px;
+      color: #262626;
+    }
+  }
+  .message-out {
+    background-color: #dcf8c6;
+    border-radius: 7.5px;
+    box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+    float: left;
+    div {
+      padding: 5px 10px 5px 10px;
+      font-size: 14.2px;
+      line-height: 19px;
+      color: #262626;
+    }
+  }
+  .divDate span {
+    background-color: #e1f4fb;
+    padding: 5px 10px 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    text-transform: uppercase;
+  }
+  .spnTime {
+    float: right;
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 11px;
+    height: 15px;
+    line-height: 15px;
+    white-space: nowrap;
+    margin: 8px 0px 5px 8px;
+  }
+  .spnTopLeft {
+    font-size: 15px;
+    p {
+      margin: 0px;
+      line-height: 20px;
+      text-align: left;
+    }
+    img {
+      max-width: 40px;
+    }
+    p#pClientName {
+      color: red;
+    }
+  }
+
+  #divTopTags {
+    margin-top: 10px;
+    span {
+      background-color: #35baf6;
+      padding: 5px 10px 5px 10px;
+      border-radius: 5px;
+      color: white;
+      margin-left: 5px;
+      font-size: 12px;
+    }
+  }
+}

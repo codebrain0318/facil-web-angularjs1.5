@@ -1,0 +1,150 @@
+<div class="customers-container">
+  <fone-header title="Clientes"></fone-header>
+  <div class="loading" ng-show="vm.data.customers == undefined">Carregando...</div>
+  <div class="col-xs-12">
+    <div class="filters-container d-flex align-center">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <i class="fa fa-filter"></i> FILTROS
+        </button>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <div class="tfilter tcheckbox">
+            <label for="tcheckbox-all">
+              All
+              <input id="tcheckbox-all" type="checkbox" ng-model="vm.filters.all" />
+            </label>
+          </div>
+
+          <div class="tfilter tcheckbox">
+            <label for="tcheckbox-active">
+              Somente ativos
+              <input id="tcheckbox-active" type="checkbox" ng-model="vm.filters.active" />
+            </label>
+          </div>
+
+          <div class="tfilter tcheckbox">
+            <label for="tcheckbox-inactive">
+              Somente inativos
+              <input id="tcheckbox-inactive" type="checkbox" ng-model="vm.filters.inactive" />
+            </label>
+          </div>
+
+          <div class="tfilter tcheckbox">
+            <label for="tcheckbox-error">
+              Problema no cadastro
+              <input id="tcheckbox-error" type="checkbox" ng-model="vm.filters.regerror" />
+            </label>
+          </div>
+
+
+          <div class="tfilter tcheckbox">
+            <label for="tcheckbox-excludeFather">
+              Exclude Father
+              <input id="tcheckbox-excludeFather" type="checkbox" ng-model="vm.filters.excludeFather" />
+            </label>
+          </div>
+          <div class="tfilter tcheckbox">
+            <label for="tcheckbox-excludeAddress">
+              Exclude Address
+              <input id="tcheckbox-excludeAddress" type="checkbox" ng-model="vm.filters.excludeAddress" />
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="tfilter tsearch d-flex">
+        <input placeholder="BUSCA" class="form-control" type="text" ng-model="vm.filters.search" ng-model-options="{ debounce: 667 }"
+        />
+      </div>
+    </div>
+
+    <div class="form-container">
+      <table ng-table="vm.tableParams" class="table customers-table" show-filter="true">
+        <tr ng-repeat="customer in $data">
+          <td>
+            <button class="btn btn-primary" ng-click="vm.onTapCustomer(customer, $index)">
+              <i class="glyphicon glyphicon-edit"></i>
+            </button>
+            <span class="divPhone" ng-if="customer.WClient.PhoneNumber">
+              <a href="javascript:void(0);" ng-show="customer.WClient.IsRegisteredWithChat2Desk" ng-class="customer.WClient.UnreadMessages>0?'newMsg':'123'"
+                ng-click="vm.onTapMessage(customer)">
+                <img class="imgWhatsapp" ng-if="customer.WClient.ProfilePicUrl" src="{{customer.WClient.ProfilePicUrl}}" />
+                <img ng-if="!customer.WClient.ProfilePicUrl" src="../../content/img/message-green.png" />
+                <span class="msgCountBadge" ng-show="customer.WClient.UnreadMessages>0">{{customer.WClient.UnreadMessages}}</span>
+              </a>
+              <a href="javascript:void(0);" ng-show="!customer.WClient.IsRegisteredWithChat2Desk">
+                <img src="../../content/img/message-red.png" />
+              </a>
+
+            </span>
+          </td>
+          <td ng-click="vm.onTapCustomerEdit(customer, $index)" style="cursor: pointer;" title="'Clientes'" sortable="'Name'">
+            <span title="{{ customer.Name }}" style="font-weight: bold;">{{ customer.Name }} 
+            </span>
+          </td>
+
+          <td title="'Ações'">
+
+            <button title="Dias sem Cobrar" ng-if="customer.DiasSemCobrar > 0" class="btn " ng-class="customer.DiasSemCobrar > 35 ? 'btn-warning': 'btn-info'" ng-click="">
+              {{ customer.DiasSemCobrar }}
+            </button>
+
+            <button title="Desativar cliente" ng-if="!customer.Desativo" class="btn btn-info" ng-click="vm.onTapSwitchActivate(customer)">
+              on
+            </button>
+
+            <button title="Ativar cliente" ng-if="customer.Desativo" class="btn btn" ng-click="vm.onTapSwitchActivate(customer, $index)">
+              off
+            </button>
+
+            <!-- https://www.toptal.com/designers/htmlarrows/symbols/ -->
+            <button title="Cliente com flag pendente!" ng-if="customer.PendingFlagInteraction" class="btn btn-warning">
+              <i>&#9873;</i>
+            </button>
+
+            <button title="Cliente com problema no cadastro!" ng-if="customer.Orphan" class="btn btn-warning">
+              <i class="glyphicon glyphicon-exclamation-sign"></i>
+            </button>
+
+            <button title="Criar Flag" ng-click="vm.onTapFlag(customer); closeThisDialog(0);" class="btn btn-primary">
+              &#9872;
+              <i aria-hidden="true"></i>
+            </button>
+
+            <button title="Criar ordem de serviço" ng-click="vm.onTapComment(customer)" class="btn btn-primary">
+              <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i>
+            </button>
+
+            <button class="btn btn-primary" ng-click="vm.onTapBoletoPayment(customer)">
+              <i class="glyphicon glyphicon-retweet"></i>
+            </button>
+
+            <button title="Cartões cadastrados" class="btn btn-primary" ng-click="vm.onTapCustomer(customer, $index)">
+              <i class="glyphicon glyphicon-credit-card"></i>
+            </button>
+
+            <!-- <button class="btn btn-primary" ng-click="vm.onTapBoleto(customer)">
+              <img src="./content/img/Boleto.png" width="25px" height="15px" />
+            </button>
+
+            <button class="btn btn-primary" ng-click="vm.onTapDebito(customer)">
+              <img src="./content/img/debito.png" width="25px" height="15px" />
+            </button> -->
+
+            <button title="Soft delete" class="btn btn-primary" ng-click="vm.onDeleteCustomer(customer)">
+              <i class="glyphicon glyphicon-remove-circle uncheckcircle"></i>
+            </button>
+          </td>
+        </tr>
+      </table>
+
+      <div ng-if="vm.totalDisplayedCustomers === 0" class="text-center" style="margin-bottom: 30px">
+        <small class="text-warning">
+          Não foram encontrados registros para sua pesquisa.
+        </small>
+      </div>
+    </div>
+  </div>
+</div>

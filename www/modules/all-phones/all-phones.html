@@ -1,0 +1,95 @@
+<div class="home all-phones" ng-class="{'force-select': vm.selecaoMassiva }">
+    
+    <fone-header title="Linhas Foneclube"></fone-header>
+
+    <!-- <div class="filtro-todas-linhas">
+        <input type="checkbox" 
+        class="form-check-input"
+        ng-change="vm.changeFilterCliente()" 
+        ng-model="vm.clienteAtivo">
+        <label class="">Linha com cliente</label>
+    </div> -->
+
+    <div class="borda-topo-estoque testes"> </div>
+
+    <div  ng-table-pagination="vm.tableParams" template-url="'lib/ng-table/pager-custom.html'"></div>
+
+    <p class="titulo-teste"> ( Total:{{ vm.tableParams.total() }} )</p>
+    <!-- https://codepen.io/cardozo/pen/QVYXeX -->
+
+    <table ng-table="vm.tableParams"  class="table table-scroll" show-filter="true">
+        
+            
+            
+        <tr ng-repeat="linha in $data">
+
+                <div class="container-search">
+                        <input placeholder="BUSCA GERAL" class="form-control busca-all" type="text" ng-model="vm.searchUser" />
+                </div>
+            
+            <td title="''">
+                <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" 
+                type="button" data-toggle="dropdown">Ações
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a class="buttom-mode" ng-click="vm.onClickTrocaPlano(linha)">Trocar plano</a></li>
+                    <li><a class="buttom-mode" ng-click="vm.onClickDesassociar(linha)">Desassociar</a></li>
+                    <li><a class="buttom-mode">Associar linha (pendente)</a></li>
+                </ul>
+                </div>
+            </td>   
+
+            <td  title="'Linhas'" filter="{ linhaLivreOperadora: 'text'}" sortable="'linhaLivreOperadora'">
+                {{linha.linhaLivreOperadora}}
+            </td>
+
+            <td title="'Plano'" filter="{ plano: 'text'}" sortable="'plano'">
+                    {{linha.plano}}
+            </td>
+
+            <td title="'Plano FC'" filter="{ txtPlanoFoneclube: 'text'}" sortable="'txtPlanoFoneclube'">
+                <div ng-if="!linha.editPlan">{{linha.txtPlanoFoneclube}}</div>
+
+                <select 
+                ng-if="linha.editPlan"
+                ng-change="vm.changeSelectPlan(linha)" 
+                ng-model="linha.selectedPlan" 
+                ng-options="y.Description for (x, y) in vm.planOptions"></select>
+            </td>
+            
+            <td title="'Plano Divergente'" filter="{ divergente: 'text'}" sortable="'divergente'">
+                <!-- {{linha.divergente}} -->
+                <div ng-if="linha.divergente == 'Sim'" class="divergente">Sim</div>
+                <div ng-if="linha.divergente != 'Sim' && linha.divergente != 'Sem dados na SP' && linha.divergente != 'Pendente Refresh'" class="nao-divergente">Não</div>
+                <div ng-if="linha.divergente == 'Sem dados na SP' && linha.divergente != 'Pendente Refresh'" class="inconclusivo">Sem dados na SP</div>
+                <div ng-if="linha.divergente == 'Pendente Refresh'" class="inconclusivo">Pendente</div>
+            </td> 
+                
+            <td title="'Uso Linha'" filter="{ usoLinha: 'text'}" sortable="'usoLinha'">
+                    {{linha.usoLinha}}</td>        
+
+            <td title="'Operadora'" filter="{ operadoraDescription: 'text'}" sortable="'operadoraDescription'">
+                {{linha.operadoraDescription}}</td>
+
+            <td title="'Dono'" filter="{ txtName: 'text'}" sortable="'txtName'">
+                {{linha.txtName}}</td>
+
+            <td title="'Nickname'" filter="{ txtNickname: 'text'}" sortable="'txtNickname'">
+                {{linha.txtNickname}}</td>
+
+            <td title="'Cliente'" filter="{ PhoneText: 'text'}" sortable="'PhoneText'">
+                {{linha.PhoneText}}
+            </td>
+
+
+             
+         
+        </tr>
+    </table>
+
+
+    
+
+</div>
+      

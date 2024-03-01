@@ -1,0 +1,85 @@
+<div class="" ng-controller="FacilAddNewController as vm">
+  <div class="col-sm-12 m-t-20">
+    <div class="col-md-10">
+      <h4>Add New International User</h4>
+    </div>
+  </div>
+  <div class="col-sm-12" style="padding-left: 20px; margin: 10px 0px">
+    <form class="" role="form">
+      <div class="row">
+        <div class="col-md-4 col-xl-2">
+          <div class="form-group">
+            <label class="control-label">Name</label>
+            <input
+              type="text"
+              name="name"
+              class="form-control"
+              ng-model="vm.Name"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-4 col-xl-2">
+          <div class="form-group">
+            <label class="control-label">CPF</label>
+            <input
+              type="text"
+              name="cpf"
+              class="form-control"
+              ng-model="vm.CPF"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-4 col-xl-2">
+          <div class="form-group">
+            <label class="control-label">Phone</label>
+            <input
+              type="text"
+              name="phone"
+              class="form-control"
+              ng-model="vm.Phone"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+        <div class="col-md-4 col-xl-2">
+          <div class="form-group">
+            <label class="control-label">Email</label>
+            <input
+              type="text"
+              name="email"
+              class="form-control"
+              ng-model="vm.Email"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+        <div class="col-md-4 col-xl-2">
+          <div class="form-group">
+            <label class="control-label">Password</label>
+            <input
+              type="text"
+              name="password"
+              class="form-control"
+              ng-model="vm.Password"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <input
+            type="button"
+            value="Add New"
+            ng-click="vm.addNewIntlUser()"
+            class="btn btn-primary"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

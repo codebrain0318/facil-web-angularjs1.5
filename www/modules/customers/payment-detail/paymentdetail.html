@@ -1,0 +1,24 @@
+<div class="payment-detail-modal" ng-controller="PaymentDetailController as vm"> 
+    <div class="header">
+        <span class="title">Detalhe de cobrança</span>        
+        <button ng-click="closeThisDialog(0)">X</button>
+    </div> 
+
+    <h4 class="nome-cliente">{{vm.customer.Name}}</h4>
+
+    <uib-accordion close-others="oneAtATime">
+        <div uib-accordion-group class="panel-default" ng-init="status.open = true" is-open="status.open" ng-repeat="history in vm.customer.histories|limitTo:1">
+            <uib-accordion-heading>
+                Hitórico de cobrança<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>                        
+            </uib-accordion-heading>
+            <div class="accordion-container">
+                <p>Data e hora: <strong>{{vm.history.CreationDate}}.</strong> </p>
+                <p style="text-overflow: clip; white-space: normal;">Comentário: <strong>{{vm.history.Comment}}.</strong> </p>
+                <p>Valor: <strong>{{vm.history.Ammount / 100 }} R$ </strong> </p>
+                <p>Tipo: <strong>{{vm.history.descriptionType}} </strong> </p>
+                <p>Agente: <strong>{{vm.history.CollectorName }} </strong> </p>
+                <p ng-if="history.StatusPayment != undefined" >Status pagamento: <strong>{{vm.history.StatusPayment }} </strong> </p>
+            </div>            
+        </div> 
+    </uib-accordion>   
+</div>

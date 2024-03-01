@@ -1,0 +1,179 @@
+/* Empty. Add your own CSS if you like */
+.posicao-inicial {
+    margin-top: 50px;
+}
+
+.spinner{
+    padding-left: 50%;
+    margin-left: -30px;
+}
+.spinner svg {
+        width: 60px;
+        height: 60px;
+
+}
+
+.padding{
+     margin-top: 50px;
+}
+
+.custom-icon {
+  font-size: 50px;
+  color : greenyellow;
+  float: left;
+  position: relative;
+}
+
+.custom-icon-default {
+  font-size: 50px;
+  color : grey;
+  float: left;
+  position: relative;
+}
+
+.text-item{
+    position: absolute;
+    float: left;
+    left: 20%;
+    top: 20%;
+
+}
+
+.text-sub-item{
+    position: absolute;
+    float: left;
+    left: 20%;
+    top:55%;
+
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+/* Dropdown */
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+  }
+  
+  .dd-button {
+    display: inline-block;
+    border: 1px solid gray;
+    border-radius: 4px;
+    padding: 10px 30px 10px 20px;
+    background-color: #ffffff;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  .dd-button:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid black;
+  }
+  
+  .dd-button:hover {
+    background-color: #eeeeee;
+  }
+  
+  
+  .dd-input {
+    display: none;
+  }
+  
+  .dd-menu {
+    position: absolute;
+    top: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0;
+    margin: 2px 0 0 0;
+    box-shadow: 0 0 6px 0 rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    list-style-type: none;
+    z-index: 9999999;
+  }
+  
+  .dd-input + .dd-menu {
+    display: none;
+  } 
+  
+  .dd-input:checked + .dd-menu {
+    display: block;
+  } 
+  
+  .dd-menu li {
+    padding: 10px 20px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  .dd-menu li:hover {
+    background-color: #f6f6f6;
+    z-index: 9999999;
+    position: relative;
+  }
+  
+  .dd-menu li a {
+    display: block;
+    margin: -10px -20px;
+    padding: 10px 20px;
+  }
+  
+  .dd-menu li.divider{
+    padding: 0;
+    border-bottom: 1px solid #cccccc;
+  }
+
+  /* functionalities */
+  .m-l-5 {
+    margin-left: 5px;
+  }
+
+  .m-l-10 {
+    margin-left: 10px;
+  }
+  .m-l-20 {
+    margin-left: 20px;
+  }
+  .m-l-30 {
+    margin-left: 30px;
+  }
+  .m-t-n5 {
+    margin-top: -5px;
+  }
+  .m-t-10 {
+    margin-top: 10px;
+  }
+  .p-t-5 {
+    padding-top: 5px;
+  }
+  .p-t-10 {
+    padding-top:10px;
+  }
+  .p-t-20 {
+    padding-top:20px;
+  }
+  

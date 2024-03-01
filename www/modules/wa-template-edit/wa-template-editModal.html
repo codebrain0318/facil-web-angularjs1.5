@@ -1,0 +1,181 @@
+<div ng-controller="WATemplateEditModalController as vm">
+  <div class="col-sm-12 m-t-20">
+    <div class="col-md-10">
+      <h4>{{vm.AddEdit}} New Template</h4>
+    </div>
+  </div>
+  <div class="col-sm-12" style="padding-left: 30px">
+    <form class="" role="form">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="control-label">Template Name</label>
+            <input
+              type="text"
+              name="templatename"
+              class="form-control"
+              ng-model="vm.selectedRecord.TemplateName"
+            />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="control-label">Trigger Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="triggername"
+              ng-model="vm.selectedRecord.Trigger"
+            />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class="control-label">Title</div>
+            <textarea
+              type="text"
+              class="form-control"
+              name="title"
+              ng-model="vm.selectedRecord.Title"
+            ></textarea>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class="control-label">Footer</div>
+            <textarea
+              type="text"
+              class="form-control"
+              name="footer"
+              ng-model="vm.selectedRecord.Footer"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="control-label">Comment</div>
+            <textarea
+              type="text"
+              class="form-control"
+              name="lname"
+              style="height: 500px"
+              ng-model="vm.selectedRecord.Comment"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class="control-label">Buttons</div>
+            <input
+              type="text"
+              class="form-control"
+              name="buttonr"
+              ng-model="vm.selectedRecord.Buttons"
+            />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class="control-label">URLs</div>
+            <input
+              type="text"
+              class="form-control"
+              name="buttonr"
+              ng-model="vm.selectedRecord.Urls"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class="control-label">Message Type(Button/URL/List)</div>
+            <input
+              type="text"
+              class="form-control"
+              name="messageType"
+              ng-model="vm.selectedRecord.MessageType"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <div class="col-md-3">
+            <div class="form-group">
+              <div class="control-label">List Button Text</div>
+              <input
+                type="text"
+                class="form-control"
+                name="buttonr"
+                ng-model="vm.selectedRecord.ListButton"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <div class="control-label">
+                List Sections Text(Section1|Section2)
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                name="buttonr"
+                ng-model="vm.selectedRecord.ListSections"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <div class="control-label">
+                List Section Rows(Title1 | Description1 || Title2 |
+                Description2)
+              </div>
+              <textarea
+                type="text"
+                style="height: 300px"
+                class="form-control"
+                name="buttonr"
+                ng-model="vm.selectedRecord.ListSectionRows"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <div class="col-md-6">
+            <input
+              type="button"
+              ng-if="!vm.isEdit"
+              value="Add Template"
+              ng-click="vm.addTemplate()"
+              class="col-md-12 btn btn-primary"
+            />
+            <input
+              type="button"
+              ng-if="vm.isEdit"
+              value="Save Template"
+              ng-click="vm.editTemplate()"
+              class="col-md-12 btn btn-primary"
+            />
+          </div>
+          <div class="col-md-6">
+            <input
+              class="col-md-12 btn btn-success"
+              type="button"
+              value="Send Template"
+              ng-click="vm.sendTemplate();"
+              class="btn btn-success"
+              style="margin-bottom: 15px"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

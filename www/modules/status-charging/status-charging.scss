@@ -1,0 +1,171 @@
+// .container-status-cobranca{
+//     flex-direction: column;    
+//     color: white;
+// }
+
+// .force-select {  
+//     -webkit-user-select: all;  /* Chrome 49+ */
+//     -moz-user-select: all;     /* Firefox 43+ */
+//     -ms-user-select: all;      /* No support yet */
+//     user-select: all;          /* Likely future */   
+//   }
+
+// .container-data{
+
+//     padding-top: 15px;
+//     padding-bottom: 15px;
+// }  
+
+.busca-status{
+    margin-top: 25px;
+}
+
+.titulos-status{
+    font-weight: bold;
+    color: red;
+}
+
+.totalizadores{
+    color: black;
+    float: right;
+    margin-right: 2%;
+}
+
+.status-red{
+    color: red;
+}
+
+.status-yellow{
+    color: yellow;
+}
+
+.status-grey{
+    color: grey;
+}
+
+.status-green{
+    color: green;
+}
+
+.status-blue{
+    color: blue;
+}
+
+.massive-selection{
+    font-size: 12px;
+    color: gray;
+}
+
+.loading-status{
+    font-size: 20px;
+    position: relative;
+    left: 55%;
+    margin-left: -120px;
+}
+
+.buttom-mode {
+    cursor: pointer;
+}
+
+.action-buttons{
+    float: left;
+    position: relative;
+}
+
+.btnb {
+
+    padding: 3px 6px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.borda-topo-estoque{
+    margin-top: 160px;
+    position: relative;
+}
+
+.header-filter {
+    position: fixed;
+    width: calc(100% - 87px);
+    background-color: white;
+    z-index: 1;
+    height: 150px;
+    padding-top: 25px;
+    .subrow
+    {
+        margin-top: 25px;
+    }
+}
+
+.subheader-filter
+{
+    margin-top: 145px; 
+    position: fixed;
+    width: calc(100% - 87px);
+    background-color: white;
+    z-index: 1;
+    height: 110px;
+}
+
+.table-scroll-charging thead {
+    table-layout: fixed;
+    margin-top: -120px;
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    word-wrap: break-word;
+    text-align: center;
+    font-size: 1vw;
+    width: calc(100% - 87px);
+}
+
+.table-scroll-charging tbody {
+    overflow-y: auto;
+    display: block;
+    width: 100%;
+    table-layout: fixed;
+    margin-top: 23px;
+
+    tr {
+        border-style: solid;
+        border-width: 1px;
+        border-color: lightgray;
+        
+        td {
+            border-style: solid;
+            border-width: 1px;
+            border-color: lightgray
+        }
+    }
+    
+}
+
+.table-scroll-charging tr {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    height: 100%;
+
+}
+
+.table-scroll-charging td {
+    height: 50px; // needed in order to keep rows from collapsing
+    word-wrap: break-word;
+    text-align: center;
+    font-size: 1vw;
+}

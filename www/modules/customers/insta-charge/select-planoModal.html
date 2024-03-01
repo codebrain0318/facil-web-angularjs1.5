@@ -1,0 +1,238 @@
+<style type="text/css">
+  .form-check {
+    margin-top: 10px;
+  }
+
+  .m-t-10 {
+    margin-top: 10px;
+  }
+
+  .numeric-input {
+    width: 100%;
+  }
+
+  .ag-theme-balham .ag-select-list {
+    width: auto !important;
+    max-width: 100% !important;
+    min-width: auto !important;
+  }
+</style>
+<div class="boleto-modal" style="height: 100vh; width: 100vw; display: flex; flex-direction: column;"
+  ng-controller="SelectPlanoModalController as vm">
+  <div class="header">
+    <div class="header-text" style="padding: 0;">
+    </div>
+  </div>
+  <div class="modal-container" style="max-height: unset;">
+    <div class="crow" style="display: flex; flex-direction: column; width: 100% !important;">
+      <div class="" style="display: flex; padding-left: 1rem; padding-bottom: 0,2rem;">
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; width: 100%; padding-left: 1rem;">
+          <div style="display: flex; flex-direction: column;">
+            <div class="form-group" style="padding-left: 0; margin-bottom: 0; width: 100%;">
+              <a title="Refresh" ng-click="vm.refreshPhones()" style="margin: 0 5px 0 0"><img class="imgWhatsapp link"
+                style="max-width: 20px; margin: 0px" src="content/img/refresh.png" /></a> <label class="control-label">Customer Nome</label>
+              <input id="CName" type="text" class="form-control" ng-model="vm.CustomeName" />
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+              <a title="WhatsApp" ng-click="vm.OpenWhatsApp()" style="cursor: pointer"><img class="imgUsd link"
+                  src="content/img/message-green.png" style="max-width: 20px" /></a>
+              <a title="Ativo" ng-click="vm.UpdateActiveStatus(vm.SoftDelete)"><img class="imgWhatsapp link"
+                  style="max-width: 15px; margin: 5px"
+                  ng-src="content/img/{{ vm.SoftDelete ? 'customeroff.png' : 'customeron.png'}}" /></a>
+
+              <a title="Charge History" style="cursor: pointer" ng-click="vm.OpenChargeHistory()"><img
+                  class="imgUsd link" src="content/img/usd.jpeg" style="max-width: 20px" /></a>
+
+              <button class="" ng-click="vm.copyToClipboard()"
+                style="background: none; border: none; position: unset; padding-top: 0.2rem;"
+                data-valor="{{vm.Referral}}">
+                <i style="color: black; font-size: 1.1rem;" class="fa fa-copy"></i>
+                <span>Link Convite</span>
+              </button>
+
+            </div>
+          </div>
+
+          <div class="col-xs-6" style="max-width: 18ch; padding-left: 0; margin: 0 0 0;">
+            <label class="control-label">Telefone</label>
+            <input type="text" name="cPhone" autocomplete="doNotAutoComplete" class="form-control"
+              mask="(99) 9?9999-9999" placeholder="(xx) 99999-9999" restrict="reject" ng-model="vm.CustomerPhone" />
+          </div>
+          <div class="form-group col-sm-2 col-xl-1" style="max-width: 15ch; margin-bottom: 0;">
+            <div style="margin-top: -5px; display: flex">
+              <span>
+                <label class="form-check-label" for="radio5">
+                  <input type="radio" id="radio5" name="cpfType" data-ng-model="vm.CpfType" class="form-check-input"
+                    ng-value="0" />
+                  <span style=" font-size: 11px; margin-left: 0">CPF</span>
+                </label></span>
+              <span class="mobile-inline" style="margin-left: 15px">
+                <label class="form-check-label" for="radio6">
+                  <input type="radio" id="radio6" name="cpfType" data-ng-model="vm.CpfType" class="form-check-input"
+                    ng-value="1" />
+                  <span style="padding-top: 15px; font-size: 11px; margin-left: 0">CNPJ</span>
+                </label></span>
+            </div>
+            <div style="max-width: 19ch;">
+              <input id="CCPF" type="tel" class="form-control" ng-model="vm.CustomeCPF" />
+            </div>
+          </div>
+          <div class="form-group " style="max-width: 20ch; margin-bottom: 0;">
+            <label class="control-label">Email</label>
+            <input id="CEmail" type="email" class="form-control" ng-model="vm.CustomeEmail" />
+          </div>
+          <div class="form-group" style="max-width: 20ch; margin-bottom: 0;">
+            <label class="control-label">Pai</label>
+            <input type="text" autocomplete="doNotAutoComplete" name="pname1" class="form-control"
+              ng-model="vm.ParentNome" ng-mouseenter="vm.selectParentItem(false)"
+              ng-mouseleave="vm.selectParentItem(true)" ng-change="vm.selectParentItem(false)" />
+            <div class="items" ng-hide="vm.isParentSelected" ng-mouseenter="vm.selectParentItem(false)"
+              ng-mouseleave="vm.selectParentItem(true)">
+              <p class="search-items" ng-click="vm.setSelectedParentName(option)"
+                ng-repeat="option in vm.parentNames | filter: { Name : vm.chargeForm.ParentNome } ">
+                {{option.Name}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <hr style="border: 1px solid #d3d3d3; margin: 10px 5px 10px 10px" />
+      </div>
+      <div class="col-md-12"" style=" width: 100%; padding-right: 0; ">
+        <div class=""
+          style=" display: flex; align-items: center; flex-wrap: wrap; gap: 0.7rem; padding: 0 1rem; margin-bottom:
+        0.7rem;">
+        <div class="col-md-2" style="padding-left: 0; padding-right: 1rem; padding-right: 0;">
+          <div style="margin-top: 25px; display: inline-flex">
+            <input type="text" style="width: 100%" ng-keyup="vm.onQuickFilterChanged()" id="quickFilter"
+              placeholder="Filter" ng-model="vm.filterText" />
+
+            <button ng-click="vm.clearFilter()" style="margin-left: 10px">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+          <p>
+            <span class="" style="font-size: small" ng-bind="vm.resultText"></span>
+          </p>
+        </div>
+
+        <div>
+          <button class="btn btn-default" style="margin: 0;" data-ng-click="vm.exportToExcel()">
+            <i class="fa fa-file-excel-o"></i>
+          </button>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: center; margin-left: 0.5rem; gap: 0.5rem;"
+          class="only-active">
+
+          <input data-ng-click="vm.onlyActive()" type="checkbox" id="filterCheckboxModal" uib-tooltip="Só Ativas"
+            checked="true" tooltip-placement="top" />
+
+          <label style="margin-bottom: 0;" for="filterCheckbox">So Ativas</label>
+        </div>
+
+        <div class="form-group col-sm-2 col-xs-6"
+          style="max-width: 130px; align-items: center; margin: 0; gap: 0.5rem; ">
+          <label style="font-size: 12px"><input type="checkbox" ng-model="vm.Use2Prices"
+              ng-change="vm.saveUserSettings()" value="1" />
+            Usar 2 Preços</label><br /><label style="font-size: 12px"><input type="checkbox" ng-model="vm.IsVIP"
+              ng-change="vm.saveUserSettings()" value="1" />
+            VIP</label>
+        </div>
+        <div class="" style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+
+          <div>
+            <select style="max-width: 140px; display: inline-block" class="form-control" ng-model="vm.defaultGridState"
+              ng-change="vm.getAgGridState(item)" ng-options="item.txtStateName for item in vm.agGridStates"></select>
+            <button class="btn btn-default" style="margin: 0 0 0 10px" data-ng-click="vm.saveState()"
+              title="Save State">
+              <i class="fa fa-save"></i>
+            </button>
+            <button class="btn btn-default" style="margin: 0" data-ng-click="vm.updateState()" title="Update State">
+              <i class="fa fa-refresh"></i>
+            </button>
+            <button class="btn btn-default" style="margin: 0" data-ng-click="vm.deleteState()" title="Delete State">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; ">
+
+            <div class="form-group " style="max-width: 12.5ch;  margin-bottom: 24px;">
+              <label class="control-label">FC Total</label>
+              <input id="PrecoFCSum" type="tel" class="form-control" ng-model="vm.PrecoFCSum" />
+            </div>
+            <div class="form-group " style="max-width: 12.5ch;  margin-bottom: 24px;">
+              <label class="control-label">VIP Total</label>
+              <input id="PrecoVIPum" type="tel" class="form-control" ng-model="vm.PrecoVIPum" />
+            </div>
+            <div class="form-group " style="max-width: 12.5ch;  margin-bottom: 24px;">
+              <label class="control-label">Sel R$ FC</label>
+              <input id="PrecoFCSum" type="tel" class="form-control" ng-model="vm.PrecoFCSum" />
+            </div>
+            <div class="form-group " style="max-width: 12.5ch; margin-bottom: 24px;">
+              <label class="control-label">Sel R$ VIP</label>
+              <input id="PrecoVIPum" type="tel" class="form-control" ng-model="vm.PrecoVIPum" />
+            </div>
+
+            <div class="pull-right" style="display: flex; align-items: center; gap: 0.5rem; height: 100%;">
+              <a class="btn btn-primary" ng-click="vm.addNewLinePopup()" style="text-decoration: none; margin: 0;">
+                Adicionar Linha <i class="fa fa-plus"></i>
+              </a>
+
+            </div>
+          </div>
+
+
+
+
+        </div>
+
+      </div>
+      <!-- <div class="col-md-1">
+
+        </div> -->
+
+      <div class="col-md-12">
+        <div class="crow">
+          <div class="col-md-6">
+            <label style="color: green; font-size: 12px" ng-if="vm.Message == 1" class="control-label">ICCID: Active
+              ICCID with Plano: {{vm.currentPlan}}</label>
+            <label style="color: orange; font-size: 12px" ng-if="vm.Message == 2" class="control-label">ICCID:
+              Inactive ICCID</label>
+            <label style="color: green; font-size: 12px" ng-if="vm.Message == 4" class="control-label">ICCID: New
+              ICCID</label>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-12">
+        <div style="padding: 0px; height: 100%;">
+          <div id="phonegrid" style="width: 100%; height: calc(100vh - 21rem)" ag-grid="vm.gridOptions"
+            class="ag-theme-balham ag-basic"></div>
+        </div>
+      </div>
+
+      <div class="col-md-12" style="margin-top: 2rem;">
+        <div class="form-group col-sm-4 col-xs-12">
+          <button ng-click="vm.saveNewLinesToExistingCustomer()" class="btn btn-success col-xs-12 lg-m-t-60">
+            Salvar Linhas
+          </button>
+        </div>
+        <div class="form-group col-sm-4 col-xs-12">
+          <button ng-click="vm.saveClientAndLine()" class="btn btn-primary col-xs-12 lg-m-t-60">
+            Ativar linha
+          </button>
+        </div>
+        <div class="form-group col-sm-4 col-xs-12">
+          <button ng-click="vm.saveClientAndLineWithCharge()" class="btn btn-warning col-xs-12 lg-m-t-60">
+            Cobrar & Ativar linha
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

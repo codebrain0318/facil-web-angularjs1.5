@@ -1,0 +1,42 @@
+<div class="checkout-customer" ng-controller="CheckoutCustomerModalController as vm">
+    <div class="header">
+        <span class="title">Novo checkout</span>
+        <button ng-click="closeThisDialog(0)">X</button>
+    </div> 
+    <h4>{{vm.customer.name}}</h4>
+    <div class="modal-container">   
+        <div class="container col-xs-12">
+            <div ng-if="vm.etapaEscolhaCartao">
+                <uib-accordion close-others="oneAtATime">
+                    <div uib-accordion-group class="panel-default" ng-init="vm.cards.length == 1 ? status.open = true : status.open = false" is-open="status.open" ng-repeat="card in vm.cards">
+                        <uib-accordion-heading>
+                            Cartão Final: {{card.last_digits}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>                        
+                        </uib-accordion-heading>
+                        <div class="cartao-container">
+                            <p>Bandeira: {{card.brand}}</p>
+                            <p>Final: {{card.last_digits}}</p>
+                            <p>{{card.valid ? 'Cartão válido' : 'Cartão inválido/vencido'}}</p>
+                        </div>
+                        <button class="btn btn-success col-xs-12 col-sm-3" ng-click="vm.onTapCard(card)"> Nova cobrança </button>
+                    </div> 
+                </uib-accordion>
+            </div>
+
+            <div ng-if="vm.etapaQuantia" class="etapa-quantia"> 
+                <div class="form-group">
+                    <label for="quantia">Quantia:</label>
+                    <input id="quantia" class="form-control" ng-model="vm.amount" type="text"  money-input placeholder="Digite o valor a ser pago">
+                </div>  
+                <button ng-click="vm.onTapPagar()" class="btn btn-success">
+                    Pagar
+                </button>
+                <button ng-click="vm.cancelarPagamento()" class="btn btn-danger"> Cancelar</button>
+            </div>
+
+            <div class="list">
+                <h2>{{vm.message}}</h2>
+            </div>
+        </div>    
+    </div>
+</div>
+    

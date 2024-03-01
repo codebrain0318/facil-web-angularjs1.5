@@ -1,0 +1,190 @@
+<div class="row header-filter headernone customers" ng-init="vm.onPageLoad()">
+  <div class="clearfix"></div>
+  <div class="row p-t-10">
+    <div class="form-group col-xs-12 col-md-2">
+      <p>
+        <span class="pull-left">
+          <span ng-click="vm.refreshPage()" id="refreshButton"><i
+              class="glyphicon glyphicon-refresh"></i></span>
+              <span ng-show="vm.isMobile">
+                <a href="#/tab/customers-new2"><i class="glyphicon glyphicon-home" aria-hidden="true">2</i></a>
+                <a href="#/tab/insta-charge"><i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i></a>
+                <a href="#/tab/allphonelinesnew"><i class="glyphicon glyphicon-phone" aria-hidden="true"></i></a>
+              </span>
+        </span>
+        <span class="pull-left m-t-n5 m-l-5" ng-show="vm.loading"><img src="../../../content/img/Loading2.gif"
+            style="height:7px;" /></span>
+        <span class="m-l-10 pull-right dnone" ng-click="vm.showFilterSection()" id="showfiltersection">
+            <i class="fa fa-eye-slash"></i>
+        </span>
+        <span class="pull-right m-l-10"><label><input type="checkbox" ng-click="vm.filterText()"
+              ng-model="vm.filterTextInNameOnly"> So Nome</label></span>
+        <span class="pull-right "><label><input type="checkbox" ng-click="vm.filterText()"
+              ng-model="vm.filterTextInAllCols"> All</label></span>
+      </p>
+      <input type="text" id="filterCustomers" class="form-control" placeholder="BUSCA" ng-blur="vm.filterClients()"
+        ng-change="vm.filterClients()" ng-model="vm.searchText" autocomplete="off"/>
+      <p ng-show="vm.hidefilters"><span class="pull-right" style="font-size: small;" ng-bind="vm.resultText"></span></p>
+    </div>
+    <div class="form-group col-xs-12 col-md-1 p-t-10" ng-show="vm.hidefilters">
+      <div class="ccpicons">
+        <a ng-click="" ngclipboard  data-clipboard-action="cut" data-clipboard-target="#filterCustomers" ngclipboard-success ="vm.onClipBoardSuccess(e)"><img class="imgccp link" src="../../content/img/cut.png" /></a>
+        <a ng-click="" ngclipboard data-clipboard-target="#filterCustomers" ngclipboard-success ="vm.onClipBoardSuccess(e)"><img class="imgccp link" src="../../content/img/copy.png" /></a>
+        <a ng-click="vm.pasteCliboardText(this)" set-focus='filterCustomers'><img class="imgccp link" src="../../content/img/paste.png" /></a>
+      </div>
+    </div>
+    <div class="form-group col-xs-12 col-md-6 p-t-10" ng-show="vm.hidefilters">
+      <div class="pull-left">
+        <p><label><input type="checkbox" ng-change="vm.filterClients()" ng-model="vm.includeActive"> So Ativo</label></p>
+        <p><label><input type="checkbox" ng-change="vm.filterClients()" ng-model="vm.includeInActive"> So InAtivo</label></p>
+        <select class="form-control" ng-model="vm.defaultGridState" ng-change="vm.getAgGridState(item)" ng-options="item.txtStateName for item in vm.agGridStates">
+         </select>
+      </div>
+      <div class="pull-left m-l-10">
+        <p><label><input type="checkbox" ng-change="vm.filterClients()" ng-model="vm.excludeProblema"> !Problema</label></p>
+        <p><label><input type="checkbox" ng-change="vm.filterClients()" ng-model="vm.excludeFlag"> !Flag</label></p>
+        <button class="btn btn-default busca-status" style="margin-top: 0px;" data-ng-click="vm.saveState()">
+            <i class="fa fa-upload1"></i>Save State</button>
+      </div>
+      <div class="pull-left m-l-30 payment-filter">
+        <div>
+          <p class="pull-left"><label><input type="checkbox" ng-change="vm.filterClients()" ng-model="vm.includeStatusGreen"><span class="payment-green"></span></label></p>
+          <p class="pull-left m-l-10"><label><input type="checkbox" ng-change="vm.filterClients()" ng-model="vm.includeStatusYellow"><span class="payment-yellow"></span></label></p>
+          <p class="pull-left m-l-10"><label><input type="checkbox" ng-change="vm.filterClients()" ng-model="vm.includeStatusRed"><span class="payment-red"></span></label></p class="pull-left m-l-10">
+        </div>
+        <div>
+          <p class="pull-left"><label><input type="checkbox" ng-change="vm.filterClients()" ng-model="vm.includeStatusGray"><span class="payment-grey"></span></label></p>
+          <p class="pull-left m-l-10"><label><input type="checkbox" ng-change="vm.filterClients()" ng-model="vm.includeStatusNan"><span class="payment-nan"></span></label></p>
+        </div>
+        <button class="btn btn-default busca-status" style="margin-top: 0px;" data-ng-click="vm.updateState()">
+            <i class="fa fa-upload1"></i>Update State</button>
+      </div>
+      <div class="pull-left m-l-20">
+        <p><label><input type="checkbox" ng-change="vm.filterClients()" ng-model="vm.excludeFather"> - Pai</label></p>
+        <p><label><input type="checkbox" ng-change="vm.filterClients()" ng-model="vm.excludeAddress"> - Endereço</label>
+        </p>
+        <button class="btn btn-default busca-status" style="margin-top: 0px;" data-ng-click="vm.deleteState()">
+            <i class="fa fa-upload1"></i>Delete State</button>
+      </div>
+
+      <div class="pull-left p-t-5">
+        <p class="pull-left"><label><input type="checkbox" ng-change="vm.filterClients()" ng-model="vm.excludeWhatsappUsers">&nbsp;<img src="../../content/img/message-red.png" /></label></p>
+        <p class="pull-left m-l-10"><label><input type="checkbox" ng-change="vm.filterClients()" ng-model="vm.includeWhatsappUsers">&nbsp;<img src="../../content/img/message-green.png" /></label></p>
+      </div>
+    </div>
+    <div class="form-group col-xs-12 col-md-3 p-t-10" ng-show="vm.hidefilters">
+      <div class="pull-left p-t-10">
+      <div class="">  <span style="color:green;">Name Filter</span>
+        <a href="javascript:void(0)">
+          <i class="fa fa-save"></i>
+        </a><br><button class="btn btn-default busca-status" style="margin-top:12px" data-ng-click="vm.importDrCelular()">
+            <i class="fa fa-upload1"></i> Dr. Celular</button>
+    
+      </div></div>
+      <div class="pull-left m-l-30">
+        <div class="btn-group">
+          <button class="btn btn-default busca-status " style="margin-top:0px" data-ng-click="vm.exportToExcel()">
+            <i class="fa fa-file"></i>
+            Export To Excel
+          </button>
+          <br/>
+          <button class="btn btn-default busca-status" style="margin-top: 10px;" data-ng-click="vm.testWhatsApp()">
+            <i class="fa fa-whatsapp"></i><span style="margin-left:5px">Test WhatsApp</span></button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <!-- <div class="row">
+    <div class="col-md-12">
+      <div class="grid-container">
+        <kendo-grid id="customerGridData" options="vm.customerGridOptions" k-data-source="vm.customerDataSource"></kendo-grid>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div> -->
+
+  <div class="row">
+    <div class="col-md-12 m-t-10">
+      <div style="width: 100%; height: {{vm.gridHeight}}px;" ag-grid="vm.gridOptions" class="ag-theme-balham ag-basic">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<style>
+  #loadingDiv {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: #dcdcdc;
+    width: 100%;
+  }
+
+  .header-filter {
+    padding-top: 0;
+  }
+
+  #header-filter-top {
+    margin-top: 0px !important;
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    opacity: 1;
+  }
+
+  .m-t-44 {
+    margin-top: 0px;
+  }
+
+  .otherOptions ul li {
+    padding: 0;
+    float: left;
+    list-style: none;
+    padding-right: 30px;
+  }
+
+  .k-grid-excel {
+    display: none;
+  }
+
+  .k-filter-row th,
+  .k-grid-header th.k-header {
+    height: 40px;
+  }
+
+  .k-grid-header th.k-header {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+  }
+
+  .break-word {
+    word-wrap: break-word;
+    vertical-align: middle;
+    float: left;
+  }
+
+  .k-grid td.k-state-selected:hover,
+  .k-grid tr:hover {
+    color: #fff;
+    background-color: #35baf6;
+  }
+
+  .grid-container {
+    margin-right: 4%;
+    font-size: 14px;
+  }
+
+  .form-control {
+    padding: 0px 4px;
+    border-radius: 0px;
+  }
+</style>

@@ -1,0 +1,24 @@
+textarea#nomeCartao {
+  height: 150px;
+}
+
+.dialog-toolbar {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 30px;
+}
+
+.show-template .header {
+  height: auto !important;
+
+  button {
+    top: 0;
+  }
+}
+
+input[type='checkbox'] {
+  margin-top: -4px;
+}

@@ -1,0 +1,31 @@
+<div class="ordem-service-modal">
+    <div class="bar bar-header bar-light">
+        <div class="buttons">
+            <button class="button icon ion-chevron-left" ng-click="vm.goBack()">Voltar</button>
+        </div>
+        <h1 class="title">Ordem de Serviço</h1>
+    </div>  
+    <div class="list list-inset">
+        <div>
+            <div class="item item-divider">
+                Dados Ordem de Serviço
+            </div>
+            <div class="item item-toggle">
+                Interação pendente
+                <label class="toggle toggle-positive">
+                    <input type="checkbox" ng-model="vm.data.warn">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </div>
+            <div class="item item-input">
+                <span class="input-label">Observação</span>
+                <textarea ng-model="vm.data.text" placeholder="Digite aqui a sua observação." rows="8" cols="auto"></textarea>
+            </div>
+        </div>
+        <div class="padding">              
+            <button class="button button-block button-positive" on-tap="vm.onTapSendOS(vm.data)" ng-disabled="vm.data.text.length < 5 || vm.requesting">Enviar</button>
+        </div>
+    </div>
+</div>    

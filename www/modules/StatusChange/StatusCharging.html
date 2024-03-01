@@ -1,0 +1,122 @@
+<div class="row header-filter headernone" ng-init="onPageLoad()">
+	<div class="clearfix"></div>
+	<div class="row">
+		<div class="form-group col-xs-6 col-sm-1">
+			<label>	Mês1</label>
+			<input type="number" class="form-control" placeholder="Mês" ng-model="vm.month"
+				   aria-describedby="sizing-addon2" id="mes">
+		</div>
+		<div class="form-group col-xs-6 col-sm-1">
+
+			<label>	Ano</label>
+			<input type="number" min="2000" class="form-control" placeholder="Ano" ng-model="vm.year"
+				   aria-describedby="sizing-addon2" id="ano">
+		</div>
+		<div class="form-group col-xs-6 col-sm-1">
+			<button class="btn btn-primary busca-status"
+					data-ng-click="onClickSearchCustomerData()">
+				Buscar
+			</button>
+		</div>
+
+
+		<div class="form-group col-xs-6  col-sm-8 otherOptions">
+			<label>&nbsp;</label>
+			<ul>
+				<li>
+					<input type="checkbox" class="form-check-input" ng-change="vm.changeFilter(true)" ng-model="vm.cobrancaAtiva">
+					<label>	Seleção massiva</label>
+				</li>
+				<li>
+					<input type="checkbox" class="form-check-input" ng-change="vm.changeFilter(true)" ng-model="vm.clienteAtivo">
+					<label>	Cobranças ativas</label>
+				</li>
+				<li>
+					<input type="checkbox" class="form-check-input" ng-change="vm.changeFilter(true)" ng-model="vm.clienteAtivo">
+					<label>	Clientes Ativos</label>
+				</li>
+        <li>
+          <button class="btn btn-primary busca-status " style="margin-top:0px"
+                  data-ng-click="exportToExcel()">
+            Export To Excel
+          </button>
+        </li>
+			</ul> 
+		</div>
+		 
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Start -->
+			<div class="grid-container">
+				<kendo-grid id="customerGridData" options="customerGridOptions"
+							k-data-source="customerDataSource"></kendo-grid>
+			</div>
+			<!-- End -->
+      <div class="clearfix"></div>
+		</div>
+	</div>
+
+</div>
+
+
+
+
+<style>
+  .header-filter {
+    padding-top:0;
+  }
+  #header-filter-top {
+    margin-top: 0px !important;
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    opacity: 1;
+  }
+
+  .m-t-44 {
+    margin-top: 0px !important;
+  }
+  .otherOptions ul li {
+    padding: 0;
+    float: left;
+    list-style: none;
+    padding-right: 30px;
+  }
+
+	.k-grid-excel {
+		display: none;
+	}
+
+	.k-filter-row th, .k-grid-header th.k-header {
+		height: 40px;
+	}
+
+	.k-grid-header th.k-header {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		vertical-align: middle;
+	}
+
+	.break-word {
+		word-wrap: break-word;
+		vertical-align: middle;
+		float: left;
+	}
+
+	.k-grid td.k-state-selected:hover, .k-grid tr:hover {
+		color: #fff;
+		background-color: #35baf6;
+	}
+
+	.grid-container {
+		margin-right: 4%;
+		font-size: 14px;
+	}
+
+	.form-control {
+		padding: 0px 4px;
+		border-radius: 0px;
+	}
+</style>

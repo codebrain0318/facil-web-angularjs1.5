@@ -1,0 +1,243 @@
+<div class="menu-container">
+  <div
+    style="position: relative; z-index: 9999; height: 100vh"
+    ng-class="{'menu-open': vm.compress && !vm.mobile, 'menu-close': (!vm.compress && !vm.mobile) || (vm.mobile && vm.compressMobile), 'menu-close-mobile': vm.mobile && !vm.compressMobile}"
+    class="m-t-44"
+  >
+    <div class="menu-item logo" ng-click="vm.menuCompress()">
+      <div>
+        <i class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></i>
+        <span> FoneClube {{vm.version}} </span>
+      </div>
+    </div>
+    <!--
+    <div title="Home" class="menu-item" ng-class="{'item-menu-active': vm.menuItemActive == 'home'}"
+      ng-click="vm.setMenuItemActive('home')">
+      <div>
+        <i class="glyphicon glyphicon-home" aria-hidden="true"></i>
+        <span> Home </span>
+      </div>
+    </div>
+    -->
+    <div
+      title="Facil"
+      class="menu-item"
+      ng-class="{'item-menu-active': vm.menuItemActive == 'facil'}"
+      ng-click="vm.setMenuItemActive('facil')"
+    >
+      <div>
+        <img
+          src="./content/img/facilIcon.png"
+          style="width: 30px; height: 30px"
+        />
+        <span> Facil </span>
+      </div>
+    </div>
+    <div
+      title="Customers New"
+      class="menu-item"
+      ng-class="{'item-menu-active': vm.menuItemActive == 'customers-new'}"
+      ng-click="vm.setMenuItemActive('customers-new')"
+    >
+      <div>
+        <i class="glyphicon glyphicon-home" aria-hidden="true"></i>
+        <span> Home </span>
+      </div>
+    </div>
+    <div
+      title="Customers New 2"
+      class="menu-item"
+      ng-class="{'item-menu-active': vm.menuItemActive == 'customers-new2'}"
+      ng-click="vm.setMenuItemActive('customers-new2')"
+    >
+      <div>
+        <i class="glyphicon glyphicon-home" aria-hidden="true"></i
+        ><i ng-if="!vm.compress">2</i>
+        <span> Home New</span>
+      </div>
+    </div>
+    <div
+      title="Insta Charge"
+      class="menu-item"
+      ng-class="{'item-menu-active': vm.menuItemActive == 'insta-charge'}"
+      ng-click="vm.setMenuItemActive('insta-charge')"
+    >
+      <div>
+        <i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
+        <span> Insta Charge </span>
+      </div>
+    </div>
+    <div
+      title="All Phone Lines New"
+      class="menu-item"
+      ng-class="{'item-menu-active': vm.menuItemActive == 'allphonelinesnew'}"
+      ng-click="vm.setMenuItemActive('allphonelinesnew')"
+    >
+      <div>
+        <i class="glyphicon glyphicon-phone" aria-hidden="true"></i>
+        <span> All Phone Lines </span>
+      </div>
+    </div>
+    <div
+      title="All Phone Lines New 2"
+      class="menu-item"
+      ng-class="{'item-menu-active': vm.menuItemActive == 'allphonelines2new'}"
+      ng-click="vm.setMenuItemActive('allphonelines2new')"
+    >
+      <div>
+        <i class="glyphicon glyphicon-phone" aria-hidden="true"></i
+        ><i ng-if="!vm.compress">2</i>
+        <span> All Phone Lines 2</span>
+      </div>
+    </div>
+    <div
+      title="Cadastro"
+      class="menu-item"
+      ng-class="{'item-menu-active': vm.menuItemActive == 'cadastro'}"
+      ng-click="vm.setMenuItemActive('cadastro')"
+    >
+      <div>
+        <i class="fa fa-user-plus" aria-hidden="true"></i>
+        <span> Cadastro </span>
+      </div>
+      <div style="display: none"></div>
+      <!-------------------------------------->
+    </div>
+    <div
+      title="Pagar.me"
+      class="menu-item"
+      ng-class="{'item-menu-active': vm.menuItemActive == 'list-customer'}"
+      ng-click="vm.setMenuItemActive('list-customer')"
+    >
+      <div>
+        <i class="fa fa-rub" aria-hidden="true"></i
+        ><i class="fa fa-maxcdn" aria-hidden="true"></i>
+        <span> Pagar.me </span>
+      </div>
+    </div>
+    <div
+      title="Clientes"
+      class="menu-item"
+      ng-class="{'item-menu-active': vm.menuItemActive == 'customers'}"
+      ng-click="vm.setMenuItemActive('customers')"
+    >
+      <div>
+        <img src="./content/img/client.png" style="width: 20px; height: 20px" />
+        <span> Clientes </span>
+      </div>
+    </div>
+
+    <div
+      title="Cobrança Massiva"
+      class="menu-item"
+      ng-class="{'item-menu-active': vm.menuItemActive == 'mass-charging'}"
+      ng-click="vm.setMenuItemActive('mass-charging')"
+    >
+      <div>
+        <img
+          src="./content/img/payment.png"
+          style="width: 20px; height: 20px"
+        />
+        <span> Cobrança Massiva </span>
+      </div>
+    </div>
+
+    <!-- <div
+      title="Status Pagamentos"
+      class="menu-item"
+      ng-class="{'item-menu-active': vm.menuItemActive == 'status-charging'}"
+      ng-click="vm.setMenuItemActive('status-charging')"
+    >
+      <div>
+        <img
+          src="./content/img/paystatus.png"
+          style="width: 20px; height: 20px"
+        />
+        <span> Status Pagamentos </span>
+      </div>
+    </div>
+    <div
+      title="Estoque"
+      class="menu-item"
+      ng-class="{'item-menu-active': vm.menuItemActive == 'estoque'}"
+      ng-click="vm.setMenuItemActive('estoque')"
+    >
+      <div>
+        <img
+          src="./content/img/icon_estoque.png"
+          style="width: 20px; height: 20px"
+        />
+        <span> Estoque </span>
+      </div>
+    </div>
+    <div
+      title="All Phones"
+      class="menu-item"
+      ng-class="{'item-menu-active': vm.menuItemActive == 'all-phones'}"
+      ng-click="vm.setMenuItemActive('all-phones')"
+    >
+      <div>
+        <i class="fa fa-mobile" aria-hidden="true"></i>
+        <span> All Phones </span>
+      </div>
+    </div> -->
+
+    <div
+      title="All Phones New"
+      class="menu-item"
+      ng-class="{'item-menu-active': vm.menuItemActive == 'all-phones-new'}"
+      ng-click="vm.setMenuItemActive('all-phones-new')"
+    >
+      <div>
+        <i class="fa fa-volume-control-phone"></i>
+        <span> All Phones New</span>
+      </div>
+    </div>
+
+    <div
+      title="Templates Email"
+      class="menu-item"
+      ng-class="{'item-menu-active': vm.menuItemActive == 'allphone-lines'}"
+      ng-click="vm.setMenuItemActive('template-edit')"
+    >
+      <div>
+        <!-- <i class="glyphicon glyphicon-phone" aria-hidden="true"></i>  -->
+        <img
+          src="./content/img/template.png"
+          style="width: 20px; height: 20px"
+        />
+        <span> Edição conteúdo </span>
+      </div>
+    </div>
+
+    <div
+      title="WA Templates"
+      class="menu-item"
+      ng-class="{'item-menu-active': vm.menuItemActive == 'allphone-lines'}"
+      ng-click="vm.setMenuItemActive('wa-template-edit')"
+    >
+      <div>
+        <!-- <i class="glyphicon glyphicon-phone" aria-hidden="true"></i>  -->
+        <img
+          src="./content/img/template.png"
+          style="width: 20px; height: 20px"
+        />
+        <span> Edição WA conteúdo </span>
+      </div>
+    </div>
+
+    <div
+      title="WPP"
+      class="menu-item"
+      ng-class="{'item-menu-active': vm.menuItemActive == 'wpp'}"
+      ng-click="vm.setMenuItemActive('wpp')"
+    >
+      <div>
+        <i class="glyphicon glyphicon-wrench" aria-hidden="true"></i>
+        <span> WPP </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-views" ui-view name="menu-tab"></div>
+</div>

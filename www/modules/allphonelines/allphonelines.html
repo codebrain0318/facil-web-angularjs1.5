@@ -1,0 +1,266 @@
+<div class="edicao-container" style="margin-top: 35px;">
+    <fone-header title="All Lines of All Phones"></fone-header>
+    <img class="loader" ng-if="vm.showLoader">
+    <div class="col-xs-12" ng-show="!vm.showLoader">
+        <div class="form-container">
+            <div class="col-xs-12">
+                <div class="form-group col-xs-9 col-sm-3">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon2">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </span>
+                        <input ng-disabled="vm.showall" type="text" class="form-control" placeholder="Buscar(Telefone)"
+                               ng-model="vm.search" aria-describedby="sizing-addon2" id="searchtext" autofocus>
+                    </div>
+                </div>
+                <script>
+//                    $(document).ready(function () {
+                        $("#searchtext").focus();
+//                    });
+                </script>
+                <div class="form-group col-xs-3 col-sm-1" style="margin-top: 10px;">
+                    <button class="btn btn-primary" ng-disabled="vm.sp==1" ng-click="vm.onUndo()">
+                        <i class="glyphicon glyphicon-arrow-left"></i>
+                    </button>
+                    <button class="btn btn-primary" ng-disabled="vm.sp==vm.history.length" ng-click="vm.onRedo()">
+                        <i class="glyphicon glyphicon-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="form-group col-xs-3 col-sm-2">
+                    <div class="input-group">
+                        <input id="chkShowall" type="checkbox" ng-model="vm.showall" ng-change="vm.changedFilterAll()"
+                               ng-checked="false"/>
+                        <label for="chkShowall">Tudo</label>
+                        <input id="linhaAtiva" type="checkbox" ng-model="vm.linhaAtiva" ng-checked="false"
+                               ng-disabled="vm.showall"/>
+                        <label for="linhaAtiva">Linha Ativa</label>
+                    </div>
+                    <div class="input-group">
+                        <input id="claro" type="checkbox" ng-model="vm.claro" ng-checked="true"
+                               ng-disabled="vm.showall"/>
+                        <label for="claro">Claro</label>
+                        <input id="vivo" type="checkbox" ng-model="vm.vivo" ng-checked="true" ng-disabled="vm.showall"/>
+                        <label for="vivo">Vivo</label>
+                    </div>
+                </div>
+                <div class="form-group col-xs-3 col-sm-3" style="display: flex;align-items: center;">
+                    <div class="input-group" style="display: flex;align-items: center;margin-top: 15px;">
+                        <span style="font-size:25px;color:red;width:50px" id="sizing-addon2">
+                            ALL
+                        </span>
+                        <i class="glyphicon glyphicon-ok-circle checkcircle" style="margin-left: 20px;"
+                           ng-click="vm.onallchecked()"></i>
+                        <i class="glyphicon glyphicon-remove-circle uncheckcircle" style="margin-left:5px;"
+                           ng-click="vm.onallunchecked()"></i>
+                        <!--<button class="btn btn-primary" style="margin-left:10px" ng-click="vm.onShowMore()"-->
+                                <!--ng-disabled="vm.totalDisplayed>vm.Phones.length">-->
+                            <!--{{vm.showAllText}}-->
+                        <!--</button>-->
+                    </div>
+                </div>
+            </div>
+
+
+            <!--<uib-accordion close-others="oneAtATime"> 
+                
+                    <div uib-accordion-group   ng-hide="!phoneNumber.IsFoneclube || phoneNumber.Delete" ng-init="status.open = false" is-open="status.open" ng-repeat="phoneNumber in vm.customer.Phones track by $index">                    
+                        <uib-accordion-heading>
+                        </uib-accordion-heading>                   
+                    </div>                
+                </uib-accordion> -->
+
+            <table st-table="displayedCollection" st-safe-src="vm.tempPhones"
+                   class="table table-striped table-bordered">
+                <thead>
+                <tr>
+
+                    <th style="width: 40px;">
+                        <div class="s_cls s_lbl">
+                            <span for="portabilidadeTelefone">STATUS:</span>
+                        </div>
+                    </th>
+
+                    <th st-sort="NovoFormatoNumero" style="cursor: pointer" style="width: 130px;"
+                        class="st-sort-ascent">
+                        <div class="s_cls s_lbl">
+                            <span for="portabilidadeTelefone">TELEFONE:</span>
+                            <span style="cursor:pointer;" title="A-To-Z"
+                            class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span style="cursor:pointer;" title="Z-To-A"
+                            class="glyphicon glyphicon-triangle-top"></span>
+                        </div>
+                    </th>
+
+                    <th style="width: 40px;">
+                        <div class="s_cls s_lbl">
+                            <span for="portabilidadeTelefone">ATIVA:</span>
+                        </div>
+                    </th>
+
+
+                    <th st-sort="IdPlanOption" style="cursor: pointer;width: 200px;" class="st-sort-ascent" style="">
+                        <div class="s_cls s_lbl">
+                            <span for="portabilidadeTelefone">Operadora + Plano:</span>
+                            <span style="cursor:pointer;" title="A-To-Z"
+                            class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span style="cursor:pointer;" title="Z-To-A"
+                            class="glyphicon glyphicon-triangle-top"></span>
+                        </div>
+                    </th>
+
+                    <th st-sort="price" style="cursor: pointer" class="st-sort-ascent" style="width: 100px;">
+                        <div class="s_cls s_lbl">
+                            <span for="portabilidadeTelefone">Preco:</span>
+                            <span style="cursor:pointer;" title="A-To-Z"
+                            class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span style="cursor:pointer;" title="Z-To-A"
+                            class="glyphicon glyphicon-triangle-top"></span>
+                        </div>
+                    </th>
+
+                    <th style="width: 100px;">
+                        <div class="s_cls s_lbl">
+                            <span for="portabilidadeTelefone">Perfil:</span>
+                            <span style="cursor:pointer;" title="A-To-Z"
+                            class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span style="cursor:pointer;" title="Z-To-A"
+                            class="glyphicon glyphicon-triangle-top"></span>
+                        </div>
+                    </th>
+
+                    <th st-sort="NickName" style="cursor: pointer;width: 100px;" class="st-sort-ascent" style="">
+                        <div class="s_cls s_lbl">
+                            <span for="portabilidadeTelefone">APELIDO:</span>
+                            <span style="cursor:pointer;" title="A-To-Z"
+                            class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span style="cursor:pointer;" title="Z-To-A"
+                            class="glyphicon glyphicon-triangle-top"></span>
+                        </div>
+                    </th>
+
+                    <th style="width: 100px;">
+
+                    </th>
+                </tr>
+                </thead>
+                <tbody style="-webkit-user-select: text;  -moz-user-select: text;  -ms-user-select: text;  user-select: text;">
+                <tr ng-repeat="phoneNumber in displayedCollection| orderBy:sortType  | filter : vm.ignoreAccents |limitTo:vm.totalDisplayed">
+                    <!--<tr ng-repeat="phoneNumber in vm.tempPhones| orderBy:sortType  | filter : vm.ignoreAccents">-->
+
+                    <td style="width: 40px;text-align: center;">
+                        <div class="s_cls box-status" ng-style="phoneNumber.StatusOperator">
+                            {{phoneNumber.StatusDescription}}
+                        </div>
+                    </td>
+
+                    <td style="width: 130px;text-align: center;">
+                        <div class="s_cls">
+                            <input id="portabilidadeTelefone" ng-change="vm.telephonechanged($index)" next-on-enter
+                                   class="form-control" ng-model="phoneNumber.NovoFormatoNumero"
+                                   type="tel" placeholder="(xx) 99999-9999" mask="(99) 9?9999-9999" restrict="reject"
+                                   ng-change="vm.validatePhoneNumber($index)"
+                                   style="width: 120px;">
+                        </div>
+                    </td>
+
+                    <td style="width: 40px;">
+                        <toggle ng-change="vm.activechanged($index)" on="On" off="Off"
+                                ng-model="phoneNumber.LinhaAtiva"></toggle>
+
+                    </td>
+
+                    <td style="width: 100px;">
+                        <div class="s_cls">
+                            <select id="qualPlanoContratar" next-on-enter class="form-control"
+                                    ng-options="plan.Id as plan.Description for plan in vm.plans "
+                                    ng-model="phoneNumber.IdPlanOption"
+                                    ng-change="vm.changedPlano($index,phoneNumber.IdPlanOption)"
+                                    style="width: 160px;">
+                                <option value="">Selecione</option>
+                            </select>
+                        </div>
+                    </td>
+
+                    <td style="width: 130px;text-align: center;">
+                        <div class="s_cls">
+                            <input id="preco" next-on-enter class="form-control" ng-focus="vm.onfocusPreco($index)"
+                                   ng-blur="vm.onBlurPreco($index)" ng-change="vm.pricechanged($index)"
+                                   ng-model="phoneNumber.price"
+                                   restrict="reject" style="width: 120px;">
+                        </div>
+                    </td>
+
+                    <td style="width: 130px;text-align: center;">
+                        <div class="s_cls">
+                            <input id="perfill" next-on-enter class="form-control" restrict="reject"
+                                   style="width: 120px;">
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="s_cls">
+                            <input id="comentarioValor" next-on-enter class="form-control"
+                                   ng-change="vm.nicknamechanged()" ng-model="phoneNumber.NickName"
+                                   type="text" placeholder="Apelido" style="width: 100%;">
+                        </div>
+                    </td>
+                    <td style="display: flex; align-items: center;">
+                        <i class="glyphicon glyphicon-ok-circle checkcircle" ng-click="vm.onchecked( $index)"></i>
+                        <i class="glyphicon glyphicon-remove-circle uncheckcircle"
+                           ng-click="vm.onunchecked( $index)"></i>
+                        <button class="btn btn-primary" ng-click="vm.onedit($index)">
+                            <i class="glyphicon glyphicon-option-horizontal"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+                <!--<tfoot>-->
+                <!--<tr>-->
+                    <!--<td colspan="5" class="text-center" style="    text-align: center;">-->
+                        <!--<div st-pagination="" st-items-by-page="7" st-displayed-pages="7"></div>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--</tfoot>-->
+            </table>
+        </div>
+    </div>
+    <div class="form-group col-xs-12">
+        <!--
+            <button class="btn btn-primary col-sm-2 col-xs-12" ng-disabled="vm.requesting" ng-enter="vm.onTapSendUser(vm.customer)" ng-click="vm.onTapSendUser(vm.customer)">Enviar</button>
+            <button ng-enter="vm.onTapNewPhoneNumber()" ng-click="vm.onTapNewPhoneNumber()" style="background: transparent; border: none; position: absolute; right: 0; padding-right: 16px;" class="s_button-icon">
+                <i class="glyphicon glyphicon-plus"></i>
+                </i>
+            </button>
+        -->
+    </div>
+</div>
+
+<style>
+    .checkcircle {
+        color: green;
+
+        font-size: 35px;
+    }
+
+    .checkcircle:hover {
+        background-color: #bdffab;
+    }
+
+    .checkcircle:active {
+        background-color: #95adff;
+    }
+
+    .uncheckcircle {
+        color: red;
+
+        font-size: 35px;
+    }
+
+    .uncheckcircle:hover {
+        background-color: #fdb6b6;
+    }
+
+    .uncheckcircle:active {
+        background-color: #e2a3fd;
+    }
+</style>

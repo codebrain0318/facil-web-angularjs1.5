@@ -1,0 +1,119 @@
+<div class="new-card-modal" ng-controller="RepeatCardController as vm">
+    <div class="header">
+        <span class="title" ng-if="!vm.etapaConfirmacao">Pagamento com novo cartão</span>
+        <span class="title" ng-if="vm.etapaConfirmacao">Confirmação de pagamento</span>
+        <button ng-click="closeThisDialog(0)">X</button>
+    </div> 
+    
+    <h4 class="nome-cliente">{{vm.customer.Name}}</h4>
+    <div class="modal-container">
+        <div class="container col-xs-12">
+            <div ng-if="vm.etapaDados">
+                <!--remoção-->
+                <!--<div class="item item-divider">
+                    -- Daqui pra baixo tudo será movido --
+                </div>-->             
+                <h4>Dados Cartão de Crédito</h4>
+                <div class="form-group col-xs-12">
+                    <label for="nomeCartao">Nome como no cartão:</label>
+                    <input id="nomeCartao" next-on-enter class="form-control" ng-model="vm.cardHolderName" type="text">
+                </div>
+                <div class="form-group col-xs-12">
+                    <label for="numeroCartao">Número do cartão:</label>
+                    <input id="numeroCartao" next-on-enter class="form-control" ng-model="vm.cardNumber" type="tel">
+                </div>         
+                <div class="form-group col-xs-12">
+                    <label for="mesExpericao">Mês expiração:</label>
+                    <input id="mesExpericao" next-on-enter class="form-control" ng-model="vm.cardExpirationMonth" type="tel" placeholder="01">
+                </div>                           
+                <div class="form-group col-xs-12">
+                    <label for="anoExpericao">Ano expiração:</label>
+                    <input id="anoExpericao" next-on-enter class="form-control" ng-model="vm.cardExpirationYear" type="tel" placeholder="2019">
+                </div>                                       
+                <div class="form-group col-xs-12">
+                    <label for="codigoVerificacao">Código de verificação:</label>
+                    <input id="codigoVerificacao" next-on-enter class="form-control" ng-model="vm.cardCVV" type="tel">
+                </div>                                                   
+    
+                <h4>Período de vingência da cobrança</h4>
+
+                <div class="form-group col-xs-12">
+                        <label>Ano:</label>
+                    <select ng-model="vm.year">
+                        <option ng-repeat="year in vm.years" ng-model="vm.year">{{year}}</option>
+                    </select>
+
+                    <label>Mês:</label>
+                    <select ng-model="vm.month">
+                        <option ng-repeat="month in vm.months" ng-model="vm.month" ng-selected="{{month == 2}}">{{month}}</option>
+                    </select>
+                </div>
+
+
+                <h4>Valor</h4>
+
+                
+
+                <div class="form-group col-xs-12">
+                    <label for="quantia">Quantia:</label>
+                    <input id="quantia" next-on-enter class="form-control" ng-model="vm.amount" money-input type="tel">
+                </div> 
+                <div class="form-group col-xs-12">
+                    <label for="observacao">Observação:</label>
+                    <input id="observacao" ng-enter="vm.onTapConfirmarPagamento()" class="form-control" ng-model="vm.comment" type="text">
+                </div> 
+                <button ng-click="vm.onTapConfirmarPagamento()" ng-disabled="vm.comment.length == 0 || vm.amount.length == 0 || vm.disableTapPay" class="btn btn-success col-xs-12">
+                        <!-- <button ng-click="vm.onTapConfirmarPagamento()" class="btn btn-success col-xs-12"> -->
+                        Cobrar
+                </button>           
+            </div>
+
+            <div ng-if="vm.etapaConfirmacao">
+                <div class="form-group col-xs-12">
+                    <label for="quantia">Quantia:</label>
+                    <input id="quantia" class="form-control" ng-disabled="true" value="{{vm.amount/100 | currency:'R$' : 2}}" type="text">
+                </div> 
+                <div class="form-group col-xs-12">
+                    <label for="metodo">Método:</label>
+                    <input id="metodo" class="form-control" ng-disabled="true" value="Novo Cartão de crédito" type="text">
+                </div>                
+                
+                <uib-accordion close-others="oneAtATime">
+                    <div uib-accordion-group class="panel-default" ng-init="status.open = true" is-open="status.open" ng-repeat="history in vm.customer.histories|limitTo:1">
+                        <uib-accordion-heading>
+                            Ultima cobrança<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>                        
+                        </uib-accordion-heading>
+                        <div class="accordion-container">
+                            <p>Data e hora: <strong>{{history.CreationDate}}.</strong> </p>
+                            <p>Comentário: <strong>{{history.Comment}}.</strong> </p>
+                            <p>Valor: <strong>{{history.Ammount / 100 }} R$ </strong> </p>
+                            <p>Tipo: <strong>{{history.descriptionType}} </strong> </p>
+                            <p>Agente: <strong>{{history.CollectorName }} </strong> </p>
+                            <p ng-if="history.StatusPayment != undefined" >Status pagamento: <strong>{{history.StatusPayment }} </strong> </p>
+                        </div>
+                        <button class="btn btn-info col-xs-12 col-sm-3" ng-click="vm.onTapPaymentHistoryDetail(history);"> + Info </button>
+                    </div> 
+                </uib-accordion>
+
+                <div ng-show="vm.statusTransaction" class="list">
+                    <h4>{{vm.statusTransaction}}</h4>
+                </div>
+
+                <div ng-if="vm.disableTapPay || !vm.cobrancaRealizada">
+                    <button ng-click="vm.onTapPagar()" class="btn btn-success col-xs-12" ng-disabled="vm.disableTapPay">
+                        Cobrar
+                    </button>
+                    <button ng-click="vm.onTapCancel()" class="btn btn-danger col-xs-12" ng-disabled="vm.disableTapPay">
+                        Cancelar
+                    </button>
+                </div>
+                <div ng-if="vm.cobrancaRealizada">
+                    <h4 style="text-align: center;">Cobrança realizada com sucesso.</h4>
+                    <button ng-click="vm.onTapCancel(1); closeThisDialog(0);" class="btn btn-success col-xs-12">
+                        Ok
+                    </button>
+                </div>     
+            </div>  
+        </div>
+    </div>  
+</div>

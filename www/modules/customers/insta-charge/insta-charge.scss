@@ -1,0 +1,29 @@
+.font-green {
+    color: green;
+    font-size: 12px;
+}
+
+.search-items {
+    padding-left: 10px;
+    padding-bottom: 5px;
+    margin: 0 0 0px;
+}
+
+.search-items:hover {
+    background: #e8e8e8;
+    cursor: pointer;
+}
+
+.items {
+    max-height: 140px;
+    overflow: auto;
+    background-color: #fff;
+    font-size: 14px;
+    position: absolute;
+    width: 90%;
+    z-index: 1;
+}
+
+.search-control {
+    width: 150px;
+}

@@ -1,0 +1,69 @@
+.borda-topo {
+  margin-top: 100px;
+  position: relative;
+  // width: 50px;
+  // height: 50px;
+}
+
+.container-button {
+  position: relative;
+  width: 250px;
+  height: 20px;
+  // background-color: red;
+  // margin-top: 50px;
+}
+
+.container-texto {
+  position: absolute;
+  top: 100px;
+  right: 0;
+  width: 70%;
+  // height: 100%;
+  // background-color: red;
+}
+
+.largura-area-texto {
+  width: 70%;
+}
+
+.altura-area-texto {
+  height: 400px;
+}
+
+.preview {
+  position: relative;
+  width: 600px;
+  background-color: white;
+}
+
+.container-plan-edition {
+}
+
+.container-plan-edition {
+  margin-top: 70px;
+  margin-left: 30px;
+  width: 95%;
+}
+
+.btn-edicao-foneclube-plan {
+  width: 90%;
+  margin-top: 15px;
+}
+
+.margem-item-tabela-plans {
+  margin-left: 20px;
+}
+
+img.imgEdit {
+  max-width: 20px;
+  border-radius: 0 !important;
+}
+
+img.imgduplicate {
+  max-width: 20px;
+  border-radius: 0 !important;
+}
+img.imgDelete {
+  max-width: 20px;
+  border-radius: 0 !important;
+}

@@ -1,0 +1,191 @@
+<style type="text/css">
+  .form-check {
+    margin-top: 10px;
+  }
+  .m-t-10 {
+    margin-top: 10px;
+  }
+
+  .ag-theme-balham .ag-select-list {
+    width: auto !important;
+    max-width: 100% !important;
+    min-width: auto !important;
+  }
+</style>
+<div class="boleto-modal" ng-controller="InstaChargeConfirmation as vm">
+  <div class="header">
+    <div class="header-text">
+      Confirmar <span ng-show="vm.showCharge">cobrança</span
+      ><span ng-show="!vm.showCharge">detalhes</span>
+    </div>
+  </div>
+  <div class="modal-container">
+    <div class="">
+      <div class="col-md-12">
+        <div class="form-group col-sm-6 col-xs-12">
+          <p ng-bind-html="vm.Message" class="m-t-10"></p>
+        </div>
+        <div class="form-group col-sm-6 col-xs-12">
+          <p ng-bind-html="vm.MessageAddress" class="m-t-10"></p>
+        </div>
+      </div>
+    </div>
+    <div class="row" ng-show="vm.showCharge">
+      <div class="col-md-4">
+        <div class="form-group col-sm-12 col-xs-12">
+          <label class="control-label">Valor R$</label>
+          <input
+            id="quantia"
+            money-input
+            type="tel"
+            class="form-control"
+            ng-model="vm.Amount"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row" ng-show="vm.showCharge">
+      <div class="col-md-12">
+        <div class="form-group col-sm-4 col-xs-12">
+          <div class="form-check">
+            <label class="form-check-label" for="radio1">
+              <input
+                type="radio"
+                id="radio1"
+                name="response"
+                data-ng-model="vm.shipmentType"
+                class="form-check-input"
+                ng-change="vm.updateShipment()"
+                ng-value="1"
+              />
+              Correios + SIM Card
+            </label>
+          </div>
+        </div>
+        <div class="form-group col-sm-5 col-xs-12">
+          <div class="form-check">
+            <label class="form-check-label" for="radio2">
+              <input
+                type="radio"
+                id="radio2"
+                name="response"
+                class="form-check-input"
+                data-ng-model="vm.shipmentType"
+                ng-change="vm.updateShipment()"
+                ng-value="2"
+              />
+              Retirar chip com representative
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" ng-show="vm.showCharge">
+      <div class="col-md-12">
+        <div class="form-group col-sm-2 col-xs-12">
+          <div class="">
+            <label class="form-check-label" for="radio3">
+              <input
+                type="radio"
+                id="radio3"
+                name="paytype"
+                data-ng-model="vm.paymentType"
+                class="form-check-input"
+                ng-value="3"
+              />
+              Pix
+            </label>
+          </div>
+        </div>
+        <div class="form-group col-sm-2 col-xs-12">
+          <div class="">
+            <label class="form-check-label" for="radio4">
+              <input
+                type="radio"
+                id="radio4"
+                name="paytype"
+                data-ng-model="vm.paymentType"
+                class="form-check-input"
+                ng-value="1"
+              />
+              CC
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="form-group col-sm-6 col-xs-6">
+            <label class="control-label">DDD do novo número para ativar</label>
+            <input
+              id="activateDDD"
+              type="text"
+              class="form-control"
+              ng-model="vm.ActivateDDD"
+            />
+          </div>
+          <div class="form-group col-sm-6 col-xs-6">
+            <label class="control-label">CPF do número para ativar</label>
+            <input
+              id="activateCPF"
+              type="text"
+              class="form-control"
+              ng-model="vm.ActivateCPF"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group col-sm-4 col-xs-12">
+          <div class="form-check">
+            <label class="form-check-label" for="chkActivate">
+              <input
+                type="checkbox"
+                id="chkActivate"
+                name="chkActivate"
+                data-ng-model="vm.IsActivate"
+                class="form-check-input"
+              />
+              Ative antes do pagamento?
+            </label>
+          </div>
+        </div>
+        <div class="form-group col-sm-3 col-xs-12">
+          <label class="control-label">Senha</label>
+          <input
+            id="senha"
+            type="tel"
+            class="form-control"
+            ng-model="vm.Senha"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="m-t-10">
+        <div class="col-md-12 m-t-10">
+          <div class="form-group col-sm-12 col-xs-12">
+            <button
+              ng-show="vm.showCharge"
+              ng-click="vm.registerAndChargeClient()"
+              class="btn btn-success col-xs-12 lg-m-t-60"
+            >
+              Cobrar
+            </button>
+            <button
+              ng-show="!vm.showCharge"
+              ng-click="vm.registerClientLine()"
+              class="btn btn-success col-xs-12 lg-m-t-60"
+            >
+              Salvar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

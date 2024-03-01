@@ -1,0 +1,41 @@
+<div class="whatsapp-modal" ng-controller="WPPController as vm">
+  <div class="row">
+    <div class="col-lg-12 m-t-20">
+      <h4>WPP Connect Functions</h4>
+    </div>
+  </div>
+  <div class="col-lg-12 m-t-20">
+    <div class="margin-top:20px;">
+      <button class="btn btn-success" ng-click="vm.startWPP()">
+        Start WPP
+      </button>
+      <button class="btn btn-danger" ng-click="vm.stopWPP()">
+        Stop WPP
+      </button>
+      <button class="btn btn-success" ng-click="vm.startSession()">
+        Start Session
+      </button>
+      <button class="btn btn-info" ng-click="vm.checkConnectionStatus()">
+        Check Connection Status
+      </button>
+      <button class="btn btn-info" ng-click="vm.getSessionStatus()">
+        Get Session Status
+      </button>
+      <button class="btn btn-primary" ng-click="vm.createToken()">
+        Create Token
+      </button>
+      <button class="btn btn-danger" ng-click="vm.closeSession()">
+        Close Session
+      </button>
+      <button class="btn btn-default" ng-click="vm.clearLog()">
+        Clear Log
+      </button>
+    </div>
+  </div>
+  <div class="col-lg-12 m-t-20">
+    <h5>Status log</h4>
+  </div>
+  <div class="col-lg-12 m-t-20">
+    <div class="col-md-12" ng-bind-html="vm.log"></div>
+  </div>
+</div>

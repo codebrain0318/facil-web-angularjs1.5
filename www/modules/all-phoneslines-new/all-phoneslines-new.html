@@ -1,0 +1,100 @@
+<div style="background-color: #fff" class="mass-charging-container">
+  <div class="row">
+    <div class="header">
+      <div class="header-text" style="display: flex; position: relative;">
+
+        <div class="wrapper-header" style="display: flex; gap: 2rem; ">
+          <div style="display: flex; flex-direction: column; gap: 0.6rem; ">
+            <div style="display: flex; gap: 0.5rem; align-items: center; padding: 0 0.5rem; flex-wrap: wrap;">
+              <input class="filter-input" type="text" ng-keyup="vm.onQuickFilterChanged()" id="quickFilter"
+                placeholder="Filter" ng-model="vm.filterText" />
+
+              <button class="trash" ng-click="vm.clearFilter()" style="margin-left: 10px">
+                <i class="fa fa-trash"></i>
+              </button>
+
+              <select style="max-width: 150px;" class="form-control" ng-model="vm.defaultGridState"
+                ng-change="vm.getAgGridState(item)" ng-options="item.txtStateName for item in vm.agGridStates">
+              </select>
+
+              <a ng-click="vm.addNewLine()" set-focus="quickFilter" style="margin-left: 10px; cursor: pointer"><i
+                  class="fa fa-plus"></i></a>
+              <button style="max-height: 34px;" class="btn btn-default" data-ng-click="vm.saveState()"
+                title="Save State">
+                <i class="fa fa-save"></i>
+              </button>
+              <button class="btn btn-default" style="margin-top: 0px; max-height: 34px;"
+                data-ng-click="vm.updateState()" title="Update State">
+                <i class="fa fa-refresh"></i>
+              </button>
+              <button class="btn btn-default busca-status" style="margin-top: 0px; max-height: 34px;"
+                data-ng-click="vm.deleteState()" title="Delete State">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+
+            <div class="bottom-tools" style=" display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;">
+
+              <span style="margin-left: 10px"><span ng-click="vm.refreshPage()" id="refreshButton"><i
+                    class="glyphicon glyphicon-refresh"></i></span></span>
+
+              <span style="padding-top: 0rem;" class=" pull-left m-t-n5 m-l-5" ng-if="vm.loading"><img
+                  src="../../../content/img/Loading2.gif" style="height: 7px" /></span>
+
+              <span class="" style="font-size: small; margin-right: 0.7rem;" ng-bind="vm.resultText"></span>
+
+              <a class="desktop-utils" style="margin-left: 5px" ng-click="" ngclipboard data-clipboard-action="cut"
+                data-clipboard-target="#quickFilter" ngclipboard-success="vm.onClipBoardSuccess(e)"><img width="15"
+                  class="imgccp link" src="../../content/img/cut.png" /></a>
+
+
+              <a class="desktop-utils" ng-click="" ngclipboard data-clipboard-target="#quickFilter"
+                ngclipboard-success="vm.onClipBoardSuccess(e)"><img width="15" class="imgccp link"
+                  src="../../content/img/copy.png" /></a>
+
+              <a class="desktop-utils" ng-click="vm.pasteCliboardText(this)" set-focus="quickFilter"><img width="15"
+                  class="imgccp link" src="../../content/img/paste.png" /></a>
+
+
+              <button class="btn btn-default"
+                style="margin-top: 0px; width: 28.58px; height: 28.61px; display: flex; align-items: center; justify-content: center;"
+                data-ng-click="vm.exportToExcel()">
+                <i class="fa fa-file-excel-o"></i>
+              </button>
+
+              <div
+                style="display: flex; align-items: center; justify-content: center; margin-left: 0.5rem; gap: 0.5rem;"
+                class="only-active">
+
+                <input data-ng-click="vm.onlyActive()" type="checkbox" id="filterCheckbox" uib-tooltip="Só Ativas"
+                  checked="true" tooltip-placement="top" ng-model="vm.checkboxModel"
+                  ng-init="vm.checkboxModel = true" />
+
+                <label style="margin-bottom: 0;" for="filterCheckbox">So Ativas</label>
+              </div>
+
+              <span style="margin-left: 0.8rem; display: flex; align-items: center; gap: 0.5rem;" ng-show="vm.isMobile">
+                <a href="#/tab/customers-new"><i class="glyphicon glyphicon-home" aria-hidden="true"></i></a>
+                <a href="#/tab/insta-charge"><i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i></a>
+                <a href="#/tab/allphonelines2new"><i class="glyphicon glyphicon-phone" aria-hidden="true">2</i></a>
+              </span>
+
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="row">
+      <div class="col-md-12" style="padding-right: 10px; padding-left: 10px;">
+        <div style=" padding-bottom: 0.2rem; width: {{vm.gridWidth}}; height: {{vm.gridHeight}}px;"
+          ag-grid="vm.gridOptions" class="ag-theme-balham ag-basic"></div>
+      </div>
+    </div>
+  </div>
+</div>

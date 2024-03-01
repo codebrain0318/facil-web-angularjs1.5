@@ -1,0 +1,63 @@
+<div ng-controller="PhoneTopupModalController as vm">
+  <div class="row">
+    <div class="col-md-4">
+      <div>
+        <span
+          ><strong class="f-black">Dias desde ultima Recarga:</strong>
+          {{vm.selectedRecord.result.DaysSinceLastTopup}}</span
+        >
+      </div>
+      <div>
+        <span
+          ><strong class="f-black">Data ultima Recarga:</strong>
+          {{vm.selectedRecord.result.LastRecharge}}</span
+        >
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div>
+        <span
+          ><strong class="f-black">Valor Pago:</strong>
+          {{vm.selectedRecord.result.LastPaidAmount}}</span
+        >
+      </div>
+      <div>
+        <span
+          ><strong class="f-black">Dias desde Pgmt:</strong>
+          {{vm.selectedRecord.result.LastPaidDays}}</span
+        >
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div>
+        <span
+          ><strong class="f-black">Data Pago:</strong>
+          {{vm.selectedRecord.result.LastPaidDate}}</span
+        >
+      </div>
+      <div>
+        <span
+          ><strong class="f-black">Pago Contel:</strong>
+          {{vm.selectedRecord.result.Pago}}</span
+        >
+      </div>
+      <div>
+        <span
+          ><strong class="f-black">Plano adicionado:</strong>
+          {{vm.selectedRecord.result.PaidPlano}}</span
+        >
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div style="padding: 20px">
+        <div
+          style="width: 100%; height: {{vm.gridHeight}}px;"
+          ag-grid="vm.gridOptions"
+          class="ag-theme-balham ag-basic"
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>

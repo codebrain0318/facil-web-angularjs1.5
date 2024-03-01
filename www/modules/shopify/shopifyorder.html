@@ -1,0 +1,82 @@
+<div class="container"  ng-controller="ChargeSummaryController as vm" ng-show="vm.showSummary">
+  <div class="col-lg-12">
+    <div class="normal-div-border">
+      <div class="j-div">
+        <span class="img-span">
+           <img
+             src="https://s3-sa-east-1.amazonaws.com/fone-clube-bucket/extra-img/logo.png"
+             alt="FoneClube Logo"
+           />
+          <h2 class="bot">🤖 <strong>FoneBot</strong></h2>
+          </h2>
+          <h5
+            style="padding: 5px 0; color: #508fe3; font-weight: 600"
+          >
+            Prezado {{vm.customerName}},
+          </h5>
+          <p class="m-t-10">
+            Segue resumo da sua última cobrança
+          </p>
+          <p class="m-t-10">
+            {{vm.AdditionalComments}}
+          </p>
+          <p class="m-t-10 bold">
+            Vencimento: {{vm.vencimento}}</p>
+            <p class="bold">
+            Vigencia: {{vm.vigencia}}</p>
+            <p class="bold">
+            Total: R${{vm.price/100}}
+          </p>
+          <p style="margin: 0" ng-if="vm.isPix">
+            <img src="{{vm.imgUrl}}" alt="qrcode" width="250" height="250" />
+          </p>
+          <p class="m-t-10" ng-if="vm.isBoleto">
+            <a href="{{vm.boletoUrl}}" title="boleto_link" style="word-break: break-all;">{{vm.boletoUrl}}</a>
+          </p>
+          <p class="m-t-10" ng-if="vm.isPix">
+            Parar pagar com Codigo PIX clique no botão abaixo para copiar o codigo e depois cola ele no aplicativo do seu banco na area de CODIGO PIX.
+            IMPORTANTE: Isso não é uma CHAVE PIX e se colar na area de CHAVE vai dar erro!!
+          </p>
+          <p class="m-t-10">
+            <div class="col-md-6" ng-if="vm.isPix" uib-tooltip="Codigo PIX Copiado, agora abra aplicativo do seu banco e vai em PIX / PAGAR / Pagar Copiando e Colando" tooltip-trigger="'click'">
+              <button
+              class="btn btn-info"
+              style="float: right;"
+              ngclipboard
+              data-clipboard-text="{{ vm.pixCode }}"
+            >
+              Codigo PIX
+            </button>
+            </div>
+            <div class="col-md-6" ng-if="vm.isPix">
+            <a
+              class="btn btn-info"
+              href="{{vm.imgUrl}}"
+              target="_blank" 
+              style="text-decoration: none;float: left;"
+            >
+              QrCode
+          </a>
+          </div>
+          </p>
+          <div ng-if="vm.isBoleto" class="m-t-10">
+            <div>{{vm.BoletoBarcode}}</div>
+            <div class="m-t-10">
+            <button
+                          class="btn btn-info"
+                          ngclipboard
+                          data-clipboard-text="{{ vm.boletoUrl }}"
+                        >
+                        Copiar link Boleto
+                        </button></div>
+                      </div>
+           <p class="m-t-10">
+             Caso tenha alguma dúvida envie um <span class="bold"><br/>whatsapp para <a href="https://wa.me/5521981908190">5521-98190-8190</a></span>
+           </p>
+           <p class="m-t-10">
+            ou email para <span class="bold"><a href="mailto:financeiro@foneclube.com.br">financeiro@foneclube.com.br</a></span>
+           </p>
+    </div>
+    </div>
+  </div>
+</div>

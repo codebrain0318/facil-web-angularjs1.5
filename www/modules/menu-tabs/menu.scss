@@ -1,0 +1,112 @@
+.menu-container {
+  @mixin flexDefault() {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  // -webkit-user-select: none;
+  // -moz-user-select: none;
+  // -ms-user-select: none;
+  // user-select: none;
+  cursor: default;
+  color: white;
+  height: 94.4vh;
+
+  .menu-views {
+    display: flex;
+    flex: auto 1 1;
+    height: 100vh;
+    color: #656565;
+    overflow-y: auto;
+  }
+
+  .menu-open,
+  .menu-close {
+    display: flex;
+    flex: 1 1;
+    height: 100%;
+    float: left;
+    background-color: #32404e;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .menu-item {
+      &.logo {
+        background-color: #35baf6;
+        margin-top: 0px;
+      }
+
+      &:hover {
+        background-color: #35baf6;
+      }
+    }
+
+    .item-menu-active {
+      background-color: #475360;
+
+      &::before {
+        content: " ";
+        position: absolute;
+        display: block;
+        left: 0;
+        width: 5px;
+        height: 43px;
+        background-color: #35baf6;
+      }
+    }
+
+  }
+
+  .menu-open {
+    min-width: 150px;
+
+    .menu-item {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      cursor: pointer;
+      @include flexDefault();
+      flex-direction: column;
+      height: 43px;
+
+      span {
+        margin-top: 5px;
+      }
+    }
+
+    .menu-item-settings {
+      width: 150px;
+    }
+  }
+
+  .menu-close {
+    min-width: 70px;
+
+    .menu-item {
+      cursor: pointer;
+      @include flexDefault();
+      flex-direction: column;
+      height: 43px;
+
+      span {
+        display: none;
+      }
+    }
+
+    .menu-item-settings {
+      width: 70px;
+    }
+  }
+
+  .menu-close-mobile {
+    display: none;
+  }
+}

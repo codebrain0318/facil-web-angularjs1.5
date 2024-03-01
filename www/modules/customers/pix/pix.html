@@ -1,0 +1,718 @@
+<div class="boleto-modal" ng-controller="PIXController as vm">
+  <div class="header">
+    <div class="row">
+      <div class="col-md-1 col-sm-1 col-xs-1">
+        <img class="img-responsive" src="content/img/pix.png" />
+      </div>
+      <div class="col-md-5">
+        <h4 class="nome-cliente dialogheader">{{vm.customer.Name}}</h4>
+      </div>
+    </div>
+  </div>
+  <div class="modal-container m-t-5">
+    <div class="container col-xs-12">
+      <div ng-if="vm.etapaDados">
+        <!-- <h4>Período de vingência da cobrança</h4> -->
+        <div class="row m-t-20" ng-if="vm.isMobile">
+          <button
+            id="btnSalvar1"
+            ng-click="vm.SaveDefaults()"
+            class="btn btn-success col-xs-12"
+          >
+            Salvar padrões
+          </button>
+          <button
+            id="btnCobrar1"
+            ng-click="vm.onTapConfirmarPagamento()"
+            ng-disabled="vm.comment.length == 0 || vm.amount.length == 0 || vm.disableTapPay"
+            class="btn btn-success col-xs-12"
+          >
+            Cobrar
+          </button>
+          <button
+            id="btnCobrarD51"
+            class="btn btn-warning col-xs-12"
+            ng-click="vm.onTapPagar(true, false)"
+            ng-disabled="vm.comment.length == 0 || vm.amount.length == 0 || vm.disableTapPay"
+          >
+            Cobrar D - 5
+          </button>
+        </div>
+        <div class="row m-t-20" ng-if="!vm.isMobile">
+          <div class="col-md-12">
+            <div class="custom-row">
+              <div class="col-md-2">
+                <button
+                  id="btnSalvar1"
+                  ng-click="vm.SaveDefaults()"
+                  class="btn btn-success col-xs-12"
+                >
+                  Salvar padrões
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button
+                  id="btnCobrar1"
+                  ng-click="vm.onTapConfirmarPagamento()"
+                  ng-disabled="vm.comment.length == 0 || vm.amount.length == 0 || vm.disableTapPay"
+                  class="btn btn-success col-xs-12"
+                >
+                  Cobrar
+                </button>
+              </div>
+              <div class="col-md-1">
+                <button
+                  id="btnP1"
+                  class="btn btn-info"
+                  ng-click="vm.generateAndPasteDefaults()"
+                >
+                  P
+                </button>
+              </div>
+              <div class="col-md-3">
+                <button
+                  id="btnCobrarD51"
+                  class="btn btn-warning col-xs-12"
+                  ng-click="vm.onTapPagar(true, false)"
+                  ng-disabled="vm.comment.length == 0 || vm.amount.length == 0 || vm.disableTapPay"
+                >
+                  Cobrar D - 5
+                </button>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group form-inline" style="text-align: right">
+                  <button
+                    ng-click="vm.decrementBothPP()"
+                    class="btn btn-default mb-0"
+                    ng-disabled="vm.bothPP<=1"
+                  >
+                    -
+                  </button>
+                  <input
+                    ng-model="vm.bothPP"
+                    value="5"
+                    type="text"
+                    class="form-control"
+                    style="width: 15%; text-align: center"
+                    autocomplete="false"
+                  />
+                  <button
+                    class="btn btn-default mb-0"
+                    ng-click="vm.incrementBothPP()"
+                    ng-disabled="vm.bothPP>=12"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button
+                  id="btnBothPP1"
+                  ng-click="vm.onTapPagar(true, true)"
+                  ng-disabled="vm.comment.length == 0 || vm.amount.length == 0 || vm.disableTapPay"
+                  class="btn btn-success col-xs-12"
+                >
+                  +Both + PP
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <div class="custom-row row">
+              <div class="col-md-6">
+                <label for="quantia2">Valor R$</label>
+                <input
+                  id="quantia2"
+                  money-input
+                  type="tel"
+                  class="form-control"
+                  style="width: 50%"
+                  ng-change="vm.calculate()"
+                  ng-model="vm.amountTemp"
+                />
+              </div>
+              <div class="col-md-6">
+                <div class="">
+                  <label>Dia Cob. Padrão: </label>
+                </div>
+                <div class="form-group form-inline">
+                  <button
+                    ng-click="vm.decrementPadroa()"
+                    class="btn btn-default mb-0"
+                    ng-disabled="vm.padroaValue<=1"
+                  >
+                    -
+                  </button>
+                  <input
+                    ng-model="vm.padroaValue"
+                    value="25"
+                    type="text"
+                    class="form-control"
+                    style="width: 40% !important; text-align: center"
+                    autocomplete="false"
+                    ng-change="vm.refreshVencimento()"
+                  />
+                  <button
+                    class="btn btn-default mb-0"
+                    ng-click="vm.incrementPadroa()"
+                    ng-disabled="vm.padroaValue>=31"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="custom-row row m-t-20">
+              <div class="col-md-12">
+                <label class="">
+                  <input
+                    type="checkbox"
+                    ng-model="vm.chargeStatusfirst"
+                    ng-change="vm.checkOne('1')"
+                    value="1"
+                  />
+                  Padrao</label
+                >
+
+                <label class="m-l-5"
+                  ><input
+                    type="checkbox"
+                    ng-model="vm.chargeStatusSecond"
+                    ng-change="vm.checkOne('2')"
+                    value="2"
+                  />
+                  Extra</label
+                >
+              </div>
+            </div>
+            <div class="custom-row row m-t-20">
+              <div class="col-md-12">
+                <label>
+                  <input
+                    type="checkbox"
+                    ng-model="vm.pagar"
+                    ng-change="vm.calculate()"
+                  />
+                  Pagar</label
+                >
+              </div>
+            </div>
+
+            <div class="custom-row row m-t-20">
+              <div class="col-md-6">
+                <label for="quantia">Valor Com Bonus R$</label>
+                <input
+                  id="quantia"
+                  next-on-enter
+                  class="form-control"
+                  ng-disabled="true"
+                  ng-model="vm.amountTemp1"
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="quantia1">Total Comissão e Bonus R$</label>
+                <input
+                  id="quantia1"
+                  money-input
+                  type="tel"
+                  next-on-enter
+                  class="form-control"
+                  ng-model="vm.totaisComissoes.ValorTotalLiberadoParaPagarCliente"
+                  ng-change="vm.calculate()"
+                />
+              </div>
+            </div>
+            <div class="custom-row row m-t-20">
+              <div class="col-md-4">
+                <label class="">
+                  <input type="checkbox" ng-model="vm.sendWAText" />
+                  WA TXT
+                </label>
+              </div>
+              <div class="col-md-4">
+                <label class="">
+                  <input type="checkbox" ng-model="vm.sendMarketing1" />
+                  Enviar WA marketing1
+                </label>
+              </div>
+              <div class="col-md-4">
+                <label class="">
+                  <input type="checkbox" ng-model="vm.sendMarketing2" />
+                  Enviar WA marketing 2
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label for="ano" class="font-red">Vigencia</label>
+            <label class="font-red" style="float: right">
+              <input type="checkbox" ng-model="vm.multiVigencia" />
+              Múltiplo
+            </label>
+            <div
+              moment-picker="vm.vigenciaField"
+              change="vm.changeTextValue()"
+              format="YYYY MM"
+              max-view="month"
+              start-view="month"
+              autoclose="false"
+              inline="true"
+              set-on-select="true"
+            ></div>
+
+            <div
+              style="width: 100%; background-color: #fff"
+              ng-show="vm.multiVigencia"
+            >
+              <span ng-repeat="day in vm.selectDays">
+                <input
+                  type="checkbox"
+                  class="chk-btn"
+                  ng-change="vm.changeTextValue()"
+                  id="{{day}}"
+                  ng-model="vm.selectedList[day]"
+                />
+                <label for="{{day}}">{{day}}</label>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="observacao" class="font-red">Vencimento:</label>
+            <div
+              moment-picker="vm.expirationDateField"
+              change="vm.changeTextValueChange()"
+              format="DD MMMM YYYY"
+              max-view="day"
+              start-view="day"
+              min-date="''"
+              autoclose="false"
+              inline="true"
+              set-on-select="true"
+            ></div>
+            <div class="m-t-20">
+              <div style="float: left">
+                <label>
+                  <input type="checkbox" ng-model="vm.addVencimentoDays" />
+                  365
+                </label>
+              </div>
+              <div class="form-group form-inline">
+                <label class="m-l-30">Verificar D+ </label>
+                <button
+                  ng-click="vm.decrementVerificar()"
+                  class="btn btn-default mb-0"
+                  ng-disabled="vm.verificarValue<=1"
+                >
+                  -
+                </button>
+                <input
+                  ng-model="vm.verificarValue"
+                  value="5"
+                  type="text"
+                  class="form-control"
+                  style="width: 15%; text-align: center"
+                  autocomplete="false"
+                />
+                <button
+                  class="btn btn-default mb-0"
+                  ng-click="vm.incrementVerificar()"
+                  ng-disabled="vm.verificarValue>=31"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="">
+              <input type="checkbox" ng-model="vm.enviaWhatsapp" />
+              Envia whatsapp
+            </label>
+          </div>
+          <div class="col-md-4">
+            <input
+              type="text"
+              ng-model="vm.customerPhones"
+              class="form-control"
+              ng-blur="vm.validatePhone()"
+            />
+          </div>
+          <div class="col-md-3">
+            <label>
+              <input type="checkbox" ng-model="vm.enviaEmail" />
+              Envia Email
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label class="font-red" style="word-break: break-word"
+              >{{vm.customersInvalidPhones}}</label
+            >
+          </div>
+        </div>
+        <div class="row m-t-5">
+          <div class="col-md-12">
+            <label for="observacao">Observação cliente (email):</label>
+            <button
+              class="btn btn-info btn-xs"
+              ng-click="vm.generateAndPasteDefaults()"
+            >
+              P
+            </button>
+            <textarea
+              id="observacao"
+              class="form-control"
+              ng-model="vm.customerComment"
+              ng-mouseleave="vm.changeTextValue()"
+              rows="10"
+              cols="40"
+            ></textarea>
+            <!-- <ng-quill-editor
+              id="observacao"
+              ng-model="vm.customerComment"
+              toolbar-entries="font size"
+            ></ng-quill-editor> -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 m-t-5">
+            <div class="form-group">
+              <label for="observacao">Observação Foneclube: </label>
+              <button
+                class="btn btn-info btn-xs"
+                ng-click="vm.comment=vm.customerComment"
+              >
+                P
+              </button>
+              <textarea
+                id="observacaoComment"
+                ng-model="vm.comment"
+                class="form-control"
+                ng-enter="vm.onTapConfirmarPagamento()"
+                rows="10"
+                cols="40"
+              ></textarea>
+              <!-- <ng-quill-editor
+                id="observacao"
+                ng-model="vm.comment"
+                toolbar-entries="font size"
+                ng-enter="vm.onTapConfirmarPagamento()"
+              ></ng-quill-editor> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="row m-t-20" ng-if="vm.isMobile">
+          <button
+            id="btnSalvar1"
+            ng-click="vm.SaveDefaults()"
+            class="btn btn-success col-xs-12"
+          >
+            Salvar padrões
+          </button>
+          <button
+            id="btnCobrar1"
+            ng-click="vm.onTapConfirmarPagamento()"
+            ng-disabled="vm.comment.length == 0 || vm.amount.length == 0 || vm.disableTapPay"
+            class="btn btn-success col-xs-12"
+          >
+            Cobrar
+          </button>
+          <button
+            id="btnCobrarD51"
+            class="btn btn-warning col-xs-12"
+            ng-click="vm.onTapPagar(true, false)"
+            ng-disabled="vm.comment.length == 0 || vm.amount.length == 0 || vm.disableTapPay"
+          >
+            Cobrar D - 5
+          </button>
+        </div>
+
+        <div class="row m-t-20" ng-if="!vm.isMobile">
+          <div class="col-md-12">
+            <div class="custom-row">
+              <div class="col-md-2">
+                <button
+                  id="btnSalvar2"
+                  ng-click="vm.SaveDefaults()"
+                  class="btn btn-success col-xs-12"
+                >
+                  Salvar padrões
+                </button>
+              </div>
+              <div class="col-md-3 col-xs-12">
+                <button
+                  id="btnCobrar2"
+                  ng-click="vm.onTapConfirmarPagamento()"
+                  ng-disabled="vm.comment.length == 0 || vm.amount.length == 0 || vm.disableTapPay"
+                  class="btn btn-success col-xs-12"
+                >
+                  Cobrar
+                </button>
+              </div>
+              <div class="col-md-3">
+                <button
+                  id="btnCobrarD52"
+                  class="btn btn-warning col-xs-12"
+                  ng-click="vm.onTapPagar(true, false)"
+                  ng-disabled="vm.comment.length == 0 || vm.amount.length == 0 || vm.disableTapPay"
+                >
+                  Cobrar D - 5
+                </button>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group form-inline" style="text-align: right">
+                  <button
+                    ng-click="vm.decrementBothPP()"
+                    class="btn btn-default mb-0"
+                    ng-disabled="vm.bothPP<=1"
+                  >
+                    -
+                  </button>
+                  <input
+                    ng-model="vm.bothPP"
+                    value="5"
+                    type="text"
+                    class="form-control"
+                    style="width: 15%; text-align: center"
+                    autocomplete="false"
+                  />
+                  <button
+                    class="btn btn-default mb-0"
+                    ng-click="vm.incrementBothPP()"
+                    ng-disabled="vm.bothPP>=12"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button
+                  id="btnBothPP2"
+                  ng-click="vm.onTapPagar(true, true)"
+                  ng-disabled="vm.comment.length == 0 || vm.amount.length == 0 || vm.disableTapPay"
+                  class="btn btn-success col-xs-12"
+                >
+                  +Both + PP
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-if="vm.chargeStatusDiv">
+        <label
+          >É preciso selecionar o tipo de cobrança para prosseguir na
+          operação</label
+        >
+        <div class="checkbox-wrapper">
+          <label
+            ><input
+              type="checkbox"
+              ng-model="vm.chargeStatusfirst"
+              ng-change="vm.checkOne('1')"
+              value="1"
+            />
+            Padrao</label
+          >
+          <br />
+          <label
+            ><input
+              type="checkbox"
+              ng-model="vm.chargeStatusSecond"
+              ng-change="vm.checkOne('2')"
+              value="2"
+            />
+            Extra</label
+          >
+        </div>
+        <button ng-click="vm.onTapCancel()" class="btn btn-danger col-xs-12">
+          VOLTAR
+        </button>
+        <button
+          ng-click="vm.onTapConfirmarPagamento()"
+          class="btn btn-success col-xs-12"
+          ng-disabled="vm.chargeDisabled"
+        >
+          Cobrar
+        </button>
+      </div>
+
+      <div ng-if="vm.etapaConfirmacao">
+        <div class="form-group col-xs-12">
+          <label for="quantia">Quantia:</label>
+          <input
+            id="quantia"
+            class="form-control"
+            ng-disabled="true"
+            value="{{vm.amountTemp1 | currency:'R$' : 2}}"
+            type="text"
+          />
+        </div>
+        <div class="form-group col-xs-12">
+          <label for="metodo">Método:</label>
+          <input
+            id="metodo"
+            class="form-control"
+            ng-disabled="true"
+            value="Cobrança com boleto"
+            type="text"
+          />
+        </div>
+
+        <uib-accordion close-others="oneAtATime">
+          <div
+            uib-accordion-group
+            class="panel-default"
+            ng-init="status.open = true"
+            is-open="status.open"
+            ng-repeat="history in vm.customer.histories|limitTo:1"
+          >
+            <uib-accordion-heading>
+              Ultima cobrança
+              <i
+                class="pull-right glyphicon"
+                ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"
+              ></i>
+            </uib-accordion-heading>
+            <div class="accordion-container">
+              <p>
+                Data e hora:
+                <strong>{{history.CreationDate}}.</strong>
+              </p>
+              <p>
+                Comentário:
+                <strong>{{vm.comment}}.</strong>
+              </p>
+              <p>
+                Valor:
+                <strong>{{vm.amountTemp1 }} R$ </strong>
+              </p>
+              <p>
+                Tipo:
+                <strong>{{history.descriptionType}} </strong>
+              </p>
+              <p>
+                Agente:
+                <strong>{{history.CollectorName }} </strong>
+              </p>
+              <!--<p ng-if="history.StatusPayment != undefined">-->
+              <!--Status pagamento:-->
+              <!--<strong>{{history.StatusPayment }} </strong>-->
+              <!--</p>-->
+              <a href="{{vm.boleto_url}}">{{vm.boleto_url}}</a>
+              <button
+                class="btn separador-botao"
+                ng-show="chargeAndOrder.Charges.boleto_url.length > 0"
+                ngclipboard
+                data-clipboard-text="{{chargeAndOrder.Charges.boleto_url}}"
+              >
+                Copiar link Boleto
+              </button>
+            </div>
+            <button
+              class="btn btn-info col-xs-12 col-sm-3"
+              ng-click="vm.onTapPaymentHistoryDetail(history);"
+            >
+              + Info
+            </button>
+          </div>
+        </uib-accordion>
+        <div ng-show="vm.message" class="list">
+          <h4>{{vm.message}}</h4>
+        </div>
+        <div ng-if="vm.disableTapPay || !vm.cobrancaRealizada">
+          <button
+            ng-click="vm.onTapPagar(false, false)"
+            class="btn btn-success col-xs-12"
+            ng-disabled="vm.disableTapPay"
+          >
+            Cobrar
+          </button>
+          <button
+            ng-click="vm.onTapCancel()"
+            class="btn btn-danger col-xs-12"
+            ng-disabled="vm.disableTapPay"
+          >
+            Cancelar
+          </button>
+        </div>
+        <div ng-if="vm.cobrancaRealizada">
+          <div ng-if="vm.showCopyButtons">
+            <span style="font-size: 0.8em; font-weight: bold">COPY: </span>
+            <button class="btn btn-info" ng-click="vm.CopyCodigoAndPix()">
+              Ambos
+            </button>
+            <button class="btn btn-info" ng-click="vm.CopyCodigo()">
+              Codigo PIX
+            </button>
+            <button class="btn btn-info" ng-click="vm.CopyQRCodePix()">
+              QrCode
+            </button>
+            <button ng-click="vm.copyForWhatsapp()" class="btn btn-xs">
+              <img src="../../content/img/message-green.png" width="20" />
+            </button>
+            <button
+              ng-click="vm.copyForTelegram()"
+              class="btn btn-xs"
+              style="margin-left: -10px"
+            >
+              <img src="../../content/img/telegram.png" width="20" />
+            </button>
+
+            <!-- <div class="col-md-6">
+              <div class="">
+                <label>Repeat transaction: </label>
+              </div>
+              <div class="form-group form-inline">
+                <button
+                  ng-click="vm.decrementPadroaRepeat()"
+                  class="btn btn-default mb-0"
+                  ng-disabled="vm.padroaValue<=1"
+                >
+                  -
+                </button>
+                <input
+                  ng-model="vm.padroaValueRepeat"
+                  value="25"
+                  type="text"
+                  class="form-control"
+                  style="width: 40% !important; text-align: center"
+                  autocomplete="false"
+                />
+                <button
+                  class="btn btn-default mb-0"
+                  ng-click="vm.incrementPadroaRepeat()"
+                  ng-disabled="vm.padroaValue>=24"
+                >
+                  +
+                </button>
+              </div>
+            </div> -->
+            <div>
+              <!-- <button
+              ng-click="vm.onTapPagarSchedule()"
+              class="btn btn-success col-xs-12"
+            >
+            Schedule
+            </button> -->
+            </div>
+          </div>
+          <h4 style="text-align: center">Cobrança realizada com sucesso.</h4>
+          <button
+            ng-click="vm.onTapCancel(1); closeThisDialog(0);"
+            class="btn btn-success col-xs-12"
+          >
+            Ok
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

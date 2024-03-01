@@ -1,0 +1,218 @@
+.customer-modal {
+  .flag-warning {
+    color: #ffb300;
+  }
+
+  .flag-ok {
+    color: #089000;
+  }
+
+  .clickable {
+    cursor: pointer;
+  }
+
+  .colapsable-title {
+    cursor: pointer;
+
+    &:after,
+    &:before {
+      color: darken(lightblue, 15);
+      display: inline-block;
+      opacity: 0;
+      transition: all 300ms ease;
+    }
+
+    &:hover {
+      color: #000;
+      background-color: #ccc;
+
+      &:after,
+      &:before {
+        opacity: 1;
+        transform: translatex(0);
+      }
+    }
+  }
+
+  .spnHeader {
+    color: green;
+
+    .spnStatus {
+      background-color: green;
+      width: 25px;
+      min-height: 17px;
+      display: inline-block;
+      top: 3px;
+      position: relative;
+    }
+
+    .spnVence,
+    .spnRef,
+    .spnR {
+      padding-left: 10px;
+    }
+  }
+
+  .divSubHeader {
+    font-size: 15px;
+    margin-bottom: 10px;
+
+    span {
+      display: inline-block;
+
+      .btn {
+        margin: 0px 0px 0px 10px;
+        padding: 5px 6px 5px 6px;
+      }
+    }
+
+    span#spnCopyBoletoCode {
+      cursor: pointer;
+
+      .btn {
+        color: red;
+        margin-top: 5px;
+      }
+    }
+  }
+
+  .mobile-edit {
+    display: none;
+  }
+
+  @media(max-width: 633px) {
+    .top-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .top-actions {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    .mobile-edit {
+      display: block;
+    }
+
+    .desktop-edit {
+      display: none;
+    }
+
+    .customer-name {
+      display: flex;
+      width: 100%;
+      gap: 0.5rem;
+      padding: 0;
+    }
+  }
+
+  .btn {
+    margin-bottom: 5px;
+  }
+
+  .btn:last-child {
+    // margin-bottom: 10px;
+  }
+
+  .accordion-container {
+    p {
+      margin-bottom: 5px;
+    }
+
+    p:last-child {
+      margin-bottom: 10px;
+    }
+  }
+
+  .separador-botao {}
+
+  .separador-botao-copy {
+    margin-top: 6px;
+    margin-left: 15px;
+  }
+
+  .resent-email {
+    margin-left: 15px;
+    margin-top: 5px;
+  }
+
+  .info {
+    margin-top: 5px;
+  }
+
+  .etapa-quantia {
+    background-color: white;
+    height: 150px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .form-group {
+      padding-top: 10px;
+
+      label,
+      input {
+        font-size: 20px;
+      }
+
+      input {
+        height: 40px;
+      }
+    }
+  }
+
+  section {
+    &.available-card-list {
+      margin-top: 10px;
+
+      padding-bottom: 20px;
+      // box-shadow: 0 10px 15px -12px #878787;
+      z-index: 1;
+      position: relative;
+    }
+
+    &.darker {
+      background: #eaeaea;
+      margin-bottom: 30px;
+      padding: 30px;
+    }
+
+    h4 {
+      margin-bottom: 10px;
+    }
+
+    .fix-row {
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+
+
+    @media(max-width: 685px) {
+      &.available-card-list {
+        overflow-x: auto;
+      }
+    }
+  }
+
+  section .available-card {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 100%;
+    min-width: 567px;
+    height: 52px;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #ccc;
+    }
+
+    button {
+      margin: 0;
+    }
+  }
+}

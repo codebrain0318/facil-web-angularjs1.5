@@ -1,0 +1,227 @@
+<!--<div class="bar bar-header bar-royal">
+        <h1 class="title">FoneClube</h1>
+      </div>-->
+
+<ion-view view-title="Cadastro Foneclube">
+  <ion-content>
+
+    <div class="list list-inset">
+
+        <div ng-if="vm.faseCadastro" >
+
+        <div class="item item-divider">
+            Dados do cliente
+        </div>
+         <label class="item item-input">
+            <span class="input-label">Data de Nascimento</span>
+
+            <input ng-model="vm.birthdate" type="tel"  name="date" mask="39/19/9999">
+        </label>
+        <label class="item item-input">
+            <span class="input-label">CPF ou RG</span>
+            <input ng-model="vm.register" type="tel"  ng-change="vm.validarCPF(vm.register, vm.birthdate)" ng-model-options="{debounce:1500}">
+        </label>
+        <label class="item item-input">
+            <span class="input-label">Email</span>
+            <input ng-model="vm.email" type="text">
+        </label>
+        <label class="item item-input">
+            <span class="input-label">Nome</span>
+            <input ng-model="vm.name" type="text">
+        </label>
+        <div class="item item-divider">
+            Fotografia identidade
+        </div>
+        <label class="item item-input">
+             <span class="input-label">Foto da galeria</span>
+             <input class="bottom-marg-15" id="input-file" type="file" name="file" file="file">
+
+        </label>
+        <label class="item item-input">
+            <button  class="button button-small button-full button-positive" ng-click="vm.uploadIdentidadeGaleria(vm.file)" ng-cloak="">Upload da foto galeria</button>
+             <span ng-if="vm.error" ng-bind="vm.result.error" style="color:red;font-weight:bold" ></span>
+        </label>
+
+      <img class="fit" style="width: 50%; height: 50%" ng-if="vm.rg" ng-src="{{vm.rg.url}}">
+       <!--<label class="item item-input">
+             <span class="input-label">Foto da camera</span>
+             <input class="bottom-marg-15" id="input-file" type="file" name="file" file="file">
+
+        </label>-->
+        <label class="item item-input">
+            <button class="button button-small button-full button-positive" ng-click="vm.fotoIdentidadeCamera()" ng-cloak="">Tirar foto camera</button>
+             <span ng-if="vm.error" ng-bind="vm.result.error" style="color:red;font-weight:bold" ></span>
+        </label>
+        <!--<label ng-if="vm.uploadCamera">
+            <button class="button button-small button-full button-positive" ng-click="vm.uploadIdentidadeCamera()" ng-cloak="">Upload da foto camera</button>
+             <span ng-if="vm.error" ng-bind="vm.result.error" style="color:red;font-weight:bold" ></span>
+        </label>-->
+      <img class="fit" style="width: 50%; height: 50%" ng-if="vm.HoldingRg" ng-src="{{vm.HoldingRg.url}}">
+         <div class="item item-divider">
+            Endereço
+        </div>
+        <label class="item item-input">
+            <span class="input-label">CEP</span>
+            <input ng-model="vm.zipcode" type="tel"  name="CEP" mask="99999-999" ng-change="vm.validarCEP(vm.zipcode)" ng-model-options="{debounce:1000}">
+        </label>
+        <label class="item item-input">
+            <span class="input-label">Número</span>
+            <input ng-model="vm.street_number" type="tel" >
+        </label>
+        <label class="item item-input">
+            <span class="input-label">Complemento</span>
+            <input ng-model="vm.complement" type="text">
+        </label>
+        <label class="item item-input">
+            <span class="input-label">Rua</span>
+            <input ng-model="vm.street" type="text">
+        </label>
+
+        <label class="item item-input">
+            <span class="input-label">Bairro</span>
+            <input ng-model="vm.neighborhood" type="text">
+        </label>
+         <label class="item item-input">
+            <span class="input-label">Cidade</span>
+            <input ng-model="vm.city" type="text">
+        </label>
+        <label class="item item-input">
+            <span class="input-label">Estado</span>
+            <input ng-model="vm.uf" type="text">
+        </label>
+        <div class="item item-divider">
+            Telefone para contato
+        </div>
+        <label class="item item-input">
+            <span class="input-label">DDD</span>
+            <input ng-model="vm.ddd" type="tel" >
+        </label>
+        <label class="item item-input">
+            <span class="input-label">Telefone</span>
+            <input ng-model="vm.number" type="tel"  mask="9?9999-9999">
+        </label>
+        <div class="item item-divider">
+            Informações de convite
+        </div>
+        <!--<label class="item item-input">
+            <span class="input-label">Quem te convidou para o Foneclube?</span>
+            <input ng-model="vm.whoinvite" type="text">
+        </label>-->
+         <label class="item item-input">
+            <span class="input-label">Telefone de quem convidou</span>
+            <input ng-model="vm.contactParent" type="tel"  placeholder="xx-99999-9999" mask="(99) 9?9999-9999">
+        </label>
+        <div class="item item-divider">
+            Informações nova linha Foneclube
+        </div>
+        <label class="item item-input">
+            <span class="input-label">Usuário/Apelido</span>
+            <input ng-model="vm.Nickname" type="text">
+        </label>
+        <label class="item item-input">
+            <span class="input-label">DDD</span>
+            <input ng-model="vm.UserDDD" type="tel" >
+        </label>
+        <label class="item item-input">
+            <span class="input-label">Telefone</span>
+            <input ng-model="vm.UserCellphone" type="tel"  placeholder="99999-999" mask="9?9999-9999" >
+        </label>
+         <label class="item item-input item-select">
+            <div class="input-label">
+            Plano
+            </div>
+            <select ng-model="vm.plan">
+            <option ng-repeat="plan in vm.plans" value="{{plan.Id}}">{{plan.Description}}</option>
+
+            </select>
+        </label>
+
+         <div class="item item-divider">
+            Qual sua operadora atual?
+        </div>
+        <ion-list>
+        <ion-checkbox ng-model="vm.Claro">Claro</ion-checkbox>
+        <ion-checkbox ng-model="vm.Nextel">Nextel</ion-checkbox>
+        <ion-checkbox ng-model="vm.Oi">Oi</ion-checkbox>
+        <ion-checkbox ng-model="vm.Tim">Tim</ion-checkbox>
+        <ion-checkbox ng-model="vm.Vivo">Vivo</ion-checkbox>
+        <ion-checkbox ng-model="vm.Other">Outra</ion-checkbox>
+        </ion-list>
+
+        <!--<div class="item item-divider">
+            Qual operadora(s) vai usar no Foneclube?
+        </div>
+        <ion-list>
+        <ion-checkbox ng-model="vm.OperatorsSelecteds[item.Id]" ng-repeat="item in vm.operators">{{item.Name}}</ion-checkbox>-->
+
+        </ion-list>
+
+        <!--<div class="item item-divider">
+            Enviar foto de cartão para pagamento?
+        </div>
+        <ion-list>
+            <ion-radio ng-model="vm.Yes">Sim</ion-radio>
+            <ion-radio ng-model="vm.No">Não</ion-radio>
+        </ion-list>-->
+        <!--<label class="item item-input">
+            <span class="input-label">
+                Sugestões, Críticas, Dúvidas:
+            </span>
+            <input ng-model="vm.sugestions" type="text">
+        </label>-->
+
+        <button on-tap="vm.onRegisterTap()" class="button button-block button-positive">
+            Cadastrar
+        </button>
+        </div>
+
+        <div ng-if="vm.fasePagamento">
+            <!--remoção-->
+            <!--<div class="item item-divider">
+                -- Daqui pra baixo tudo será movido --
+            </div>-->
+            <div class="item item-divider">
+                Dados Cartão de Crédito
+            </div>
+            <label class="item item-input">
+                <span class="input-label">Nome como no cartão</span>
+                <input ng-model="vm.cardHolderName" type="text">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Número do cartão</span>
+                <input ng-model="vm.cardNumber" type="tel" >
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Mês expiração</span>
+                <input ng-model="vm.cardExpirationMonth" type="tel" >
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Ano expiração</span>
+                <input ng-model="vm.cardExpirationYear" type="tel" >
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Código de verificação</span>
+                <input ng-model="vm.cardCVV" type="tel" >
+            </label>
+
+            <div class="item item-divider">
+                Valor
+            </div>
+            <label class="item item-input">
+                <span class="input-label">Quantia: </span>
+                <input ng-model="vm.amount" money-input type="tel" >
+            </label>
+            <button on-tap="vm.onTapPagar()" class="button button-block button-positive">
+                Pagar
+            </button>
+
+        </div>
+
+        <h4>{{vm.statusTransaction}}</h4>
+
+
+     </div>
+     <!--end remoção-->
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,141 @@
+<div class="boleto-modal" ng-controller="IntlDepositsModalController as vm">
+  <div class="header">
+    <div class="header-text">
+      <div style="float: left; margin-left: 20px; margin-top: 15px">
+        Cliente:
+        <span style="color: red">{{vm.Nome}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="modal-container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <label for="quantia2"
+            >U$ Deposit<span style="color: red">*</span></label
+          >
+          <input
+            id="usdAmount"
+            money-input-plain
+            type="tel"
+            class="form-control"
+            style="width: 50%"
+            ng-model="vm.usdAmount"
+          />
+          <label for="quantia2">Valor R$</label>
+          <input
+            id="bramount"
+            money-input-plain
+            type="tel"
+            class="form-control"
+            style="width: 50%"
+            ng-model="vm.bramount"
+          />
+        </div>
+        <div class="col-md-3">
+          <label for="quantia2">CC Charges</label>
+          <input
+            id="ccCharges"
+            money-input-plain
+            type="tel"
+            class="form-control"
+            style="width: 50%"
+            ng-model="vm.ccCharges"
+          />
+          <label for="quantia2">Bank Charges</label>
+          <input
+            id="bankCharges"
+            money-input-plain
+            type="tel"
+            class="form-control"
+            style="width: 50%"
+            ng-model="vm.bankCharges"
+          />
+          <label for="quantia2">Handling Charges</label>
+          <input
+            id="handlingCharges"
+            money-input-plain
+            type="tel"
+            class="form-control"
+            style="width: 50%"
+            ng-model="vm.handlingCharges"
+          />
+        </div>
+        <div class="col-md-3">
+          <label for="quantia2">Conversion Rate</label>
+          <input
+            id="conversionrate"
+            money-input-plain
+            type="tel"
+            class="form-control"
+            style="width: 50%"
+            ng-model="vm.conversionrate"
+          />
+          <label class="control-label"
+            >Forma do Deposito<span style="color: red">*</span></label
+          >
+          <select
+            id="planos"
+            next-on-enter
+            autocomplete="off"
+            class="form-control"
+            ng-options="plan.Name as plan.Name for plan in vm.paymentTypes"
+            ng-model="vm.PaymentType"
+          ></select>
+          <label class="control-label" style="margin-top: 10px">Comment</label>
+          <textarea
+            id="comment"
+            class="form-control"
+            ng-model="vm.Comment"
+            rows="5"
+            cols="20"
+          ></textarea>
+        </div>
+
+        <div class="col-md-3">
+          <label for="quantia2">Deposit Date</label>
+          <div
+            moment-picker="vm.dataAdded"
+            format="DD/MM/YYYY"
+            max-view="day"
+            start-view="day"
+            min-date="''"
+            autoclose="false"
+            inline="true"
+            set-on-select="true"
+          ></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <label for="quantia2">Valor depositado U$</label>
+        <input
+          id="finalDeposit"
+          money-input-plain
+          type="tel"
+          class="form-control"
+          style="width: 50%"
+          ng-model="vm.finalDeposit"
+        />
+      </div>
+      <div class="col-md-3">
+        <label>
+          <input type="checkbox" ng-model="vm.refund" />
+          Refund</label
+        >
+      </div>
+    </div>
+    <div class="row" style="margin-top: 10px">
+      <div class="form-group col-sm-12 col-xs-12">
+        <button
+          class="btn btn-success col-xs-12"
+          ng-click="vm.SaveDeposit()"
+          ng-disabled="vm.isSaving"
+        >
+          Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

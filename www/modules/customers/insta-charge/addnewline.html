@@ -1,0 +1,494 @@
+<style type="text/css">
+  .available-card {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 100%;
+    min-width: 567px;
+    height: 52px;
+  }
+
+  .form-check {
+    margin-top: 10px;
+    padding-top: 15px;
+  }
+  .m-t-10 {
+    margin-top: 10px;
+  }
+
+  .ag-floating-bottom-viewport {
+    font-weight: bold;
+  }
+
+  .ag-theme-balham .ag-select-list {
+    width: auto !important;
+    max-width: 100% !important;
+    min-width: auto !important;
+  }
+  .table {
+    margin-bottom: 0 !important;
+  }
+  .table > thead > tr > td {
+    font-weight: bold;
+    color: darkblue;
+    background: skyblue;
+  }
+  .table > tfoot > tr > td {
+    font-weight: bold;
+    color: green;
+    background: yellow;
+  }
+
+  .table-condensed > thead > tr > th,
+  .table-condensed > thead > tr > td,
+  .table-condensed > tbody > tr > th,
+  .table-condensed > tbody > tr > td,
+  .table-condensed > tfoot > tr > th,
+  .table-condensed > tfoot > tr > td {
+    padding: 0.2rem;
+  }
+</style>
+<div class="boleto-modal" ng-controller="InstaAddNewLineController as vm">
+  <div class="header" style="margin: 10px 0 0 20px">
+    <div class="header-text">
+      Adicionar nova linha - <span style="color: red">{{vm.Name}}</span>
+    </div>
+  </div>
+  <div class="modal-container" style="padding: 10px">
+    <div class="row">
+      <div class="form-group col-sm-3 col-xs-12">
+        <label class="control-label">Plano</label>
+        <select
+          id="planos"
+          next-on-enter
+          autocomplete="off"
+          class="form-control"
+          ng-change="vm.selectedPlanChange()"
+          ng-options="plan.Id as plan.Description for plan in vm.Plans"
+          ng-model="vm.Plan"
+        ></select>
+
+        <label class="control-label">DDD da Ativação</label>
+        <input
+          style="width: 30%"
+          id="conversionrate"
+          type="text"
+          class="form-control"
+          ng-model="vm.ActivationDDD"
+        />
+      </div>
+      <div class="form-group col-sm-1 col-xs-12">
+        <label class="control-label">ESIM</label>
+        <select
+          id="planos"
+          next-on-enter
+          autocomplete="off"
+          class="form-control"
+          ng-options="plan as plan for plan in vm.ESIMs"
+          ng-model="vm.ESIM"
+        ></select>
+        <label class="form-check-label" for="chkActivate1">
+          <input
+            type="checkbox"
+            id="chkActivate1"
+            name="chkActivate1"
+            data-ng-model="vm.IsActivate"
+            class="form-check-input"
+          />
+          Activate?
+        </label>
+      </div>
+      <div class="form-group col-md-2">
+        <label class="control-label">Contel Line</label>
+        <input
+          id="conversionrate"
+          type="text"
+          class="form-control"
+          ng-model="vm.Linha"
+        />
+        <label class="control-label">WhatsApp Number</label>
+        <input
+          id="conversionrate"
+          type="text"
+          class="form-control"
+          ng-model="vm.WhatsAppNum"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label class="control-label">ICCID</label>
+        <input
+          id="iccis"
+          type="text"
+          class="form-control"
+          ng-model="vm.ICCID"
+        />
+      </div>
+      <div class="form-group col-md-2">
+        <label class="control-label">DDD da Port</label>
+        <input
+          style="width: 30%"
+          id="conversionrate"
+          type="text"
+          class="form-control"
+          ng-model="vm.PortDDD"
+        />
+        <label class="control-label">Port</label>
+        <input id="iccis" type="text" class="form-control" ng-model="vm.Port" />
+      </div>
+      <div class="form-group col-sm-1 col-xs-12">
+        <button
+          ng-click="vm.AddToCart()"
+          class="btn btn-success lg-m-t-60"
+          style="margin-top: 15px"
+        >
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="row" ng-show="vm.ShowGrid">
+      <div class="col-md-12">
+        <div style="padding: 0px; height: 100%">
+          <div
+            id="phonegrid"
+            style="width: 100%; height: 210px"
+            ag-grid="vm.gridOptions"
+            class="ag-theme-balham ag-basic"
+          ></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group col-sm-3 col-xs-12">
+            <div class="form-check">
+              <label class="form-check-label" for="radio1">
+                <input
+                  type="radio"
+                  id="radio1"
+                  name="response"
+                  data-ng-model="vm.shipmentType"
+                  class="form-check-input"
+                  ng-change="vm.updateShipment()"
+                  ng-value="1"
+                />
+                Retirar Chip
+              </label>
+            </div>
+
+            <div>
+              <label class="form-check-label" for="radio2">
+                <input
+                  type="radio"
+                  id="radio2"
+                  name="response"
+                  class="form-check-input"
+                  data-ng-model="vm.shipmentType"
+                  ng-change="vm.updateShipment()"
+                  ng-value="2"
+                />
+                Entrega Contel
+              </label>
+            </div>
+
+            <div>
+              <label class="form-check-label" for="radio3">
+                <input
+                  type="radio"
+                  id="radio3"
+                  name="response"
+                  class="form-check-input"
+                  data-ng-model="vm.shipmentType"
+                  ng-change="vm.updateShipment()"
+                  ng-value="3"
+                />
+                Entrega Facil.tel
+              </label>
+            </div>
+          </div>
+          <div class="form-group col-sm-3 col-xs-12">
+            <table
+              class="table table-responsive table-bordered table-dark table-condensed m-t-10"
+            >
+              <thead class="thead">
+                <tr>
+                  <td scope="col">Description</td>
+                  <td scope="col">Valor</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>SubTotal</td>
+                  <td>R$ {{vm.SubTotal}}</td>
+                </tr>
+                <tr>
+                  <td>Frete + CHIP</td>
+                  <td>R$ {{vm.TotalShipment}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>Total</td>
+                  <td>R$ {{vm.TotalAmount}}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div ng-show="vm.shipmentType==2 || vm.shipmentType==3" class="row">
+        <div class="col-md-12">
+          <div class="form-group col-sm-3 col-xs-12">
+            <label class="control-label">CEP</label>
+            <input
+              type="text"
+              name="cep"
+              autocomplete="off"
+              class="form-control"
+              ng-model="vm.Address.Cep"
+              ng-keyup="vm.validateCEP()"
+            />
+          </div>
+
+          <div class="form-group col-sm-3 col-xs-12">
+            <label class="control-label">Número</label>
+            <input
+              type="text"
+              name="num"
+              autocomplete="off"
+              class="form-control"
+              ng-model="vm.Address.StreetNumber"
+            />
+          </div>
+          <div class="form-group col-sm-3 col-xs-12">
+            <label class="control-label">Complemento</label>
+            <input
+              type="text"
+              name="complemento"
+              autocomplete="off"
+              class="form-control"
+              ng-model="vm.Address.Complement"
+            />
+          </div>
+        </div>
+        <div class="">
+          <div class="col-md-12">
+            <div class="form-group col-sm-3 col-xs-12">
+              <label class="control-label">Rua</label>
+              <input
+                type="text"
+                name="rua"
+                autocomplete="off"
+                class="form-control"
+                ng-model="vm.Address.Street"
+              />
+            </div>
+            <div class="form-group col-sm-3 col-xs-12">
+              <label class="control-label">Bairro</label>
+              <input
+                type="text"
+                name="bairro"
+                autocomplete="off"
+                class="form-control"
+                ng-model="vm.Address.Neighborhood"
+              />
+            </div>
+            <div class="form-group col-sm-3 col-xs-12">
+              <label class="control-label">Cidade</label>
+              <input
+                type="text"
+                name="cidade"
+                autocomplete="off"
+                class="form-control"
+                ng-model="vm.Address.City"
+              />
+            </div>
+            <div class="form-group col-sm-2 col-xs-12">
+              <label class="control-label">Estado</label>
+              <select
+                style="color: black"
+                ng-model="vm.Address.State"
+                placeholder=""
+                class="form-control"
+              >
+                <option value="AC">AC</option>
+                <option value="AL">AL</option>
+                <option value="AP">AP</option>
+                <option value="AM">AM</option>
+                <option value="BA">BA</option>
+                <option value="CE">CE</option>
+                <option value="DF">DF</option>
+                <option value="ES">ES</option>
+                <option value="GO">GO</option>
+                <option value="MA">MA</option>
+                <option value="MT">MT</option>
+                <option value="MS">MS</option>
+                <option value="MG">MG</option>
+                <option value="PA">PA</option>
+                <option value="PB">PB</option>
+                <option value="PR">PR</option>
+                <option value="PE">PE</option>
+                <option value="PI">PI</option>
+                <option value="RJ">RJ</option>
+                <option value="RN">RN</option>
+                <option value="RS">RS</option>
+                <option value="RO">RO</option>
+                <option value="RR">RR</option>
+                <option value="SC">SC</option>
+                <option value="SP">SP</option>
+                <option value="SE">SE</option>
+                <option value="TO">TO</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group col-sm-2 col-xs-12">
+            <label class="control-label" style="color: red"
+              >Final Valor R$</label
+            >
+            <input
+              id="quantia"
+              money-input
+              class="form-control"
+              ng-model="vm.Amount"
+            />
+          </div>
+          <div class="form-group col-sm-2 col-xs-12">
+            <div class="form-check">
+              <label class="form-check-label" for="chkActivate">
+                <input
+                  type="checkbox"
+                  id="chkActivate"
+                  name="chkActivate"
+                  data-ng-model="vm.Charge"
+                  class="form-check-input"
+                />
+                Cobrar?
+              </label>
+            </div>
+          </div>
+          <div ng-show="vm.Charge">
+            <div class="form-group col-sm-1 col-xs-6" style="margin-top: 20px">
+              <div class="">
+                <label class="form-check-label" for="radio4">
+                  <input
+                    type="radio"
+                    id="radio4"
+                    name="paytype"
+                    data-ng-model="vm.paymentType"
+                    class="form-check-input"
+                    ng-value="3"
+                  />
+                  Pix
+                </label>
+              </div>
+            </div>
+            <div class="form-group col-sm-1 col-xs-6" style="margin-top: 20px">
+              <div class="">
+                <label class="form-check-label" for="">
+                  <input
+                    type="radio"
+                    id="radio5"
+                    name="paytype"
+                    data-ng-model="vm.paymentType"
+                    class="form-check-input"
+                    ng-value="1"
+                  />
+                  CC
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" ng-if="vm.paymentType == '1'">
+        <div class="col-md-12">
+          <div class="col-xs-12">
+            <h4 class="colapsable-title">&#x276F; Cartões disponíveis</h4>
+            <div class="available-card" ng-repeat="card in vm.cards">
+              <div>
+                <span>
+                  <i class="fa fa-fw fa-credit-card" aria-hidden="true"></i>
+                  Cartão
+                  <span class="text-capitalize">{{ card.brand }}</span>
+                </span>
+              </div>
+
+              <div>
+                <span>Final {{ card.last_digits }}</span>
+              </div>
+
+              <div ng-if="card.valid" class="text-center" style="width: 20%">
+                <span class="label label-primary"> válido </span>
+              </div>
+
+              <div ng-if="!card.valid" class="text-center" style="width: 20%">
+                <span class="label label-danger"> inválido / vencido </span>
+              </div>
+
+              <div class="text-right" style="width: 20%">
+                <button class="btn btn-success" ng-click="vm.onTapCard(card)">
+                  Select
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group col-sm-3 col-xs-6">
+            <label class="control-label">CPF do número para ativar</label>
+            <input
+              id="activateCPF"
+              type="text"
+              class="form-control"
+              ng-model="vm.ActivateCPF"
+            />
+          </div>
+          <div class="form-group col-sm-3 col-xs-12">
+            <div class="form-check">
+              <label class="form-check-label" for="chkNeedPayment">
+                <input
+                  type="checkbox"
+                  id="chkNeedPayment"
+                  name="chkNeedPayment"
+                  data-ng-model="vm.IsActivateBeforePayment"
+                  class="form-check-input"
+                />
+                Ative antes do pagamento?
+              </label>
+            </div>
+          </div>
+          <div class="form-group col-sm-3 col-xs-12">
+            <label class="control-label">Senha</label>
+            <input
+              id="senha"
+              type="text"
+              class="form-control"
+              ng-model="vm.Senha"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group col-sm-12 col-xs-12">
+          <button
+            ng-click="vm.ActivateLine()"
+            class="btn btn-success col-xs-12 lg-m-t-60"
+          >
+            Ativar Linha
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

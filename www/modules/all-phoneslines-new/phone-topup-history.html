@@ -1,0 +1,183 @@
+<div ng-controller="TopupHistoryModalController as vm" style="height: 100%;">
+  <div class="row" style="height: 100%; overflow-y: scroll;">
+    <div class="col-md-12">
+      <div class="row m-t-20">
+        <div class="col-md-4">
+          <div>
+            <span
+              ><strong class="f-black">Nome:</strong> {{vm.personName}}</span
+            >
+          </div>
+          <div>
+            <span
+              ><strong class="f-black">Linha:</strong>
+              {{vm.contelLine.linha}}</span
+            >
+          </div>
+          <div>
+            <span
+              ><strong class="f-black">Saldo: </strong
+              ><strong>{{vm.getSaldo(vm.contelLine.restante_dados) }} GB</strong
+              >, {{vm.contelLine.restante_minutos}} min,
+              {{vm.contelLine.restante_sms}} SMS</span
+            >
+          </div>
+
+          <div>
+            <span
+              ><strong class="f-black">Bloqueada:</strong>
+              <span
+                ng-class="{'f-red' : vm.blockedColor, 'f-black' : !vm.blockedColor}"
+                >{{vm.contelLine.bloqueada}}</span
+              ></span
+            >
+          </div>
+          <div>
+            <span
+              ><strong class="f-black">Fim: </strong
+              ><span
+                ng-class="{'f-red' : vm.fimColor, 'f-black' : !vm.fimColor}"
+                >{{vm.contelLine.data_fim_plano}}</span
+              ></span
+            >
+          </div>
+          <div>
+            <span
+              ><strong class="f-black">Cancelamento: </strong
+              ><span
+                ng-class="{'f-red' : vm.cancelColor, 'f-black' : !vm.cancelColor}"
+                >{{vm.contelLine.data_cancelamento_linha}}</span
+              ></span
+            >
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div>
+            <span
+              ><strong class="f-black">Plano Atual: </strong
+              >{{vm.contelLine.plano}}</span
+            >
+          </div>
+          <div>
+            <span
+              ><strong class="f-black">Rec Auto plano: </strong
+              >{{vm.contelLine.recarga_automatica_plano}}</span
+            >
+          </div>
+          <div>
+            <span
+              ><strong class="f-black">renovação:</strong>
+              {{vm.contelLine.data_renovacao}}</span
+            >
+          </div>
+          <div>
+            <span
+              ><strong class="f-black">Status: </strong
+              >{{vm.contelLine.status}}</span
+            >
+          </div>
+          <div>
+            <span
+              ><strong class="f-black">Portabilidade: </strong
+              >{{vm.contelLine.portin}}</span
+            >
+          </div>
+          <div>
+            <span
+              ><strong class="f-black">Ativado:</strong>
+              {{vm.contelLine.data_ativacao}}</span
+            >
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div>
+            <span
+              ><strong class="f-black">eSim: </strong
+              >{{vm.contelLine.esim}}</span
+            >
+          </div>
+          <div>
+            <span
+              ><strong class="f-black">ICCID: </strong
+              >{{vm.contelLine.iccid}}</span
+            >
+          </div>
+          <div>
+            <span
+              ><strong class="f-black">Titular:</strong>
+              {{vm.personTitle}}</span
+            >
+          </div>
+          <div>
+            <span
+              ><strong class="f-black">Doc. Contel:</strong>
+              {{vm.personDoc}}</span
+            >
+          </div>
+          <div>
+            <span
+              ><strong class="f-black">Doc. FC:</strong> {{vm.personCPF}}</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12" style="height: 80%;">
+      <div class="row m-t-20">
+        <dic class="col-md-12">
+          Historico Recarga
+          <a
+            title="WhatsApp"
+            ng-click="vm.OpenWhatsApp(vm.personCPF)"
+            style="cursor: pointer"
+            ><img
+              class="imgUsd link"
+              src="content/img/message-green.png"
+              style="max-width: 20px"
+          /></a>
+
+          <a
+            title="Charge History"
+            style="cursor: pointer"
+            ng-click="vm.OpenChargeHistory(vm.personCPF)"
+            ><img
+              class="imgUsd link"
+              src="content/img/usd.jpeg"
+              style="max-width: 20px"
+          /></a>
+          <label class="">
+            <input
+              type="checkbox"
+              ng-model="vm.showAll"
+              ng-change="vm.showAllCheck()"
+              value="1"
+            />
+            ShowAll</label
+          >
+          <label style="float: right; color: red"
+            >Current Saldo:
+            <span style="font-weight: bold">{{vm.currentSaldo}}</span></label
+          >
+        </dic>
+      </div>
+      <div class="row" style="height: 92%;">
+        <div class="col-md-12" style="height: 100%;">
+          <div style="padding: 20px; height: 100%;" >
+            <div
+              ng-if="!vm.showAll"
+              style="width: 100%; height: 100%;"
+              ag-grid="vm.gridOptions"
+              class="ag-theme-balham ag-basic"
+            ></div>
+            <div
+              ng-if="vm.showAll"
+              style="width: 100%; height: 100%;"
+              ag-grid="vm.gridOptions1"
+              class="ag-theme-balham ag-basic"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

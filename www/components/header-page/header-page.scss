@@ -1,0 +1,25 @@
+.header-page {
+    .btn-menu-hamburguer {    
+        z-index: 10000;    
+        min-width: 45px;
+        height: auto;
+        width: auto;    
+        border: none;
+        background-color: transparent;   
+        .hamburguer-menu {
+            content: url('../../content/img/hamburguer-menu.png');
+            width: 30px;
+            height: 30px;
+            padding-left: 10px;
+        } 
+        
+    }
+}
+
+
+fone-header {
+    position: absolute;
+    width: 100%;
+    right: 15px;
+    top: 0;
+}

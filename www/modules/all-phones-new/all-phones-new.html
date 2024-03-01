@@ -1,0 +1,466 @@
+<!-- 
+  CAUTION, IMPORTANT
+
+  All this code is not following patterns. The pattern we trying to follow is: 
+  https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md
+
+  Please do not reaply any of pattern or the this code, structure or techniques 
+  used here in this file or the code will not be aproved. 
+
+  This page will be organized and refactored but we can not do it now. 
+  This page represent all that we do not want in code technique and pattern.
+
+  For example: 
+  1. We do not use jquery approach, we use angularJS .
+  2. We do not need use ajax, we have http service on foneclube.service
+  3. Avoid use Scope, use vm.
+
+  Maybe you will find other pages that are not following fully the desired patterns 
+  But we have the a lot of samples in the project and especially the guide:
+  https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md
+
+ -->
+
+<div class="SystemAlert">
+  <div id="Content-Alert" style="display:none;">
+    <div class="alert alert-success" id="Content-AlertMessage" style="text-align: center;">
+
+    </div>
+  </div>
+</div>
+<div class="home all-phones" ng-class="{'force-select': vm.selecaoMassiva }" ng-init="initPageLoad()">
+  <div class="loadingDiv">
+    <div class="row">
+      <div class="col-md-12 p-t-20">
+        <center>
+          <strong>Processing Please Wait</strong>
+          <img src="../../content/img/Loading2.gif" style="width:50px" />
+        </center>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Start -->
+      <div class="grid-container">
+        <h4>All Phone Numbers</h4>
+        <kendo-grid id="allphoneGrid" options="allphoneGridOptions" k-data-source="allphoneDataSource"></kendo-grid>
+      </div>
+      <!-- End -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal Start -->
+<div id="accountServicesModel" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Existing Services</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <label>Services</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-9"> <input id="phoneServices" style="width: 100%" /></div>
+          <div class="col-md-3">
+            <button class="btn btn-info btn2" ng-click="SaveService()" type="button">Add</button>
+          </div>
+        </div>
+        <div class="row p-t-20">
+          <div class="col-md-12 grid-container2">
+            <label>Selected Services</label>
+            <kendo-grid id="phoneService" options="phoneServiceGridOptions"
+                        k-data-source="phoneServiceDataSource"></kendo-grid>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal End-->
+<!-- Modal Start -->
+<div id="allCustomerModel" class="CustomModel" style="display:none">
+  <div class="row">
+    <div class="col-md-6">
+      <h4>All Customers</h4>
+    </div>
+    <div class="col-md-6">
+      <div class="pull-right">
+        <a ng-click="closeCustomers()" class="btn btn-default btn-xs"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="row p-t-20">
+    <div class="col-md-3">
+      Select Plan
+    </div>
+    <div class="col-md-4">
+      <input type="text" id="CustomerPhonePlanId" class="form-control3" />
+    </div>
+  </div>
+  <div class="row p-t-20">
+    <div class="col-md-12">
+      <kendo-grid id="customerGrid" options="customerGridOptions" k-data-source="customerGridDataSource"></kendo-grid>
+      <div style="clear:both"></div>
+    </div>
+  </div>
+</div>
+<!-- Modal End-->
+<!-- Modal Start -->
+<div id="CustomerDetailModel" class="CustomModel" style="display:none">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="btn-group">
+        <button type="button" id="btnCustomerTab" class="btn btn-xs btn-info" ng-click="showtabInfo(1)">Customer Info</button>
+        <button type="button" id="btnPhoneTab" class="btn btn-xs btn-default" ng-click="showtabInfo(2)">Add/Edit Phone</button>
+      </div>
+    </div>
+    <div class="col-md-7 flat-List">
+      <ul>
+        <li>
+          <button type="button" class="btn btn-info btn-xs" ng-class="MonthlySubscription()"><i class="fa fa-refresh"></i></button>
+        </li>
+        <li><label class="pull-right">Total Linhas:</label></li>
+        <li><label id="lblMonthlySubscription" class="">0.00</label></li>
+        <li><label class="pull-right">Preco Unico:</label></li>
+        <li><input id="payableMontlyPrice" type="text" class="form-control2" style="width:120px" placeholder="Payable Amount"></li>
+        <li><button class="btn btn-info btn-xs" ng-click="UpdatePhonePrice()" type="button" id="btnUpdate">Update</button></li>
+      </ul>
+      <input type="hidden" id="hdnMonthlySubscription" value="0" />
+
+    </div>
+    <div class="col-md-2">
+      <div class="pull-right">
+        <a ng-click="hideCustomerDetail()" class="btn btn-default btn-xs"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="row p-t-20">
+    <div class="col-md-12">
+      <div id="CustomerDetail-Container">
+        <table class="table2">
+          <tr>
+            <td colspan="5">
+              <h4> Customer Information</h4>
+            </td>
+            <td class="pull-right">
+              <button type="button" ng-click="SaveCustomerBasicInfo()" class="btn btn-success btn-xs">Save Customer</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="pull-right"><label>Customer Name</label></td>
+            <td><input id="CustomerName" type="text" class="form-control3" /></td>
+            <td class="pull-right"><label>Email</label></td>
+            <td><input id="CustomerEmail" type="text" class="form-control3" /></td>
+            <td class="pull-right">
+              <label>Parent (<label id="ParentName"></label>)</label>
+              <label id="ParentId" style="display:none"></label>
+            </td>
+            <td>
+              <button id="editRefButton" ng-click="editParentRef()" class="btn btn-info btn-xs">
+                <i class="fa fa-edit"></i>
+              </button>
+
+              <button id="cancelRefButton" ng-click="cancelParentRef()" style="display:none" type="button" class="btn btn-success btn-xs">
+                <i class="fa fa-times"></i>
+              </button>
+              <button id="saveRefButton" ng-click="saveParentRef()" style="display:none" type="button" class="btn btn-success btn-xs">
+                <i class="fa fa-check"></i>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="pull-right"><label>Document Number</label></td>
+            <td><input id="CustomerDocumentNumber" type="text" class="form-control3" /></td>
+            <td class="pull-right"><label>Nick Name</label></td>
+            <td><input id="CustomerNickName" type="text" class="form-control3" /></td>
+            <td colspan="2">
+
+              <div id="parentRefDisplay-container" style="display:block;">
+
+              </div>
+
+              <div id="parentRefEdit-container" style="display:none;">
+                <input type="text" id="RefParentList" class="form-control3" />
+              </div>
+
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div id="PhoneDetail-Container" style="display:none">
+        <table class="table2">
+          <tr>
+            <td colspan="6"><h4 id="phoneDetailTitle">Phone Detail</h4></td>
+          </tr>
+          <tr>
+            <td>
+              <label>Operator</label>
+              <input type="text" id="PhoneOperatorId" placeholder="Phone Operator" class="form-control3" />
+            </td>
+            <td>
+              <label>Phone Number</label>
+              <input type="text" id="PhoneNumber" placeholder="Phone Number" class="form-control3" />
+            </td>
+
+            <td>
+              <label>Plano FC</label>
+              <input type="text" id="PhonePlanId" placeholder="Plano FC" class="form-control3" />
+            </td>
+            <td>
+              <label>Preco Vip</label>
+              <input type="text" id="AmoutPrecoVip" placeholder="Preco Vip" class="form-control3" />
+            </td>
+
+
+            <td>
+              <label>Apelido</label>
+              <input type="text" id="PhoneNickName" placeholder="Apelido" class="form-control3" />
+            </td>
+
+
+            <td>
+              <label></label>
+              <br /><button ng-click="SavePersonPhone()" class="btn btn-success btn-xs">Save Phone</button>
+            </td>
+            <!--
+                <td class="pull-right"><label>Servico da linha</label></td>
+                <td><input type="text" id="newPhoneOptionId" placeholder="Servico da linha" class="form-control3" /></td>
+             -->
+
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row p-t-20">
+    <div class="col-md-12">
+      <kendo-grid id="customerAllPhoneGrid" options="customerAllPhoneGridGridOptions"
+                  k-data-source="customerAllPhoneGridDataSource"></kendo-grid>
+    </div>
+  </div>
+</div>
+<!-- Modal End-->
+<!-- Modal Start -->
+<div id="ShowMessageModel" class="CustomModel" style="display:none">
+  <div class="row">
+    <div class="col-md-12">
+      <h4>Querdisassociar o numero do cliente? Ele não será mais cobrado por este numero de telefone!</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="pull-right">
+        <button type="button" ng-click="DeactivePhone()" class="btn btn-danger btn-xs">Sim, disassociar</button>
+        <button type="button" ng-click="CancelPhone()" class="btn btn-default btn-xs">Não, cancelaação</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal End-->
+                          
+<input type="hidden" id="hdnPersonPhoneId" name="hdnPersonPhoneId" value="0" />
+<input type="hidden" id="hdnPhoneNumber" name="hdnPhoneNumber" value="0" />
+<input type="hidden" id="hdnPersonId" name="hdnPersonId" value="0" />
+<input type="hidden" id="hdnRecordId" name="hdnRecordId" value="0" />
+<input type="hidden" id="hdnStatusId" name="hdnStatusId" value="1" />
+<input type="hidden" id="hdnIsPrecoVip" name="hdnIsPrecoVip" value="" />
+<input type="hidden" id="hdnEditPhoneNumber" name="hdnEditPhoneNumber" value="" />
+<script>
+  $(document).ajaxStart(function () { $('.loadingDiv').show(); })
+    .ajaxStop(function () { $('.loadingDiv').hide(); });
+
+
+
+
+  function GenerateServiceTemplate(phoneServices) {
+    var template = "<ul class='activeServicesContainer'>";
+    for (var i = 0; i < phoneServices.length; i++) {
+
+      template = template + "<li class='activeService'>"
+        + "<button class='btn btn-info btn-xs' ng-click='RemoveService({1},{2})'>{0}"
+        + "<i class='fa fa-times'></i>"
+        + "</button ></li > ";
+    }
+    template = template + "<li class='activeService'><button class='btn btn-success btn-xs'  ng-click='AddNewService({0})'><i class='fa fa-plus'></i></button></li>";
+    return template + "</ul>";
+  }
+
+</script>
+<style>
+  .flat-List {
+  }
+
+    .flat-List ul {
+      padding: 0;
+      margin: 0;
+    }
+
+    .flat-List li {
+      list-style: none;
+      float: left;
+      padding: 0;
+      margin: 0;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+  .loadingDiv {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0%;
+    width: 100%;
+    z-index: 1050;
+    height: 50px;
+    border: 1px solid #d6e9c6;
+    background: #dff0d8;
+  }
+
+  label {
+    padding-top: 7px;
+  }
+
+  .SystemAlert {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1050;
+  }
+
+  .alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+  }
+
+  .alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+
+  .table2 {
+    width: 100%;
+    margin-bottom: 1px;
+    color: #212529;
+  }
+
+    .table2 td {
+      padding: 6px;
+    }
+
+    .table2 tr {
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .table2 thead th {
+      vertical-align: bottom;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+  #allCustomerModel .k-grid-content {
+    height: 300px;
+  }
+
+  .CustomModel {
+    z-index: 100;
+    top: 10%;
+    left: 10%;
+    position: absolute;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #999;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    outline: 0;
+    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+    box-shadow: 0 3px 9px rgba(0,0,0,.5);
+    padding: 10px;
+    padding-bottom: 20px;
+    width: 80%;
+  }
+
+  body {
+    font-size: 12px;
+  }
+
+  .p-t-20 {
+    padding-top: 20px;
+  }
+
+  .btn2 {
+    padding: 2px 12px;
+    border-radius: 0px;
+  }
+
+  .row-red {
+    /*color: #000;
+      background-color: #ffeaea;*/
+  }
+
+  .row-green {
+    /*color: #000;
+      background-color: #d0ffc3;*/
+    background-color: #e7ffe0;
+  }
+
+  .k-grid td.k-state-selected:hover, .k-grid tr:hover {
+    color: #35baf6;
+  }
+
+  .activeServicesContainer {
+  }
+
+    .activeServicesContainer li {
+      float: left;
+      list-style: none;
+      color: #007bff;
+      background-color: transparent;
+      background-image: none;
+      border-color: #007bff;
+      border-radius: .25rem;
+      border: 1px solid transparent;
+    }
+
+  .grid-container {
+    margin-right: 4%;
+    font-size: 12px;
+  }
+
+  .grid-container2 {
+    font-size: 12px;
+  }
+
+  .form-control2 {
+    width: 80%;
+    padding: 0px;
+    margin: 0px;
+  }
+
+  .form-control3 {
+    width: 100%;
+    padding: 3px;
+    margin: 0px;
+  }
+</style>

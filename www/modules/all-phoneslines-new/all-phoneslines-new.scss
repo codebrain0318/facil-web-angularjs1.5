@@ -1,0 +1,140 @@
+.header-text {
+  padding: 10px 0;
+}
+
+.header {
+  max-width: 100vw;
+}
+
+.up {
+  width: 80px;
+  top: -4.95rem;
+  height: 80px;
+  position: absolute;
+  overflow: hidden;
+  box-shadow: 0 16px 10px -30px rgba(0, 0, 0, 0.5);
+}
+
+.up:after {
+  content: "";
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  background: #fff;
+  transform: rotate(45deg);
+  top: 75px;
+  left: 25px;
+  box-shadow: -1px -1px 10px -2px rgba(0, 0, 0, 0.5);
+}
+
+.header-mobile {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 55%;
+  max-width: 320px;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.6);
+  padding: 1rem 0.5rem;
+  gap: 1rem;
+  display: flex;
+  align-items: center;
+
+}
+
+.mobile-utils {
+  display: none;
+}
+
+.open-modal {
+  display: none;
+}
+
+
+@media(max-width: 580px) {
+  .wrapper-header {
+    flex-direction: column;
+    max-width: 100%;
+    width: 100%;
+    align-items: center;
+    gap: 0.8rem !important;
+  }
+
+
+
+
+  .header-desktop {
+    display: flex !important;
+  }
+
+  .trash {
+    display: none;
+  }
+
+  .mobile-utils {
+    display: block;
+  }
+
+  .desktop-utils {
+    display: none;
+  }
+
+  .filter-input {
+    max-width: 170px;
+    width: 100%;
+  }
+
+  .bottom-tools {
+    min-width: unset !important;
+  }
+
+  .open-modal {
+    display: block;
+  }
+
+  .only-active {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 1.2rem;
+
+    label {
+      margin: 0;
+    }
+  }
+}
+
+.k-grid-excel {
+  display: none;
+}
+
+.circle_green {
+  padding: 8px;
+  background: green;
+  height: 2px;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 2px;
+  margin-top: 10px;
+}
+
+.circle_red {
+  margin-top: 5px;
+  padding: 8px;
+  background: red;
+  height: 2px;
+  border-radius: 50%;
+  margin-left: 0;
+  margin-right: auto;
+  width: 2px;
+}
+
+#loadingDiv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: #dcdcdc;
+  width: 100%;
+}

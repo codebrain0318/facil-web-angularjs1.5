@@ -1,0 +1,240 @@
+<div class="cadastro-container">
+        <fone-header title="{{vm.viewName}}"></fone-header> 
+    <!-- vm.etapaDocumento -->
+    <div ng-if="vm.etapaDocumento" style="margin-top: 48px;">
+        <h1 class="form-group col-xs-12 display-4">Dados Iniciais</h1>
+        <div class="col-xs-12">
+            <div class="form-container">
+                <div class="row">
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <label for="cpf">CPF - </label>
+                        <label>(Selecione checkbox para CNPJ)
+                                <input type="checkbox" ng-model="vm.checkboxCNPJ" ng-change="vm.onCheckCNPJ()">
+                        </label>
+                        <input id="cpf" ng-if="vm.CPFField" ng-enter="vm.onTapSearchDocument('12321')" type="tel" class="form-control" ng-change="vm.validarCPF()" mask="999.999.999-99" ng-model="vm.cpf" restrict="reject" ng-disabled="vm.hasCPF">
+                        <input id="cpf" ng-if="vm.CNPJField" ng-enter="vm.onTapSearchDocument('12321')" type="tel" class="form-control" ng-change="vm.validarCPF()" mask="99.999.999/9999-99" ng-model="vm.cpf" restrict="reject" ng-disabled="vm.hasCPF">
+                    </div>
+                    <div class="form-group col-sm-6 col-xs-12" ng-show="vm.hasCPF">
+                        <label for="nome">Nome:</label>
+                        <input id="nome" next-on-enter class="form-control" ng-model="vm.name" type="text">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6 col-xs-12" ng-show="vm.hasCPF">
+                        <label for="email">Email:</label>
+                        <input id="email" ng-enter="vm.onTapSendDocument()" class="form-control" ng-model="vm.email" type="text" placeholder="exemplo@email.com">
+                    </div> 
+                </div>                  
+                <div class="row">
+                    <div class="form-group col-sm-6 col-xs-12" ng-show="vm.hasCPF">
+                        <label for="telefone">Telefone "atual" de contato:</label>
+                        <input id="telefone" next-on-enter class="form-control" ng-model="vm.personalNumber" type="tel"  mask="(99) 9?9999-9999" restrict="reject" placeholder="(xx) 99999-9999">
+                    </div>
+                    <!-- <div class="form-group col-sm-6 col-xs-12" ng-show="vm.hasCPF">
+                        <label for="dataNascimento">Data de Nascimento:</label>
+                        <input id="dataNascimento" class="form-control" ng-model="vm.birthdate" type="tel"  name="date" mask="39/19/9999" restrict="reject" placeholder="dd/mm/aaaa">
+                    </div>   -->
+                    <div class="form-group col-sm-6 col-xs-12" ng-show="vm.hasCPF" >
+                        <label for="selectOperator">Selecione sua operadora:</label>
+                        <select class="form-control" ng-options="operator.id as operator.nome for operator in vm.allOperatorOptions" ng-model="vm.operator">
+                            <option value="">Selecione</option>
+                        </select>            
+                    </div>  
+                </div>
+                <div class="form-group col-xs-12">
+                    <button id="btn-buscar" class="btn btn-primary col-sm-2 col-xs-12" ng-enter="vm.onTapSearchDocument()" ng-click="vm.onTapSearchDocument()"  ng-if="!vm.hasCPF" ng-disabled="vm.cpf.length < 14 || vm.requesting || vm.clicked">Buscar</button> 
+                    <button ng-if="vm.hasCPF" class="btn btn-primary col-sm-2 col-xs-12" ng-enter="vm.onTapSendDocument()" ng-click="vm.onTapSendDocument()"  ng-disabled="vm.name.length == 0 || vm.email.length == 0 || vm.personalNumber.length < 14 || vm.requesting">Enviar</button>              
+                </div>
+            </div>
+        </div>       
+    </div>
+    <!--vm.etapaEndereco-->
+    <div ng-if="vm.etapaEndereco">
+        <h1 class="form-group col-xs-12 display-4">Endereço</h1>
+        <div class="col-xs-12">
+            <div class="form-container">
+                <div class="form-group col-sm-6 col-xs-12">
+                    <label for="cep">CEP:</label>
+                    <input id="cep" next-on-enter class="form-control" ng-model="vm.zipcode" type="tel"  name="CEP" mask="99999-999" ng-change="vm.validarCEP(vm.zipcode)" restrict="reject">
+                </div> 
+                <div class="form-group col-sm-6 col-xs-12">
+                    <label for="rua">Rua:</label>
+                    <input id="rua" next-on-enter class="form-control" ng-model="vm.street" type="text">
+                </div> 
+                <div class="form-group col-sm-6 col-xs-12">
+                    <label for="numero">Número:</label>
+                    <input id="numero" next-on-enter class="form-control" type="number" ng-model="vm.street_number" type="tel">
+                </div>    
+                <div class="form-group col-sm-6 col-xs-12">
+                    <label for="complemento">Complemento:</label>
+                    <input id="complemento" next-on-enter class="form-control" ng-model="vm.complement" type="text">
+                </div>  
+                <div class="form-group col-sm-6 col-xs-12">
+                    <label for="bairro">Bairro:</label>
+                    <input id="bairro" next-on-enter class="form-control" ng-model="vm.neighborhood" type="text">
+                </div>  
+                <div class="form-group col-sm-6 col-xs-12">
+                    <label for="cidade">Cidade:</label>
+                    <input id="cidade" next-on-enter class="form-control" ng-model="vm.city" type="text">
+                </div>   
+                <div class="form-group col-sm-6 col-xs-12">
+                    <label for="estado">Estado:</label>
+                    <input id="estado" ng-enter="vm.onTapSendAddress()" class="form-control" ng-model="vm.uf" type="text">
+                </div>
+                <div class="form-group col-xs-12">
+                    <button class="btn btn-primary col-sm-2 col-xs-12" ng-disabled="vm.street.length == 0 || vm.street_number.length == 0 || vm.neighborhood.length == 0 || vm.city.length == 0 || vm.uf.length == 0 || vm.zipcode.length < 9 || vm.requesting" ng-enter="vm.onTapSendAddress()" ng-click="vm.onTapSendAddress()">Enviar</button>                                
+                </div>                
+            </div> 
+        </div>
+    </div>
+    <!--vm.etapaDadosPessoais-->
+    <div ng-if="vm.etapaDadosPessoais">
+        <h1 class="form-group col-xs-12 display-4">Imagens</h1>
+        <div class="col-xs-12">
+            <div class="form-container">              
+                <div class="row">
+                    <div class="form-group col-sm-4 col-xs-12">
+                        <div class="botao-upload-cadastro" ng-click="vm.uploadImg('upload-selfie')">
+                                <span>Selfie</span>
+                            <img src="../../content/img/upload.png" alt="">    
+                            <!-- fileread="vm.imageSelf"                                                    -->
+                            <input id="upload-selfie" type="file" name="file"  base64="vm.base64Self" accept="image/*"/>
+                        </div>
+                        <img class="thumb-image" ng-show="vm.base64Self" ng-src="{{vm.base64Self}}" alt="x" ng-click="vm.viewImg(vm.base64Self)">
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-4 col-xs-12">
+                        <div class="botao-upload-cadastro" ng-click="vm.uploadImg('upload-frente')">
+                            <span>Frente</span>
+                            <img src="../../content/img/upload.png" alt="">   
+                            <!-- fileread="vm.imageFrente"                                                   -->
+                            <input id="upload-frente" type="file" name="file"  base64="vm.base64Frente" accept="image/*"/>
+                        </div>
+                        <img class="thumb-image" ng-show="vm.base64Frente" ng-src="{{vm.base64Frente}}" alt="x" ng-click="vm.viewImg(vm.base64Frente)">
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-4 col-xs-12">
+                        <div class="botao-upload-cadastro" ng-click="vm.uploadImg('upload-verso')">
+                            <span>Verso</span>
+                            <img src="../../content/img/upload.png" alt=""> 
+                            <!-- fileread="vm.imageVerso"                                                     -->
+                            <input id="upload-verso" type="file" name="file"  base64="vm.base64Verso" accept="image/*"/>
+                        </div>
+                        <img class="thumb-image" ng-show="vm.base64Verso" ng-src="{{vm.base64Verso}}" alt="x" ng-click="vm.viewImg(vm.base64Verso)">
+                    </div>                    
+                </div>              
+            </div> 
+        </div>
+        <div class="form-group col-xs-12">            
+            <button class="btn btn-primary col-sm-2 col-xs-12" ng-disabled="vm.requesting" ng-enter="vm.onTapSendPersonalData()" ng-click="vm.onTapSendPersonalData()">Enviar</button>
+        </div>
+    </div>
+    <!--vm.etapaComplementar-->
+    <div ng-if="vm.etapaComplementar">        
+        <h1 class="form-group col-xs-12 display-4">Convite Foneclube</h1>
+        <div class="col-xs-12">
+            <div class="form-container">            
+                <div class="form-group col-sm-6 col-xs-12">
+                    <label for="telefoneConvidou">Telefone de quem convidou:</label>
+                    <input id="telefoneConvidou" next-on-enter class="form-control" ng-model="vm.phoneContactParent" type="tel"  placeholder="21-99999-9999" mask="(99) 9?9999-9999" restrict="reject" ng-change="vm.getContactParentName()">
+                </div>
+                <div class="form-group col-sm-6 col-xs-12">
+                    <label for="nomeConvidou">Nome de quem te convidou para o Foneclube:</label>
+                    <input id="nomeConvidou" next-on-enter class="form-control" ng-model="vm.whoinvite" type="text">
+                </div>
+                <div class="form-group col-sm-6 col-xs-12">
+                    <label for="precoUnico">Preço único:</label>
+                    <input id="precoUnico" next-on-enter class="form-control" ng-model="vm.singlePrice" type="tel" money-input>
+                </div> 
+                <div class="form-group col-sm-6 col-xs-12">
+                    <label for="comentarioValor">Comentário valor:</label>
+                    <input id="comentarioValor" class="form-control" ng-model="vm.descriptionSinglePrice" type="text"  placeholder="Comentário sobre o Preço único">
+                </div>                 
+                <div class="item item-divider item-icon-right">
+                    Informações nova linha Foneclube
+                    <button ng-show="vm.showAddNewPhone.length == 0" ng-enter="vm.onTapNewPhoneNumber()" ng-click="vm.onTapNewPhoneNumber()" style="background: transparent; border: none; position: absolute; right: 0; padding-right: 16px;"><i class="glyphicon glyphicon-plus"></i></i></button>
+                </div>
+                <uib-accordion close-others="oneAtATime">
+                    <div uib-accordion-group class="panel-default" ng-init="status.open = true" is-open="status.open" ng-repeat="phoneNumber in vm.phoneNumbersView track by $index">
+                        <uib-accordion-heading>
+                        Linha {{$index + 1}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>                        
+                        </uib-accordion-heading>
+                        <div class="form-group col-sm-6 col-xs-12">
+                            <label for="apelidoLinha">Qual <b>apelido</b> para esta linha?:</label>
+                            <input id="apelidoLinha" next-on-enter class="form-control" ng-model="phoneNumber.Nickname" type="text" placeholder="Apelido">
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-12">
+                            <label for="qualOperadoraUsar">Qual operadora quer usar?:</label>
+                            <select id="qualOperadoraUsar" next-on-enter class="form-control" ng-model="phoneNumber.operadora" ng-change="phoneNumber.IdPlanOption = ''">
+                                <option value="1">Vivo</option>
+                                <option value="2">Claro</option>
+                            </select> 
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-12">
+                            <label for="qualPlanoContratar">Qual plano que deseja contratar?:</label>
+                            <select id="qualPlanoContratar" next-on-enter class="form-control" ng-options="plan.Id as plan.Description for plan in vm.plans | filter: phoneNumber.operadora == '1' ? 'VIVO' : phoneNumber.operadora == '2' ? 'CLARO' : '9'" ng-model="phoneNumber.IdPlanOption">
+                                <option value="">Selecione</option>
+                            </select> 
+                        </div> 
+                        <div class="form-group col-sm-6 col-xs-12">
+                            <label for="usarNumeroAtual">Deseja usar seu número atual com este plano (portabilidade)?:</label>
+                            <select id="usarNumeroAtual" class="form-control" next-on-enter ng-model="phoneNumber.Portability">                                      
+                                <option value="true">Sim, vou fazer a "portabilidade" transferindo minha linha para o Foneclube.</option>
+                                <option value="false">Não, quero um número novo.</option>
+                            </select> 
+                        </div>                       
+                        <div class="form-group col-xs-12">
+                            <span ng-show="phoneNumber.Portability == 'false'"><b>Se você ainda não sabe o novo número de telefone pode deixar em branco.</b></span> <br/>
+                            <span for="portabilidadeTelefone">Telefone:</span>
+                            <input id="portabilidadeTelefone" class="form-control" ng-model="phoneNumber.NovoFormatoNumero" type="tel" placeholder="(xx) 99999-9999" mask="(99) 9?9999-9999" restrict="reject" ng-change="vm.changePhoneNumber($index)">
+                        </div>
+                        <div class="form-group col-xs-12">
+                            <button class="btn btn-danger col-sm-2 col-xs-12" ng-click="vm.onTapRemoveNewNumber($index)">Deletar linha</button>          
+                        </div>
+                    </div>
+                </uib-accordion>
+                <div class="form-group col-xs-12">
+                    <button class="btn btn-primary col-sm-2 col-xs-12" ng-disabled="vm.requesting" ng-enter="vm.onTapSendFoneclubeData()" ng-click="vm.onTapSendFoneclubeData()">Enviar</button>                                
+                </div>                 
+            </div>
+        </div>
+    </div>  
+    <!--=================== modal ======================-->
+    <!--Extrair-->
+    <!--====================================================-->
+    <script id="templates/modal.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar class="bar bar-header bar-positive">
+                <h1 class="title">Adicionar foto</h1>
+                <button class="button button-clear button-primary" ng-enter="vm.onTapCancel()" ng-click="vm.onTapCancel()">Cancelar</button>
+            </ion-header-bar>
+            <ion-content class="padding">
+                <div class="item item-text-wrap">
+                    De onde você deseja incluir sua foto?
+                </div>
+                <div class="button-bar">
+                    <div class="fileUpload btn">
+                        <span class="button">Da galeria</span>
+                        <input id="input-file" type="file" name="file" file="vm.file" class="upload" />
+                    </div>
+
+                    <!--div class="fileUpload btn">
+                    <span class="button">Da camera</span>
+                    <input id="input-file" type="file" name="file" file="vm.file" class="upload" accept="image/*;capture=camera" />
+                    </div-->
+                </div>
+                <div class="padding">
+                    <!--button class="button button-block button-positive" ng-disabled="(!vm.hasFileSelected && !vm.hasPhotoCaptured)"  on-tap="vm.onTapSendImage()">Enviar</button-->
+                    <button class="button button-block button-positive" ng-disabled="(!vm.hasFileSelected && !vm.hasPhotoCaptured)"  ng-enter="vm.onTapSendImage()" ng-click="vm.onTapSendImage()">Enviar</button>
+                    <button class="button button-block button-positive" ng-enter="vm.onTapCancel()" ng-click="vm.onTapCancel()">Cancelar</button>
+                </div>
+                {{vm.msg}}
+            </ion-content>
+        </ion-modal-view>
+    </script>
+    <!--====================================================-->
+    <!--====================================================-->
+    <!--====================================================-->
+</div>

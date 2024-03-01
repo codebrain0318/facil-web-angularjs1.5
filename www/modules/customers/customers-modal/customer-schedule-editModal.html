@@ -1,0 +1,105 @@
+<div
+  class="boleto-modal"
+  ng-controller="CustomerScheduleEditModalController as vm"
+>
+  <div class="header">
+    <div class="header-text">Editar cobrança de agendamento - {{vm.Name}}</div>
+  </div>
+  <div class="modal-container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="form-group col-sm-4 col-xs-12">
+            <label class="control-label">Valor R$</label>
+            <input
+              id="quantia2"
+              money-input
+              type="tel"
+              class="form-control"
+              ng-model="vm.amountTemp"
+              ng-change="vm.changeTextValue()"
+            />
+            <div>
+              <label for="ano" class="control-label">Vigencia</label>
+              <div
+                moment-picker="vm.vigenciaField"
+                change="vm.changeTextValue()"
+                format="YYYY MM"
+                max-view="month"
+                start-view="month"
+                autoclose="false"
+                inline="true"
+                set-on-select="true"
+              ></div>
+            </div>
+            <label class="control-label">Modo de pagamento</label>
+            <select
+              id="planos"
+              next-on-enter
+              autocomplete="off"
+              class="form-control"
+              ng-options="plan.Id as plan.Name for plan in vm.paymentTypes"
+              ng-model="vm.PaymentType"
+            ></select>
+          </div>
+          <div class="col-md-4">
+            <label for="observacao" class="font-red">Vencimento:</label>
+            <div
+              moment-picker="vm.expirationDateField"
+              change="vm.changeTextValueChange()"
+              format="DD MMMM YYYY"
+              max-view="day"
+              start-view="day"
+              min-date="''"
+              autoclose="false"
+              inline="true"
+              set-on-select="true"
+              id="observacao"
+            ></div>
+          </div>
+          <div class="col-md-4">
+            <label for="dataexe" class="font-red">DataExecucao:</label>
+            <div
+              moment-picker="vm.dataExecucao"
+              change="vm.changeTextValueChange()"
+              format="DD MMMM YYYY"
+              max-view="day"
+              start-view="day"
+              min-date="''"
+              autoclose="false"
+              inline="true"
+              set-on-select="true"
+              id="dataexe"
+            ></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button
+              class="btn btn-info btn-xs"
+              ng-click="vm.generateDefaults()"
+            >
+              P
+            </button>
+            <textarea
+              id="observacao"
+              class="form-control"
+              style="margin-bottom: 15px"
+              ng-model="vm.customerComment"
+              ng-mouseleave="vm.changeTextValue()"
+              rows="10"
+              cols="40"
+            ></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-12 col-xs-12">
+            <button class="btn btn-success col-xs-12" ng-click="vm.Atualizar()">
+              Atualizar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,177 @@
+<div class="new-card-modal" ng-controller="FlagController as vm">
+  <div class="header">
+    <div class="dialog-toolbar">
+      <h4>
+        Criar flag para: {{ vm.customer.Name }}
+        <span ng-if="vm.selectedPhone != null && vm.selectedPhone != undefined"
+          >{{vm.selectedPhone}}</span
+        >
+      </h4>
+    </div>
+
+    <button ng-click="closeThisDialog(0)">X</button>
+  </div>
+
+  <div class="modal-container">
+    <div class="container col-xs-12">
+      <!-- ng-change="vm.changeExtraService($index,service.Id, phoneNumber, service)" -->
+      <div>
+        <select
+          id="qualServicoContratar"
+          next-on-enter
+          class="form-control"
+          ng-options="flag.IdType as flag.TypeDescription for flag in vm.flagsTypes"
+          ng-model="flag.IdType"
+          ng-change="vm.changeFlag(flag)"
+          style="width: 160px; margin-left: 15px"
+        >
+          <option value="">Selecione a flag</option>
+        </select>
+
+        <select
+          ng-if="vm.showPhones"
+          class="form-control"
+          ng-options="phone.PersonPhoneId as (phone.DisplayPhone + ' - ' + phone.PlanDescription + ' - ' + phone.NickName) for phone in vm.customerPhones"
+          ng-model="phone.PersonPhoneId"
+          ng-change="vm.changeSelectedPhone(phone)"
+          style="width: 300px; margin-left: 15px"
+        >
+          <option value="">Selecione o Telefone (opcional)</option>
+        </select>
+
+        <select
+          next-on-enter
+          class="form-control"
+          ng-if="vm.showPlanList"
+          ng-options="plan.Id as plan.Description for plan in vm.allPlans"
+          ng-model="plan.Id"
+          ng-change="vm.changePlan(plan)"
+          style="width: 160px; margin-left: 15px"
+        >
+          <option value="">Plano alvo</option>
+        </select>
+
+        <div class="form-group col-xs-12">
+          <label for="nomeCartao">Descrição Flag:</label>
+          <textarea
+            id="nomeCartao"
+            next-on-enter
+            class="form-control"
+            ng-model="vm.txtDescription"
+          ></textarea>
+        </div>
+        <div class="form-group col-xs-12">
+          <input
+            id="numeroCartao"
+            class="numeroCartaoComment"
+            ng-model="vm.bitPendingInteraction"
+            type="checkbox"
+          />
+          <label for="numeroCartao">Pendete interação</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="container col-xs-12">
+      <div class="edicao-container">
+        <div class="col-xs-12" ng-show="vm.hasEmailTosend">
+          <div class="form-container">
+            <!-- <div class="row">
+              <div class="form-group col-sm-12 col-xs-12">
+
+                <label for="cpf">De :</label>
+                <select next-on-enter class="form-control" ng-model="vm.from">
+                  <option name="marcio.franco@foneclube.com.br" value="marcio.franco@foneclube.com.br">marcio.franco@foneclube.com.br</option>
+                  <option name="alexandra@foneclube.com.br" value="alexandra@foneclube.com.br">alexandra@foneclube.com.br</option>
+                  <option name="marcio.franco@gmail.com" value="marcio.franco@gmail.com">marcio.franco@gmail.com</option>
+                  <option name="gustavo.franco@foneclube.com.br" value="gustavo.franco@foneclube.com.br">gustavo.franco@foneclube.com.br</option>
+                </select>
+
+              </div>
+
+            </div> -->
+
+            <div class="row">
+              <div class="form-group col-sm-12 col-xs-12">
+                <label for="nome">Para:</label>
+                <input
+                  id="nome"
+                  next-on-enter
+                  class="form-control"
+                  ng-model="vm.email"
+                  type="text"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-sm-12 col-xs-12">
+                <label for="email">Cópia:</label>
+                <input
+                  id="email"
+                  next-on-enter
+                  class="form-control"
+                  ng-model="vm.cc"
+                  type="text"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-sm-12 col-xs-12">
+                <label for="email">Cópia oculta:</label>
+                <input
+                  id="email"
+                  next-on-enter
+                  class="form-control"
+                  ng-model="vm.bcc"
+                  type="text"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-sm-12 col-xs-12">
+                <label for="dataNasc">Assunto:</label>
+                <input
+                  id="dataNasc"
+                  next-on-enter
+                  class="form-control"
+                  ng-model="vm.subject"
+                />
+              </div>
+            </div>
+            <!-- <div class="row">
+
+              <div class="form-group col-sm-12 col-xs-12">
+                <label for="dataNasc">Attach Files:</label>
+                <input type="file" id="file1" name="file" multiple
+                       ng-files="getTheFiles($files)" />
+              </div>
+            </div> -->
+
+            <div class="row">
+              <div class="form-group col-sm-12 col-xs-12">
+                <label for="quemConvidou">Corpo:</label>
+                <textarea
+                  next-on-enter
+                  class="form-control"
+                  ng-model="vm.body"
+                  cols="40"
+                  rows="7"
+                ></textarea>
+                <!--<div simditor ng-model="vm.body"></div>-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="btn btn-success col-xs-12"
+          on-tap="vm.onTapAddComment(vm, closeThisDialog);"
+        >
+          Enviar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

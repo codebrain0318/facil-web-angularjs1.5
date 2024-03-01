@@ -1,0 +1,52 @@
+================================================================Notas Entrega================================================================
+Data Produção: Previsão dia 30/09
+
+Novo Dev
+> Novo layout;
+> Merge no novo layout;
+> Edição/adição de imagens na tela de edição;
+> Quem convidou pode ser editado ou adicionado na tela de edição;
+> Remoção da data de aniversário na tela de cadastro base e na tela de edição;
+
+===========================================================================================================================================
+===========================================================================================================================================
+Data Produção: Previsão dia 22/09
+
+Novo Dev
+> Ao tentar Cadastrar/Editar um telefone Foneclube que já está vinculado a outro cliente o sistema informa o numero do telefone, o cpf e o nome do cliente que possui o numero.
+
+Correções
+> Fix nas modais de pagamento(boleto, cartão novo e existente), ao tentar realizar pagamento com dados de cliente incompletos o sistema avisa.
+
+===========================================================================================================================================
+===========================================================================================================================================
+Data Produção: 13/09/2017
+
+Novo Dev
+> Máscara de cpf aplicada nas telas, formato: 999.999.999-99;
+> Apenas um campo para informar DDD e Número de Telefone em todas ocorrências de telefone, formato: (99) 99999-9999 ou (99) 9999-9999;
+> Ao informar CPF existente no Foneclube o aplicativo pergunta se o usuário deseja adicionar novas linha a este CPF;
+
+Correções
+> É exibida mesagem solicitando correção dos dados do cliente caso ocorra erro nas transações de pagamento com boleto e cartão de crédito;
+> É possivel buscar cliente através do cpf com ou sem máscara na tela de "customers";
+> Não ocorre mais a validação de número Foneclube indisponível ao abrir a tela de edição;
+> Data de aniversário corrigida, formato dd/MM/aaaa;
+> Scroll do site corrigido;
+> Alguns campos não apareciam na tela era necessário navegar através do TAB, foi corrigido em todas as telas;
+> É possivel adicionar telefone de contato na tela de edição mesmo quando o cliente não tem telefone de contato;
+
+Não foi Desenvolvido
+> Manter a lista de cliente em cache e só atualizar quando for pressionado F5;
+	-Como trocaremos o layout em breve não compensa mexer nisso agora, pois com o novo layout isso pode ser corrigido;
+> Não foi feito alteração/adição de novas imagens;
+	-Tem como dependência alteração de código na API;
+> Não foi feito alteração de "quem convidou";
+	-Tem como dependência alteração de código na API (falta validar o código);
+> Novo Layout;
+	-Falta fazer testes de integração dos códigos;
+
+Obs: Só ocorre erros nos pagamentos com cartão de crédito ou boleto quando os dados cadastrados do cliente estão incorretos, como CEP, CPF, e-mail...
+
+================================================================================================================================================
+================================================================================================================================================

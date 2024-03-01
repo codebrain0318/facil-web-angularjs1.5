@@ -1,0 +1,40 @@
+<div class="new-card-modal" ng-controller="CommentController as vm">
+  <div class="header">
+    <div class="dialog-toolbar">
+      <h4>Cliente: {{ vm.customer.Name }}</h4>
+    </div>
+
+    <button ng-click="closeThisDialog(0)">X</button>
+  </div>
+
+  <div class="modal-container">
+    <div class="container col-xs-12">
+      <div>
+        <div class="form-group col-xs-12">
+          <label for="nomeCartao">Descrição:</label>
+          <textarea
+            id="nomeCartao"
+            next-on-enter
+            class="form-control"
+            ng-model="vm.txtDescription"
+          ></textarea>
+        </div>
+        <div class="form-group col-xs-12 ">
+          <input
+            id="numeroCartao"
+            class="numeroCartaoComment"
+            ng-model="vm.bitPendingInteraction"
+            type="checkbox"
+          />
+          <label for="numeroCartao">Pendete interação</label>
+        </div>
+        <button
+          class="btn btn-success col-xs-12"
+          on-tap="vm.onTapAddComment(vm); closeThisDialog(0)"
+        >
+          Enviar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

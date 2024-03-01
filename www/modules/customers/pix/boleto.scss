@@ -1,0 +1,99 @@
+.boleto-modal {
+  .btn {
+    margin-bottom: 5px;
+  }
+  .btn:last-child {
+    margin-bottom: 10px;
+  }
+}
+
+.aviso-sem-pagamento {
+  color: red;
+  font-size: 18px;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+textarea.form-control {
+  min-height: 60px;
+}
+.m-t-15 {
+  margin-top: 15px;
+}
+.agendamento {
+  float: none;
+  margin-right: 0;
+}
+.moment-picker .year-view {
+  min-width: 10em !important;
+}
+.verificarfsize {
+  font-size: 12px;
+}
+.m-l-15 {
+  margin-left: 15px;
+}
+.m-l-30 {
+  margin-left: 30px;
+}
+.form-inline .form-control {
+  display: inline-block !important;
+  width: 15% !important;
+}
+.font-red {
+  color: red;
+}
+
+.custom-row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.btn-group {
+  min-width: 100%;
+}
+.moment-picker .decade-view td,
+.moment-picker .year-view td {
+  height: 2em !important;
+}
+.moment-picker td,
+.moment-picker th {
+  font-size: 14px;
+  height: 1em;
+  width: 1em;
+}
+.show-template .ngdialog-content {
+  font-size: 1em !important;
+}
+.dialogheader {
+  outline: 0px;
+  text-align: left;
+  margin-top: 20px;
+}
+input.chk-btn {
+  display: none;
+}
+
+input.chk-btn+label {
+  border: 1px solid grey;
+  padding: 5px 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 15%;
+  text-align: center;
+}
+
+input.chk-btn:not(:checked)+label:hover {
+  box-shadow: 0px 1px 3px;
+}
+
+input.chk-btn+label:active,
+input.chk-btn:checked+label {
+  box-shadow: 0px 0px 3px inset;
+  background: #45b1e8;
+}

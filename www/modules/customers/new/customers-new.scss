@@ -1,0 +1,174 @@
+.customers .ag-cell {
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  img.imgWhatsapp {
+    max-width: 18px;
+    border-radius: 50%;
+  }
+  img.imgWhatsappStatus {
+    max-width: 30px;
+    border-radius: 50%;
+  }
+  img.imgUsd {
+    max-width: 18px;
+    border-radius: 0 !important;
+  }
+  img.imgrepeatcharge {
+    max-width: 17px;
+    border-radius: 0 !important;
+  }
+  img.imgPix {
+    max-width: 19px;
+    border-radius: 0 !important;
+  }
+  img.imgBoleto {
+    max-width: 23px;
+    border-radius: 0 !important;
+  }
+  img.imgcc {
+    max-width: 25px;
+    border-radius: 0 !important;
+  }
+  img.imgStandard {
+    max-width: 17px;
+    border-radius: 0 !important;
+  }
+    img.imgOnOff {
+      max-width: 15px;
+      border-radius: 0 !important;
+    }
+}
+
+.payment-filter {
+  span {
+    padding: 0px 7px;
+    border-radius: 50%;
+    margin-left: 5px;
+    border: solid 1px;
+  }
+
+  .payment-green {
+    background-color: green;
+    border-color: green;
+  }
+
+  .payment-yellow {
+    background-color: yellow;
+    border-color: yellow;
+  }
+
+  .payment-red {
+    background-color: red;
+    border-color: red;
+  }
+
+  .payment-grey {
+    background-color: gray;
+    border-color: gray;
+  }
+
+  .payment-nan {
+    border-color: black;
+  }
+}
+
+.grid-container {
+  width: 100%;
+}
+
+#loadingDiv {
+  z-index: 9999;
+}
+
+.payment-status-color {
+  text-align: center;
+
+  span {
+    padding: 0px 8px;
+    border-radius: 50%;
+  }
+}
+
+.break-word {
+  font-weight: bold;
+}
+
+.btn-flag {
+  content: "&#9872";
+}
+
+img.imgWhatsapp {
+  max-width: 40px;
+  border-radius: 50%;
+}
+
+.link {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  #divStatusCharging {
+    width: 100%;
+  }
+}
+
+.ag-header-cell-label .ag-header-cell-text {
+  white-space: normal !important;
+}
+
+#refreshButton {
+  cursor: pointer;
+
+  :hover {
+    color: #424242;
+  }
+}
+
+.black-link {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.black-link:hover {
+  text-decoration: none;
+  color: #424242;
+}
+
+label {
+  font-weight: 100;
+}
+
+input[type="checkbox"] {
+  margin-top: 0px;
+}
+.imgccp {
+  max-width: 20px;
+  margin-right: 10px;
+}
+.ccpicons {
+  margin-top: 10px;
+  display: inline-flex;
+}
+.dnone{
+  display: none;
+}
+@media only screen and (max-width: 600px) {
+  .header-filter {
+    width: 100%
+  }
+    .form-group {
+      margin-bottom: 0;
+    }
+    .dnone{
+      display: block;
+      float: right;
+    }
+}
+@media only screen and (max-width: 992px) {
+  .dnone {
+    display: block;
+    float: right;
+  }
+}

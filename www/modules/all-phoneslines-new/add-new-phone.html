@@ -1,0 +1,126 @@
+<div ng-controller="AddNewPhoneModalController as vm">
+  <div class="row">
+    <div class="col-md-12">
+      <h5 style="font-weight: bold">Adicionar nova linha para o cliente</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="m-t-10">
+      <div class="form-group col-sm-3 col-xs-12">
+        <label class="control-label">Customer Nome</label>
+        <input
+          type="text"
+          autocomplete="off"
+          name="nome1"
+          class="form-control"
+          ng-model="vm.chargeForm.Nome"
+          ng-mouseenter="vm.selectCustomerItem(false)"
+          ng-mouseleave="vm.selectCustomerItem(true)"
+          ng-change="vm.selectCustomerItem(false)"
+        />
+        <p class="red">{{vm.chargeForm.ExistingClient}}</p>
+        <div
+          class="items"
+          ng-hide="vm.isCustomerSelected"
+          ng-mouseenter="vm.selectCustomerItem(false)"
+          ng-mouseleave="vm.selectCustomerItem(true)"
+        >
+          <p
+            class="search-items"
+            ng-click="vm.setSelectedCustomerName(option)"
+            ng-repeat="option in vm.customerNames | filter: vm.chargeForm.Nome"
+          >
+            {{option.Name}}
+          </p>
+        </div>
+      </div>
+      <div class="form-group col-sm-2 col-xs-12">
+        <label class="control-label">Contel</label>
+        <input
+          id="contel"
+          ng-model="vm.chargeForm.Contel"
+          class="form-control"
+          type="tel"
+          placeholder="(xx) 99999-9999"
+          mask="(99) 9?9999-9999"
+          restrict="reject"
+        />
+      </div>
+      <div class="form-group col-sm-2 col-xs-12">
+        <label class="control-label">Portar</label>
+        <input
+          id="contel"
+          ng-model="vm.chargeForm.Port"
+          class="form-control"
+          type="tel"
+          placeholder="(xx) 99999-9999"
+          mask="(99) 9?9999-9999"
+          restrict="reject"
+        />
+      </div>
+      <div class="form-group col-sm-2 col-xs-12">
+        <label class="control-label">ICCID</label>
+        <input
+          id="contel"
+          ng-model="vm.chargeForm.ICCID"
+          class="form-control"
+          restrict="reject"
+        />
+      </div>
+      <div class="form-group col-sm-2 col-xs-12">
+        <label class="control-label">Apelido</label>
+        <input
+          type="text"
+          id="apelido"
+          class="form-control"
+          ng-model="vm.chargeForm.Apelido"
+          restrict="reject"
+        />
+      </div>
+      <div class="form-group col-sm-3 col-xs-12">
+        <label class="control-label">Preco FC</label>
+        <select
+          id="planos"
+          next-on-enter
+          autocomplete="off"
+          class="form-control"
+          ng-options="plan.Id as plan.Description for plan in vm.plans"
+          ng-model="vm.chargeForm.Plano"
+          ng-change="vm.updatePrice(vm.chargeForm.Plano)"
+        ></select>
+      </div>
+      <div class="form-group col-sm-2 col-xs-12">
+        <label class="control-label">R$ VIP</label>
+        <input
+          money-input
+          type="text"
+          id="preco"
+          next-on-enter
+          class="form-control"
+          ng-model="vm.chargeForm.Price"
+          restrict="reject"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div style="padding: 20px">
+      <div
+        style="width: 100%; height: {{vm.gridHeight}}px;"
+        ag-grid="vm.gridOptions"
+        class="ag-theme-balham ag-basic"
+      ></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-xs-12 m-t-20">
+      <button
+        class="btn btn-primary"
+        ng-enter="vm.onTapSaveLine()"
+        ng-click="vm.onTapSaveLine()"
+      >
+        Salvar
+      </button>
+    </div>
+  </div>
+</div>

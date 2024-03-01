@@ -1,0 +1,406 @@
+<style type="text/css">
+  .card {
+    box-shadow: none;
+  }
+  .icon-shape {
+    width: 20px !important;
+  }
+  .menu-views {
+    display: block !important;
+  }
+
+  .items {
+    height: 200px;
+    overflow: auto;
+    background-color: lightgray;
+    font-size: 14px;
+  }
+  .fontsmall {
+    color: black;
+    font-size: 11px;
+    font-weight: normal;
+    margin-bottom: 10px;
+  }
+</style>
+
+<div class="" ng-controller="FacilController as vm">
+  <div class="row">
+    <div class="col-sm-12 m-t-20">
+      <h4>Facil - Clientes internacionais</h4>
+      <div class="form-group" style="margin-top: 10px">
+        <div class="col-md-3">
+          <div style="display: flex">
+            <input
+              type="text"
+              autocomplete="off"
+              name="pname"
+              class="form-control"
+              ng-model="vm.chargeForm.Nome"
+              ng-mouseenter="vm.selectItem(false)"
+              ng-mouseleave="vm.selectItem(true)"
+              ng-change="vm.selectItem(false)"
+            />
+            <a style="margin: 5px 10px" ng-click="vm.clearSelectedName()"
+              ><i class="fa fa-trash"></i
+            ></a>
+          </div>
+
+          <div
+            class="items"
+            ng-hide="vm.isSelected"
+            ng-mouseenter="vm.selectItem(false)"
+            ng-mouseleave="vm.selectItem(true)"
+          >
+            <p
+              class="search-items"
+              ng-click="vm.setSelectedName(option)"
+              ng-repeat="option in vm.Names | filter: { Name : vm.chargeForm.Nome } "
+            >
+              {{option.Name}}
+            </p>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div
+            class="input-group"
+            moment-picker="vm.startDate"
+            format="YYYY-MM-DD"
+            max-view="month"
+            min-view="month"
+          >
+            <span class="input-group-addon">
+              <i class="octicon octicon-calendar"></i>
+            </span>
+            <input
+              class="form-control"
+              placeholder="Select a date"
+              ng-model="vm.startDate"
+              ng-model-options="{ updateOn: 'blur' }"
+            />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div
+            class="input-group"
+            moment-picker="vm.endDate"
+            format="YYYY-MM-DD"
+            max-view="month"
+            min-view="month"
+          >
+            <span class="input-group-addon">
+              <i class="octicon octicon-calendar"></i>
+            </span>
+            <input
+              class="form-control"
+              placeholder="Select a date"
+              ng-model="vm.endDate"
+              ng-model-options="{ updateOn: 'blur' }"
+            />
+          </div>
+        </div>
+        <div class="form-group col-sm-2 col-xs-12">
+          <select
+            id="operation"
+            next-on-enter
+            autocomplete="off"
+            class="form-control"
+            ng-options="plan as plan for plan in vm.Operations"
+            ng-model="vm.Operation"
+          ></select>
+        </div>
+        <div class="form-group col-sm-1 col-xs-12">
+          <select
+            id="choice"
+            next-on-enter
+            autocomplete="off"
+            class="form-control"
+            ng-options="plan as plan for plan in vm.Choices"
+            ng-model="vm.Choice"
+          ></select>
+        </div>
+
+        <div class="col-md-2">
+          <div>
+            <input
+              type="button"
+              value="Load"
+              ng-click="vm.LoadUserData()"
+              class="btn btn-primary"
+            />
+            <input
+              type="button"
+              value="Add New"
+              ng-click="vm.addNewIntlUser()"
+              class="btn btn-primary"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ng-if="vm.isLoad">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body p-3">
+                <div class="new-row">
+                  <div class="col-md-10">
+                    <div class="numbers">
+                      <p class="text-sm mb-0 text-capitalize font-weight-bold">
+                        Personal Info
+                      </p>
+                      <h5 class="font-weight-bolder mb-0 txt-success">
+                        {{vm.LoadData.PersonInfo.Name}}
+                      </h5>
+                      <h5 class="font-weight-bolder mb-0 txt-success">
+                        {{vm.LoadData.PersonInfo.Email}}
+                      </h5>
+                    </div>
+                  </div>
+                  <div class="col-md-2 text-end">
+                    <div
+                      class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md"
+                    >
+                      <i
+                        class="fa fa-user text-lg opacity-10"
+                        style="color: green; font-size: 2rem !important"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body p-3">
+                <div class="new-row">
+                  <div class="col-md-10">
+                    <div class="numbers">
+                      <p class="text-sm mb-0 text-capitalize font-weight-bold">
+                        Total Purchases
+                      </p>
+                      <h5 class="font-weight-bolder mb-0 txt-success">
+                        Plans : {{vm.LoadData.TotalPurchases}}
+                      </h5>
+                      <h5 class="font-weight-bolder mb-0 txt-success">
+                        Amount : U$ {{vm.LoadData.TotalPurchaseAmount}}
+                      </h5>
+                    </div>
+                  </div>
+                  <div class="col-md-2 text-end">
+                    <div
+                      class="fa fa-tags bg-gradient-primary shadow text-center border-radius-md"
+                    >
+                      <i
+                        class="fa fa-shape text-lg opacity-10"
+                        style="color: green; font-size: 2rem !important"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body p-3">
+                <div class="new-row">
+                  <div class="col-md-10">
+                    <div class="numbers">
+                      <p class="text-sm mb-0 text-capitalize font-weight-bold">
+                        Current Balance
+                      </p>
+                      <h5 class="font-weight-bolder mb-0 txt-success">
+                        U$ {{vm.LoadData.CurrentBalance}}
+                      </h5>
+                      <div class="text-xs">
+                        <a ng-click="vm.AddBalance()" style="cursor: pointer"
+                          >Add Balance</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2 text-end">
+                    <div
+                      class="bg-gradient-primary shadow text-center border-radius-md"
+                    >
+                      <i
+                        class="fa fa-dollar text-lg opacity-10"
+                        style="color: green; font-size: 2rem !important"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body p-3">
+                <div class="new-row">
+                  <div class="col-md-10">
+                    <div class="numbers">
+                      <p class="text-sm mb-0 text-capitalize font-weight-bold">
+                        Total Deposits
+                      </p>
+                      <h5 class="font-weight-bolder mb-0 txt-success">
+                        U$ {{vm.LoadData.TotalDeposits}}
+                      </h5>
+                      <div class="text-xs">
+                        <a
+                          ng-click="vm.DepositHistory()"
+                          style="cursor: pointer"
+                          >History</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2 text-end">
+                    <div
+                      class="bg-gradient-primary shadow text-center border-radius-md"
+                    >
+                      <i
+                        class="fa fa-dollar text-lg opacity-10"
+                        style="color: green; font-size: 2rem !important"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="row" ng-if="vm.isLoad" style="margin-top: 20px">
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body p-3">
+                <div class="new-row">
+                  <div class="col-md-10">
+                    <div class="numbers">
+                      <h5
+                        class="font-weight-bolder mb-0 txt-success"
+                        ng-bind-html="vm.LoadData.TodaySale"
+                      ></h5>
+                    </div>
+                  </div>
+                  <div class="col-md-2 text-end">
+                    <div
+                      class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md"
+                    >
+                      <i
+                        class="fa fa-clock-o text-lg opacity-10"
+                        style="color: red; font-size: 2rem !important"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body p-3">
+                <div class="new-row">
+                  <div class="col-md-10">
+                    <div class="numbers">
+                      <h5
+                        class="font-weight-bolder mb-0 txt-success"
+                        ng-bind-html="vm.LoadData.CurrentMonthSale"
+                      ></h5>
+                    </div>
+                  </div>
+                  <div class="col-md-2 text-end">
+                    <div
+                      class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md"
+                    >
+                      <i
+                        class="fa fa-clock-o text-lg opacity-10"
+                        style="color: red; font-size: 2rem !important"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body p-3">
+                <div class="new-row">
+                  <div class="col-md-10">
+                    <div class="numbers">
+                      <h5
+                        class="font-weight-bolder mb-0 txt-success"
+                        ng-bind-html="vm.LoadData.OverallSale"
+                      ></h5>
+                    </div>
+                  </div>
+                  <div class="col-md-2 text-end">
+                    <div
+                      class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md"
+                    >
+                      <i
+                        class="fa fa-clock-o text-lg opacity-10"
+                        style="color: red; font-size: 2rem !important"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body p-3">
+                <div class="new-row">
+                  <div class="col-md-10">
+                    <div class="numbers">
+                      <h5
+                        class="font-weight-bolder mb-0 txt-success"
+                        ng-bind-html="vm.LoadData.FilteredSale"
+                      ></h5>
+                    </div>
+                  </div>
+                  <div class="col-md-2 text-end">
+                    <div
+                      class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md"
+                    >
+                      <i
+                        class="fa fa-clock-o text-lg opacity-10"
+                        style="color: red; font-size: 2rem !important"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="row" style="margin-top: 50px">
+        <div class="col-md-12">
+          <div class="col-md-12">
+            <div
+              style="width: {{vm.gridWidth}}px; height: {{vm.gridHeight}}px;"
+              ag-grid="vm.gridOptions1"
+              class="ag-theme-balham ag-basic"
+              [getRowHeight]="getRowHeight"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

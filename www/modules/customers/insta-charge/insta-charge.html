@@ -1,0 +1,478 @@
+<style type="text/css">
+  @media only screen and (min-width: 992px) {
+    .mobile-inline {
+      display: block;
+    }
+  }
+  .red {
+    color: red;
+    font-size: 12px;
+  }
+  .row {
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  .mass-charging-container table {
+    margin-top: 0px;
+  }
+</style>
+<div
+  class="mass-charging-container"
+  ng-controller="InstaChargeController as vm"
+>
+  <div class="row">
+    <div class="form-group col-xs-12" ng-show="vm.isMobile">
+      <a href="#/tab/customers-new"
+        ><i class="glyphicon glyphicon-home" aria-hidden="true"></i
+      ></a>
+      <a href="#/tab/allphonelinesnew"
+        ><i class="glyphicon glyphicon-phone" aria-hidden="true"></i
+      ></a>
+    </div>
+  </div>
+  <div class="header" style="padding-left: 1rem">
+    <div class="header-text">Vendas</div>
+  </div>
+  <div class="modal-container" style="overflow-x: hidden; flex-grow: 1;">
+    <form style="height: 100%; display: flex; flex-direction: column;">
+      <div class="row">
+        <div class="col-md-12">
+          <label style="color: red; font-weight: bold; margin-left: 15px"
+            >Vendedor</label
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group col-sm-3 col-xs-12">
+            <label class="control-label">Nome</label>
+            <input
+              type="text"
+              autocomplete="doNotAutoComplete"
+              name="pname1"
+              class="form-control"
+              ng-model="vm.chargeForm.ParentNome"
+              ng-mouseenter="vm.selectParentItem(false)"
+              ng-mouseleave="vm.selectParentItem(true)"
+              ng-change="vm.selectParentItem(false)"
+            />
+            <div
+              style="box-shadow: 2px 6px 10px 0.6px #000"
+              class="items"
+              ng-hide="vm.isParentSelected"
+              ng-mouseenter="vm.selectParentItem(false)"
+              ng-mouseleave="vm.selectParentItem(true)"
+            >
+              <p
+                class="search-items"
+                ng-click="vm.setSelectedParentName(option)"
+                ng-repeat="option in vm.parentNames | filter: { Name : vm.chargeForm.ParentNome } "
+              >
+                {{option.Name}}
+              </p>
+            </div>
+          </div>
+          <div class="form-group col-sm-2 col-xs-12" style="max-width: 200px;">
+            <label class="control-label">CPF/CNPJ</label>
+            <input
+              type="text"
+              name="parentcpf"
+              autocomplete="doNotAutoComplete"
+              class="form-control"
+              style="min-width: 130px; max-width: 170px;"
+
+              ng-model="vm.chargeForm.ParentCPF"
+              ng-keyup="vm.validateParentCPF()"
+            />
+            <label class="red" ng-show="!vm.ErrInvalidParentCPF"
+              >Invalid CPF</label
+            >
+          </div>
+
+          <div class="form-group col-sm-4 col-xs-12" style="max-width: 240px;">
+            <div class="control-label">WhatsApp</div>
+
+            <div style="display: inline-flex">
+              <input
+                type="text"
+                id="phone1"
+                style="min-width: 170px;"
+                name="parentwhatsAppNumber"
+                autocomplete="doNotAutoComplete"
+                class="form-control"
+                restrict="reject"
+                ng-model="vm.chargeForm.ParentWhatsAppNumber"
+              /><button
+                class="btn btn-success"
+                data-ng-click="vm.sendWelcomeWhatsAppParent()"
+              >
+                <i class="fa fa-whatsapp fa-lg"></i>
+              </button>
+            </div>
+            <label style="color: green; font-size: 12px"
+              >{{vm.validWhatsAppParent}}</label
+            >
+          </div>
+          <div class="form-group col-sm-2 col-xs-12">
+            <button
+              ng-click="vm.confirmDados()"
+              class="btn btn-primary col-xs-12 lg-m-t-60"
+              style="margin-top: 20px"
+            >
+              Confirmar Dados
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <label style="color: red; font-weight: bold; margin-left: 15px"
+            >Convidado</label
+          >
+        </div>
+      </div>
+      <div class="">
+        <div class="col-md-9">
+          <div class="row">
+            <div class="form-group col-sm-1 col-xs-6">
+              <div>
+                <span>
+                  <label class="form-check-label" for="radio5">
+                    <input
+                      type="radio"
+                      id="radio5"
+                      name="cpfType"
+                      data-ng-model="vm.chargeForm.CpfType"
+                      class="form-check-input"
+                      ng-value="0"
+                    />
+                    <span
+                      style="padding-top: 5px; font-size: 11px; margin-left: 0"
+                      >CPF</span
+                    >
+                  </label></span
+                >
+                <span class="mobile-inline">
+                  <label class="form-check-label" for="radio6">
+                    <input
+                      type="radio"
+                      id="radio6"
+                      name="cpfType"
+                      data-ng-model="vm.chargeForm.CpfType"
+                      class="form-check-input"
+                      ng-value="1"
+                    />
+                    <span
+                      style="padding-top: 15px; font-size: 11px; margin-left: 0"
+                      >CNPJ</span
+                    >
+                  </label></span
+                >
+              </div>
+            </div>
+
+            <div class="form-group col-sm-3 col-xs-12">
+              <label class="control-label">Nome</label>
+              <a ng-click="vm.clearSelectedName()"
+                ><i class="fa fa-trash"></i
+              ></a>
+              <input
+                type="text"
+                autocomplete="off"
+                name="nome1"
+                class="form-control"
+                ng-model="vm.chargeForm.Nome"
+                ng-mouseenter="vm.selectCustomerItem(false)"
+                ng-mouseleave="vm.selectCustomerItem(true)"
+                ng-change="vm.selectCustomerItem(false)"
+              />
+              <p class="red">{{vm.chargeForm.ExistingClient}}</p>
+              <div
+                style="box-shadow: 2px 6px 10px 0.6px #000; z-index: 999999"
+                class="items"
+                ng-hide="vm.isCustomerSelected"
+                ng-mouseenter="vm.selectCustomerItem(false)"
+                ng-mouseleave="vm.selectCustomerItem(true)"
+              >
+                <p
+                  class="search-items"
+                  ng-click="vm.setSelectedCustomerName(option)"
+                  ng-repeat="option in vm.customerNames | filter: { Name : vm.chargeForm.Nome } "
+                >
+                  {{option.Name}}
+                </p>
+              </div>
+              <label class="red" ng-show="vm.ErrNome">* Required</label>
+            </div>
+            <div class="form-group col-sm-3 col-xs-12" style="max-width: 200px;">
+              <label class="control-label">CPF/CNPJ</label>
+              <input
+                style="min-width: 130px; max-width: 170px;"
+                type="text"
+                name="cpf"
+                autocomplete="doNotAutoComplete"
+                class="form-control"
+                ng-model="vm.chargeForm.CPF"
+                ng-keyup="vm.validateCPF()"
+              />
+              <label class="red" ng-show="vm.ErrCPF">* Required</label>
+              <label class="red" ng-show="!vm.ErrInvalidCPF">Invalid CPF</label>
+            </div>
+
+            <div class="form-group col-sm-4 col-xs-6" style="max-width: 240px;">
+              <label class="control-label">WhatsApp </label>
+
+              <div style="display: inline-flex">
+                <input
+                  id="phoneCountry" style="min-width: 50px;"  class="form-control" ng-model="vm.chargeForm.CountryCode"/>
+                <input
+                  id="phone"
+                  type="text"
+                  style="min-width: 170px;"
+                  name="whatsAppNumber"
+                  autocomplete="doNotAutoComplete"
+                  class="form-control"
+                  placeholder=""
+                  ng-keyup="vm.validateForm()"
+                  restrict="reject"
+                  ng-model="vm.chargeForm.WhatsAppNumber"
+                />
+                <button
+                  class="btn btn-success"
+                  data-ng-click="vm.sendWelcomeWhatsApp()"
+                >
+                  <i class="fa fa-whatsapp fa-lg"></i>
+                </button>
+              </div>
+              <label class="red" ng-show="vm.ErrWhatsAppNumber"
+                >* Required</label
+              >
+              <label style="color: green; font-size: 12px"
+                >{{vm.validWhatsApp}}</label
+              >
+            </div>
+            <div class="form-group col-sm-3 col-xs-6">
+              <label class="control-label">Email</label>
+              <input
+                type="text"
+                ng-required="true"
+                autocomplete="doNotAutoComplete"
+                name="email"
+                class="form-control"
+                ng-model="vm.chargeForm.Email"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-9 col-xs-12">
+              <label class="control-label"> Comment </label>
+              <button
+                class="btn btn-primary btn-xs"
+                ng-click="vm.updateVariable()"
+              >
+                P
+              </button>
+              <button
+                class="btn btn-default btn-xs"
+                ng-click="vm.chargeForm.Comment = vm.defaultComment"
+              >
+                X
+              </button>
+
+              <textarea
+                id="comment"
+                class="form-control"
+                ng-model="vm.chargeForm.Comment"
+                style="margin-top: 15px"
+                rows="8"
+                cols="40"
+              ></textarea>
+            </div>
+            <div class="form-group col-sm-3 col-xs-12">
+              <label class="control-label">Vigencia</label>
+              <div
+                moment-picker="vm.chargeForm.Vigencia"
+                format="YYYY MM"
+                max-view="month"
+                start-view="month"
+                autoclose="false"
+                inline="true"
+                set-on-select="true"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="row">
+            <div class="form-group col-sm-12 col-xs-12">
+              <button class="" ng-click="vm.copyToClipboard()"
+                style="background: none; border: none; position: unset; padding-top: 0.2rem;"
+                data-valor="{{vm.chargeForm.Referral}}">
+              <i style="color: black; font-size: 1.1rem;" class="fa fa-copy"></i>
+              <span>Link indicação</span>
+            </button>
+
+            </div>
+            <div class="form-group col-sm-3 col-xs-12">
+              <label class="control-label">Vencimento</label>
+              <div
+                moment-picker="vm.chargeForm.Vencimento"
+                format="DD MMMM YYYY"
+                max-view="day"
+                start-view="day"
+                min-date="''"
+                autoclose="false"
+                inline="true"
+                set-on-select="true"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group col-sm-3 col-xs-12">
+                <label class="control-label">CEP</label>
+                <input
+                  type="text"
+                  name="cep"
+                  autocomplete="off"
+                  class="form-control"
+                  ng-model="vm.chargeForm.Address.Cep"
+                  ng-keyup="vm.validateCEP()"
+                />
+              </div>
+
+              <div class="form-group col-sm-3 col-xs-12">
+                <label class="control-label">Número</label>
+                <input
+                  type="text"
+                  name="num"
+                  autocomplete="off"
+                  class="form-control"
+                  ng-model="vm.chargeForm.Address.StreetNumber"
+                />
+              </div>
+              <div class="form-group col-sm-3 col-xs-12">
+                <label class="control-label">Complemento</label>
+                <input
+                  type="text"
+                  name="complemento"
+                  autocomplete="off"
+                  class="form-control"
+                  ng-model="vm.chargeForm.Address.Complement"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group col-sm-3 col-xs-12">
+                <label class="control-label">Rua</label>
+                <input
+                  type="text"
+                  name="rua"
+                  autocomplete="off"
+                  class="form-control"
+                  ng-model="vm.chargeForm.Address.Street"
+                />
+              </div>
+              <div class="form-group col-sm-3 col-xs-12">
+                <label class="control-label">Bairro</label>
+                <input
+                  type="text"
+                  name="bairro"
+                  autocomplete="off"
+                  class="form-control"
+                  ng-model="vm.chargeForm.Address.Neighborhood"
+                />
+              </div>
+              <div class="form-group col-sm-3 col-xs-12">
+                <label class="control-label">Cidade</label>
+                <input
+                  type="text"
+                  name="cidade"
+                  autocomplete="off"
+                  class="form-control"
+                  ng-model="vm.chargeForm.Address.City"
+                />
+              </div>
+              <div class="form-group col-sm-1 col-xs-12">
+                <label class="control-label">Estado</label>
+                <select
+                  style="color: black"
+                  ng-model="vm.chargeForm.Address.State"
+                  placeholder=""
+                  class="form-control"
+                >
+                  <option value="AC">AC</option>
+                  <option value="AL">AL</option>
+                  <option value="AP">AP</option>
+                  <option value="AM">AM</option>
+                  <option value="BA">BA</option>
+                  <option value="CE">CE</option>
+                  <option value="DF">DF</option>
+                  <option value="ES">ES</option>
+                  <option value="GO">GO</option>
+                  <option value="MA">MA</option>
+                  <option value="MT">MT</option>
+                  <option value="MS">MS</option>
+                  <option value="MG">MG</option>
+                  <option value="PA">PA</option>
+                  <option value="PB">PB</option>
+                  <option value="PR">PR</option>
+                  <option value="PE">PE</option>
+                  <option value="PI">PI</option>
+                  <option value="RJ">RJ</option>
+                  <option value="RN">RN</option>
+                  <option value="RS">RS</option>
+                  <option value="RO">RO</option>
+                  <option value="RR">RR</option>
+                  <option value="SC">SC</option>
+                  <option value="SP">SP</option>
+                  <option value="SE">SE</option>
+                  <option value="TO">TO</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="form-group col-sm-4 col-xs-12" style="margin-top: 0.7rem">
+          <button
+            ng-click="vm.selectAndChargePlans()"
+            class="btn btn-warning col-xs-12 lg-m-t-60"
+            id="select_plans"
+          >
+            Selecionar planos
+          </button>
+        </div>
+        <div class="form-group col-sm-4 col-xs-12" style="margin-top: 0.7rem">
+          <button
+            ng-click="vm.registerNewClient()"
+            class="btn btn-warning col-xs-12 lg-m-t-60"
+            id="register_client"
+          >
+            Registrar cliente
+          </button>
+        </div>
+        <div
+          class="form-group col-sm-4 col-xs-12"
+          style="margin-top: 0.7rem;""
+        >
+          <button
+            ng-click="vm.saveClientDetails()"
+            class="btn btn-primary col-xs-12 lg-m-t-60"
+            id="update_client_details"
+          >
+            Atualizar detalhes do cliente
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

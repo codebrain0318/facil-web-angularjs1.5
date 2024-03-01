@@ -1,0 +1,150 @@
+    
+    <fone-header title="Edição Planos Fonclube"></fone-header>
+
+    
+    <div class="container-plan-edition">
+
+
+        
+        <button class="btn btn-light btn-edicao-foneclube-plan" 
+        type="button" 
+        data-toggle="collapse" 
+        data-target="#collapseExample" 
+        aria-expanded="true" 
+        aria-controls="collapseExample">
+            Editar Planos Foneclube
+        </button>
+        
+        <hr class="my-4">
+        <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+                
+            <table>
+                    <tr>
+                    <th style="padding:3px 4px 0 4px;">Operadora</th>
+                    <th style="padding:3px 4px 0 4px;">Descrição</th>
+                    <th style="padding:3px 4px 0 4px;">Valor</th>
+                    <th style="padding:3px 4px 0 4px;">Ativo</th>
+                    </tr>
+        
+                    <tr ng-repeat="plan in vm.allPlans">
+                        <!-- <td>Título</td> -->
+                        <!-- <td>{{plan.IdOperator == 1 ? 'CLARO' : 'VIVO'}}</td> -->
+                        <td style="padding:3px 4px 0 4px;">
+                            <!-- ng-change="vm.changeExtraService($index,service.Id, phoneNumber, service)" -->
+                            <select  next-on-enter class="form-control"
+                                ng-options="opt as opt for opt in vm.planOperator"
+                                ng-model="plan.selectedPlan"
+                                ng-init="plan.selectedPlan=plan.currentPlan"
+                                style="width: 160px;">
+                            <option value="">Adicione Serviço</option>
+                            </select>
+                        </td>
+                        <td style="padding:3px 4px 0 4px;"><input ng-model="plan.Description" type="text" class="form-control" /></td>
+                        <td style="padding:3px 4px 0 4px;"><input ng-model="plan.Value" type="text" class="form-control" /></td>
+                        
+                        <td style="padding:3px 4px 0 4px;">
+                                <!-- ng-change="vm.changeExtraService($index,service.Id, phoneNumber, service)" -->
+                                <div class=""></div>
+                                <select next-on-enter class="form-control"
+                                ng-model="plan.selectedActive" 
+                                ng-options="opt as opt for opt in vm.ativacao" 
+                                ng-init="plan.selectedActive=plan.Active"></select>
+                        </td>
+
+                        <td style="padding:3px 4px 0 4px;">
+                            <button ng-if="plan.Id > 0" type="button" class="btn btn-info" ng-click="vm.onClickEditPlan(plan)">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                            </button>
+
+                            <button ng-if="plan.Id == -1" type="button" class="btn btn-info" ng-click="vm.onClickAddPlan(plan)">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </button>
+                        </td>
+        
+                    </tr>
+        
+                </table>
+            </div>
+            </div>
+
+            
+            <button 
+            class="btn btn-light btn-edicao-foneclube-plan" 
+            type="button" 
+            data-toggle="collapse" 
+            data-target="#collapseService" 
+            aria-expanded="true" 
+            aria-controls="collapseService">
+                Editar Serviços Foneclube
+            </button>
+
+            <hr class="my-4">
+            <div class="collapse" id="collapseService">
+            <div class="card card-body">
+                    
+                <table>
+                        <tr>
+                        
+                        <th style="padding:3px 4px 0 4px ;width: 30%;">Descrição</th>
+                        <th style="padding:3px 4px 0 4px;">Editável</th>
+                        <th style="padding:3px 4px 0 4px;">Assinatura</th>
+                        <th style="padding:3px 4px 0 4px;">Opção Extra</th>
+                        <th style="padding:3px 4px 0 4px;">Valor Operadora</th>
+                        <th style="padding:3px 4px 0 4px;">Valor Foneclube</th>
+                        
+                        </tr>
+            
+                        <tr ng-repeat="service in vm.services">
+
+                            <td style="padding:3px 4px 0 4px;"><input ng-model="service.Descricao" type="text" class="form-control" /></td>
+                            
+                            <td style="padding:3px 4px 0 4px;">
+                                <select next-on-enter class="form-control"
+                                ng-model="service.selectedEditavel" 
+                                ng-options="opt as opt for opt in vm.ativacao" 
+                                ng-init="service.selectedEditavel = service.Editavel"></select>
+                            </td>
+
+
+                            <td style="padding:3px 4px 0 4px;">
+                                <select next-on-enter class="form-control"
+                                ng-model="service.selectedAssinatura" 
+                                ng-options="opt as opt for opt in vm.ativacao" 
+                                ng-init="service.selectedAssinatura = service.Assinatura"></select>
+                            </td style="padding:3px 4px 0 4px;">
+
+                            <td style="padding:3px 4px 0 4px;">
+                                <select next-on-enter class="form-control"
+                                ng-model="service.selectedExtraOption" 
+                                ng-options="opt as opt for opt in vm.ativacao" 
+                                ng-init="service.selectedExtraOption = service.ExtraOption"></select>
+                            </td>
+
+                            <td style="padding:3px 4px 0 4px;"><input ng-model="service.AmountOperadora" type="text" class="form-control" /></td>
+
+                            <td style="padding:3px 4px 0 4px;"><input ng-model="service.AmountFoneclube" type="text" class="form-control" /></td>
+                            
+                            <td style="padding:3px 4px 0 4px;">
+                                <button ng-if='service.Id > 0' type="button" class="btn btn-info" ng-click="vm.onClickEditService(service)">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </button>
+
+                                <button ng-if='service.Id == -1' type="button" class="btn btn-info" ng-click="vm.onClickAddService(service)">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </button>
+                            </td>
+
+                        </tr>
+            
+                    </table>
+                </div>
+                </div>
+                  
+
+
+    </div>
+
+
+
+      

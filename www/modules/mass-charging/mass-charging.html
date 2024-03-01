@@ -1,0 +1,197 @@
+<div class="mass-charging-container">
+    <fone-header title="{{vm.viewName}}"></fone-header> 
+    <div class="simple-toast" ng-show="vm.toastShow">
+        <p>{{vm.toastMsg}}</p>
+    </div>
+    <div class="col-xs-12" style="margin-top: 48px;">
+        <!-- <h1 class="form-group col-xs-12 display-4">Cobrança em Massa</h1> -->
+        <div class="form-container">
+            <div class="row">
+                <div class="form-group col-xs-6 col-sm-3 form-group-mass">
+                    <label for="mes">Mês:</label>
+                    <input type="number" class="form-control-mass" placeholder="Mês" ng-model="vm.month" aria-describedby="sizing-addon2" id="mes">
+                </div>
+                <div class="form-group col-xs-6 col-sm-3 form-group-mass-">
+                    <label for="ano">Ano:</label>
+                    <input type="number" class="form-control-mass" placeholder="Ano" ng-model="vm.year" aria-describedby="sizing-addon2" id="ano">
+                </div>
+
+                <div class="row">
+                    <button class="btn btn-primary col-sm-2 col-xs-12 btn-buscar" 
+                    ng-click="vm.onSearchMassCharging()" 
+                    ng-disabled="vm.resquenting || vm.loading">Buscar</button>
+
+                    <div class="form-check checkbox-topo">
+                        <input ng-model="vm.showCharged" ng-change="vm.onChangeCheckboxCharged()"  class="form-check-input input-topo ng-pristine ng-untouched ng-valid ng-empty" type="checkbox">
+                        <label class="form-check-label label-check" for="exampleRadios3">
+                            Exibe clientes já cobrados
+                        </label>
+                    </div>
+
+                    <div class="form-check checkbox-topo">
+                        <input ng-model="vm.showRisk" ng-change="vm.onChangeRiskCheckboxCharged()"  class="form-check-input input-topo ng-pristine ng-untouched ng-valid ng-empty" type="checkbox">
+                        <label class="form-check-label label-check" for="exampleRadios3">
+                            Exibe clientes com risco
+                        </label>
+                    </div>
+                       
+                    <div class="form-check checkbox-topo">
+                        <input ng-model="vm.showSemPagamento" ng-change="vm.onChangePaymentCheckboxCharged()"  class="form-check-input input-topo ng-pristine ng-untouched ng-valid ng-empty" type="checkbox">
+                        <label class="form-check-label label-check" for="exampleRadios3">
+                            Exibe clientes sem pagamento 35 dias
+                        </label>
+                    </div>
+
+                </div>
+
+               
+            </div>
+            
+            
+            <div class="loader-mass" ng-if="vm.loading">Carregando...</div>
+
+            <div ng-if="!vm.loading && vm.lista.length == 0" class="no-data">Não há itens para exibir</div>
+
+            <div class="form-group shadow-z-1 col-xs-12 margin-top" ng-show="!vm.loading && vm.lista.length > 0">
+               <!-- inicio da tabela -->
+               
+               
+               <div class="list-group" ng-repeat="customer in vm.massList">
+                <!-- active -->
+                <div ng-if="customer.showed" class="list-group-item list-group-item-action flex-column align-items-start container-mass">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h4 class="mb-1">{{customer.Name}} 
+                        <span ng-if="customer.GoodToCharge && !customer.Charged" class="label success">
+                            Bom Para Cobrar
+                        </span> 
+                        <span ng-if="!customer.GoodToCharge && !customer.Charged" class="label warning">
+                            Risco de não ter lucro
+                        </span>
+                        <span ng-if="customer.tempoLongoCobrado" class="label danger">
+                            Mais de 35 dias sem cobrar
+                        </span>  
+                    </h4>
+                    <h6 class="mb-1 customer-desc margem-titulo">Email: {{customer.Email}}  | Documento: {{customer.CPF}}</h6>
+                    <!-- <h6 class="mb-1 single-price-mass-desc" ng-if="customer.SinglePrice > 0">Descrição Preço único: {{ customer.DescriptionSinglePrice }}</h6> -->
+                    <div class="mb-1 single-price-mass" >Data Última cobrança: {{ customer.LastCharging.CreateDate | date:"dd/MM/yyyy" }}</div>
+                    <div class="mb-1 single-price-mass" >Valor Última cobrança: R{{ customer.LastCharging.Ammount / 100 | currency}}</div>
+                    <div class="mb-1 single-price-mass" ng-if="customer.PrecoUnico > 0">Preço Único: R{{ customer.PrecoUnico / 100 | currency}}</div>
+                    <div class="mb-1 single-price-mass" ng-if="customer.ValorTotalCobranca > 0">Valor Total Cobrado: R{{ customer.ValorTotalCobranca / 100 | currency}}</div>
+                  </div>
+
+                   <button ng-click="vm.onClickCobrar(customer)" ng-disable="customer.requesting" class="btn botao-cobrar-cliente btn-primary ng-binding">
+                        Realizar Cobrança
+                  </button> 
+                  
+                  
+                  <div class="payment-set">
+                        <div class="column-payment type-payment">
+                            <label class="titulo">Forma Pagamento:</label>
+                            <select id="selectPaymentMethod" 
+                            class="form-control ng-pristine ng-valid ng-empty ng-touched select-mass" 
+                            ng-options="payment.id as payment.description for payment in vm.paymentMethod" 
+                            ng-model="customer.typeCharging" 
+                            ng-disabled="customer.Charging.Charged || customer.statusOnCharging == 3 || customer.statusOnCharging == 2" style="">
+                                <option value="" selected="selected">Selecione</option>
+                            </select>
+                        </div>
+
+                        <div class="column-payment">
+                            <label class="titulo">Comentário Foneclube (interno):</label>
+                            <input class="form-control ng-pristine ng-valid ng-empty ng-touched input-mass" type="text" ng-disabled="false" ng-model="customer.LastChargingPaid.Comment" style="">
+                        </div>
+
+                        <div class="column-payment">
+                                <label class="titulo">Comentário Email:</label>
+                                <input class="form-control ng-pristine ng-valid ng-empty ng-touched input-mass" type="text" ng-disabled="false" ng-model="customer.emailComment" style="">
+                            </div>
+
+                        <div class="column-payment">
+                            <label class="titulo">Comentário Boleto:</label>
+                            <input class="form-control ng-pristine ng-valid ng-empty ng-touched input-mass" type="text" ng-disabled="customer.typeCharging == 'cartao'" ng-model="customer.boletoComment" style="">
+                        </div>
+
+                        <div class="column-payment amount-payment">
+                            <label class="titulo">Valor Total:</label>
+                            <input class="form-control ng-pristine ng-untouched ng-valid ng-not-empty input-mass" 
+                            money-input="" 
+                            ng-model="customer.chargingAmmount">
+                        </div>
+                    </div> 
+
+                     <div class="container-boxes">
+                            <!-- <div class="form-check check-mass">
+                                <input ng-change="vm.onChangeCheckboxSoma(customer)" ng-model="customer.soma" class="form-check-input" type="checkbox">
+                                <label class="form-check-label label-check" for="exampleRadios2">
+                                Sugerir Soma relatório
+                                </label>
+                            </div> -->
+                            <!-- <div class="form-check check-mass">
+                                <input ng-change="vm.onChangeCheckboxLastPayment(customer)" ng-model="customer.lastPayment" class="form-check-input" type="checkbox">
+                                <label class="form-check-label label-check" for="exampleRadios3">
+                                Sugerir Última Cobrança
+                                </label>
+                            </div> -->
+                            <!-- <div class="form-check check-mass">
+                                <input ng-model="customer.defaultCharging" class="form-check-input" type="checkbox">
+                                <label class="form-check-label label-check" for="exampleRadios3">
+                                Cobrança padrão
+                                </label>
+                            </div> -->
+                            <div class="form-check check-mass" style="margin-top: 20px;">
+                                                      
+                                <input ng-model="customer.enviarEmail" class="form-check-input" type="checkbox">
+                                <label class="form-check-label label-check" for="exampleRadios3">
+                                Enviar Email
+                                </label>
+                            </div> 
+                         </div> 
+                  
+                  <table >
+                        <tr>
+                          <th>Telefone</th>
+                          <th>NickName</th>
+                          <th>Operadora</th>
+                          <th>Preço VIP</th>
+                          <!-- <th>Total Cobrança</th> -->
+                          <th>Valor Operadora</th>
+                          <th>Valor</th>
+                        </tr>
+                        <tr ng-repeat="phone in customer.Phones">
+                          <td>{{phone.DDD + phone.Number}}</td>
+                          <td>{{phone.NickName | limitTo : 20}}</td>
+                          <td>{{phone.Operator}}</td>
+                          <td>
+                              <div ng-show="phone.AmmountVIP > 0">
+                                  R{{phone.AmmountVIP/ 100 | currency}}
+                              </div>
+                              <div ng-show="phone.AmmountVIP == 0 || phone.AmmountVIP == undefined || phone.AmmountVIP == null"></div>
+                          </td>
+                          <!-- <td>R{{phone.ChargeAmount/ 100 | currency}}</td> -->
+                          <td>
+                            <div ng-show="phone.OperatorAmount > 0">
+                                R{{phone.OperatorAmount | currency}}
+                            </div>
+                            <div ng-show="phone.OperatorAmount == 0 || phone.OperatorAmount == undefined || phone.OperatorAmount == null"></div>
+                          </td>
+                          <td>R{{phone.Ammount / 100 | currency}}</td>
+                        </tr>
+                      </table> 
+
+                    
+                   <div ng-if="customer.Charged" class="list-group-item list-group-item-action list-group-item-success message-mass">
+                      {{customer.infoMessage }} {{ customer.ChargeDoMes.PaymentType == 1 ? 'Cobrança por cartão' : ''}} {{ customer.linkBoletoAnterior.length > 0 ? '  Link do último Boleto: ' : '' }} {{ customer.linkBoletoAnterior}}
+                    </div>
+                  <div ng-if="false" class="list-group-item list-group-item-action list-group-item-warning message-mass">
+                      This is a warning list group item</div>
+                  <div ng-if="!customer.Charged" class="list-group-item list-group-item-action list-group-item-info message-mass">
+                        {{customer.infoMessage}} | {{customer.Reason}}
+                    </div> 
+                </div>
+                
+              </div>
+               <!-- fim  -->
+            </div>
+        </div>
+    </div>
+</div>

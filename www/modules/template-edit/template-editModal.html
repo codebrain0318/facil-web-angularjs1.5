@@ -1,0 +1,137 @@
+<div ng-controller="TemplateEditModalController as vm">
+  <div class="col-sm-12 m-t-20">
+    <div class="col-md-10">
+      <h4>{{vm.AddEdit}} New Template</h4>
+    </div>
+  </div>
+  <div class="col-sm-12" style="padding-left: 30px; margin-top: 10px">
+    <form class="" role="form">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label">Ação</label>
+            <input
+              type="text"
+              name="tipo"
+              class="form-control"
+              ng-model="vm.selectedRecord.Tipo"
+            />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="control-label">From</label>
+            <input
+              type="text"
+              class="form-control"
+              name="From"
+              ng-model="vm.selectedRecord.From"
+            />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class="control-label">To</div>
+            <input
+              type="text"
+              class="form-control"
+              name="To"
+              ng-model="vm.selectedRecord.To"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class="control-label">Cc</div>
+            <input
+              type="text"
+              class="form-control"
+              name="Cc"
+              ng-model="vm.selectedRecord.Cc"
+            />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class="control-label">Bcc</div>
+            <input
+              type="text"
+              class="form-control"
+              name="Bcc"
+              ng-model="vm.selectedRecord.Bcc"
+            />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group" style="margin-top: 20px">
+            <input
+              id="showAction"
+              type="checkbox"
+              ng-model="vm.selectedRecord.ShowInAction"
+            />
+            <label for="showAction" class="chkbox-label">Show in Action</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="control-label">Subject</div>
+            <input
+              type="text"
+              class="form-control"
+              name="Subject"
+              ng-model="vm.selectedRecord.Subject"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="control-label">Description</div>
+            <textarea
+              type="text"
+              class="form-control"
+              name="Description"
+              style="height: 280px"
+              ng-model="vm.selectedRecord.Description"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <div class="col-md-6">
+            <input
+              type="button"
+              ng-if="!vm.isEdit"
+              value="Add Template"
+              ng-click="vm.addTemplate()"
+              class="col-md-12 btn btn-primary"
+            />
+            <input
+              type="button"
+              ng-if="vm.isEdit"
+              value="Save Template"
+              ng-click="vm.editTemplate()"
+              class="col-md-12 btn btn-primary"
+            />
+          </div>
+          <div class="col-md-6">
+            <input
+              class="col-md-12 btn btn-success"
+              type="button"
+              value="Send Template"
+              ng-click="vm.sendTemplate();"
+              class="btn btn-success"
+              style="margin-bottom: 15px"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

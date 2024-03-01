@@ -1,0 +1,76 @@
+<div class="boleto-modal" ng-controller="ReportModalController as vm">
+  <div class="header">
+    <div class="header-text">Send WhatsApp Message</div>
+    <form class="">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label class="control-label">Phone</label>
+            <input
+              type="text"
+              class="form-control"
+              ng-model="vm.userphone"
+              ng-blur="vm.validatePhone()"
+            />
+            <label class="{{vm.fontcolor}}" style="word-break: break-word"
+              >{{vm.customersInvalidPhones}}</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="control-label">Select Template</div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search Template"
+              ng-model="vm.query"
+              ng-focus="vm.selectItem()"
+              ng-change="vm.selectItem()"
+            />
+            <div class="items" ng-hide="vm.isSelected">
+              <p
+                class="search-items"
+                ng-click="vm.showTemplateModal(option)"
+                ng-repeat="option in vm.templateNames | filter: vm.query"
+              >
+                {{option}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="control-label">
+              Invitee(s)<span
+                style="margin-left: 10px; font-size: 12px; font-weight: 100"
+                >(Format: Phone|Name)</span
+              >
+            </div>
+            <textarea class="form-control" ng-model="vm.invitee"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="inputGroup" ng-repeat="choice in vm.choices">
+          <input
+            name="choice.Choice"
+            type="radio"
+            id="choice{{$index}}"
+            ng-click="vm.onTapSubmit(choice.Id)"
+          />
+          <label for="choice{{$index}}">{{choice.Choice}}</label>
+        </div>
+      </div>
+    </div>
+    <br />
+  </div>
+</div>

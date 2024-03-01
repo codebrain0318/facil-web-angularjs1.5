@@ -1,0 +1,117 @@
+.all-phones{
+
+    .borda-topo-estoque{
+        margin-top: 250px;
+        position: relative;
+    
+    }
+    
+    .table-scroll thead {
+        display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin-top: -120px;
+    position: absolute;
+    background-color: white;
+    z-index: 9;
+    right: 17px;
+    }
+    
+    .table-scroll tbody {
+        overflow-y: auto;
+        display: block;
+        width: 100%;
+        table-layout: fixed;
+        min-height: 300px;
+        margin-top: 40px
+    }
+    
+    .table-scroll tr {
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        height: 100%;
+    }
+    
+    
+    .table-scroll td {
+        height: 47px; // needed in order to keep rows from collapsing
+    }
+    
+    .titulo-teste{
+        color: grey;
+        position: absolute;
+        z-index: 10000;
+        margin-top: -104px;
+        margin-left: 30px;
+    
+    }
+    
+    .pagination-custom{
+        
+        position: absolute;
+        margin-top: -110px;
+        
+    }
+    
+    .limites-pag{
+        position: absolute;
+        right: 0;
+        z-index: 10001;
+        margin-right: 24px;
+        margin-top: -150px;
+    }
+    
+    .filtro-todas-linhas{
+        position: absolute;
+        z-index: 999999;
+        margin-top: 8px;
+    }
+
+    .buttom-mode{
+        cursor: pointer;
+    }
+
+    select{
+        // max-width: 100px;
+        display: block;
+        width: 100%;
+    }
+    .divergente{
+        color: red;
+        font-weight: bold
+    }
+
+    .nao-divergente{
+        color: green;
+        font-weight: bold
+    }
+
+    .inconclusivo{
+        color: rgba(252, 206, 0, 0.623);
+        font-weight: bold
+    }
+
+    .busca-all {
+        position: absolute;
+        width: 90%;
+        left: 7%;
+        z-index: 99999;
+        margin-top: 1px;
+    }
+
+    .container-search{
+        
+
+        position: absolute;
+        width: 100%;
+        height: 150px;
+        background-color: white;
+        z-index: 9;
+        right: 17px;
+        top: 44px;
+
+    }
+
+}
+

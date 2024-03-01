@@ -1,0 +1,152 @@
+<div class="boleto-modal" ng-controller="EmailDetailController as vm">
+  <div class="header">
+    <span class="title">Send Email</span>
+    <button ng-click="closeThisDialog(0)">X</button>
+  </div>
+  <div class="modal-container">
+    <div class="container col-xs-12">
+      <div class="edicao-container">
+        <div class="col-xs-12">
+          <div class="form-container">
+            <div class="row m-t-20">
+              <div class="col-sm-4 col-xs-12">
+                <div class="form-group">
+                  <label for="cpf">Template :</label>
+                  <select
+                    next-on-enter
+                    class="form-control"
+                    ng-options="item.Id as item.Tipo for item in vm.templateNames"
+                    ng-model="vm.emailstatus"
+                    ng-change="vm.getEmailDetails()"
+                  >
+                    <option value="">Selecione</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-4 col-xs-12">
+                <div class="form-group">
+                  <label for="cpf" class="bold">From :</label>
+                  <select next-on-enter class="form-control" ng-model="vm.from">
+                    <option
+                      name="marcio.franco@foneclube.com.br"
+                      value="marcio.franco@foneclube.com.br"
+                    >
+                      marcio.franco@foneclube.com.br
+                    </option>
+                    <option
+                      name="nicholas.grugel@foneclube.com.br"
+                      value="nicholas.grugel@foneclube.com.br"
+                    >
+                      nicholas.grugel@foneclube.com.br
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-4 col-xs-12">
+                <div class="form-group">
+                  <label for="nome" class="bold">To:</label>
+                  <input
+                    id="nome"
+                    next-on-enter
+                    class="form-control"
+                    ng-model="vm.email"
+                    type="text"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4 col-xs-12">
+                <div class="form-group">
+                  <label for="email" class="bold">CC:</label>
+                  <input
+                    id="email"
+                    next-on-enter
+                    class="form-control"
+                    ng-model="vm.cc"
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div class="col-sm-4 col-xs-12">
+                <div class="form-group">
+                  <label for="email" class="bold">BCC:</label>
+                  <input
+                    id="email"
+                    next-on-enter
+                    class="form-control"
+                    ng-model="vm.bcc"
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div class="col-sm-4 col-xs-12">
+                <div class="form-group">
+                  <label for="dataNasc" class="bold">Attach Files:</label>
+                  <input
+                    type="file"
+                    id="file1"
+                    name="file"
+                    multiple
+                    ng-files="getTheFiles($files)"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-sm-12 col-xs-12">
+                <label for="dataNasc" class="bold">Subject:</label>
+                <input
+                  id="dataNasc"
+                  next-on-enter
+                  class="form-control"
+                  ng-model="vm.subject"
+                />
+              </div>
+            </div>
+            <div class="row"></div>
+
+            <div class="row">
+              <div class="form-group col-sm-12 col-xs-12">
+                <label for="quemConvidou" class="bold">Body:</label>
+                <textarea
+                  next-on-enter
+                  class="form-control"
+                  ng-model="vm.body"
+                  cols="40"
+                  rows="7"
+                ></textarea>
+                <!--<div simditor ng-model="vm.body"></div>-->
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-xs-12">
+                <button
+                  class="btn btn-primary col-sm-4 col-xs-12"
+                  ng-enter="vm.sendemail(vm)"
+                  ng-click="vm.sendemail(vm)"
+                >
+                  Send Email
+                </button>
+                <!-- <span
+                  ><button
+                    onclick="return confirm('Are you sure you want to modify this template?')"
+                    style="margin-left: 5px; padding-left: 5px"
+                    class="btn btn-primary col-sm-4 col-xs-12"
+                    ng-enter="vm.saveemail(vm)"
+                    ng-click="vm.saveemail(vm)"
+                  >
+                    Modify Template
+                  </button></span
+                > -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
